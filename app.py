@@ -369,20 +369,19 @@ def main():
 
     st.markdown("""
     <script>
-    function closeKeyboard() {
-        var el = document.querySelector('[data-testid="stChatInput"] textarea, [data-testid="stChatInput"] input');
-        if (el && document.activeElement === el) {
-            el.readOnly = true;
-            el.blur();
-            document.body.focus();
-            setTimeout(function(){ el.readOnly = false; }, 200);
+    document.addEventListener('keydown', function(e){
+        if (e.key === 'Enter') {
+            var el = document.activeElement;
+            if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') && !e.shiftKey) {
+                setTimeout(function(){ el.blur(); }, 50);
+            }
         }
-    }
+    });
     function scrollToInput() {
         var el = document.querySelector('[data-testid="stChatInput"]');
-        if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
+        if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 400);
     }
-    var observer = new MutationObserver(function(){ closeKeyboard(); scrollToInput(); });
+    var observer = new MutationObserver(scrollToInput);
     var main = document.querySelector('.main');
     if (main) observer.observe(main, { childList: true, subtree: true });
     </script>

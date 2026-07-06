@@ -328,7 +328,7 @@ def main():
             <p><b>💼 {"Experience" if lang == 'en' else 'अनुभव'}:</b><br>
             {prof['experience'][lang]}</p>
             <p><b>🏥</b> {prof['hospital'][lang]}<br>
-            <b>📋 Reg:</b> DEL-MC-2010-04256</p>
+            <b>📋 Reg:</b> AI DR BY MA 01</p>
             <p>🌐 <b>{"Languages" if lang == 'en' else 'भाषाएं'}:</b> English, Hindi, Hinglish</p>
         </div>
         """, unsafe_allow_html=True)

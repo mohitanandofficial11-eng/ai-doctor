@@ -138,10 +138,6 @@ st.markdown("""
         .main-header p { font-size: 0.8rem; }
         .happy-header { font-size: 1rem; margin-bottom: 0 !important; }
         .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.3rem !important; }
-    .chat-bar-form { display: flex; gap: 0.5rem; align-items: center; }
-    .chat-bar-form .stTextInput { flex: 1; }
-    .chat-bar-form .stTextInput>div>div>input { border-radius: 25px !important; border: 2px solid #e0e0e0 !important; padding: 10px 18px !important; font-size: 0.95rem !important; }
-    .chat-bar-form .stButton>button { border-radius: 50% !important; width: 44px; height: 44px; padding: 0 !important; font-size: 1.2rem !important; min-width: unset !important; }
     }
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
@@ -326,15 +322,10 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
-        with st.form(key="chat_form", clear_on_submit=True):
-            c1, c2 = st.columns([6, 1])
-            with c1:
-                msg = st.text_input("Message", placeholder="Type your message here...", label_visibility="collapsed")
-            with c2:
-                sent = st.form_submit_button("➤", use_container_width=True)
-        if sent and msg and msg.strip():
-            result = st.session_state.doctor.process_message(msg.strip())
-            user_chat = {"role": "user", "message": msg.strip()}
+        user_input = st.chat_input("Type your message here...", key="chat_input")
+        if user_input:
+            result = st.session_state.doctor.process_message(user_input.strip())
+            user_chat = {"role": "user", "message": user_input.strip()}
             msgs.append(user_chat)
             if isinstance(result, dict):
                 msgs.append(result)
@@ -379,7 +370,7 @@ def main():
     st.markdown("""
     <script>
     function scrollToInput() {
-        const el = document.querySelector('input[type="text"]');
+        const el = document.querySelector('[data-testid="stChatInput"]');
         if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
     }
     const observer = new MutationObserver(scrollToInput);

@@ -109,10 +109,6 @@ st.markdown("""
         display: inline-block; background: #e8f0fe; color: #1e3a5f;
         padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; margin: 2px;
     }
-    @media (max-width: 768px) {
-        .chat-message { max-width: 95%; }
-        .main-header h1 { font-size: 1.5rem; }
-    }
     .doctor-profile-widget {
         background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
         color: white; border-radius: 15px; padding: 1.2rem;
@@ -134,6 +130,17 @@ st.markdown("""
         padding: 0.8rem; text-align: center; font-size: 0.85rem; color: #856404;
         margin-top: 1.5rem;
     }
+    /* Mobile fixes */
+    @media (max-width: 768px) {
+        .chat-message { max-width: 95%; padding: 0.7rem 0.9rem; font-size: 0.9rem; }
+        .main-header { padding: 0.8rem; margin-bottom: 0.8rem; }
+        .main-header h1 { font-size: 1.2rem; }
+        .main-header p { font-size: 0.8rem; }
+        .happy-header { font-size: 1rem; }
+    }
+    section[data-testid="stSidebar"] { min-width: 260px !important; }
+    .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
+    .stChatInputContainer { border-radius: 25px !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -357,6 +364,18 @@ def main():
         Not a substitute for professional medical advice. Always consult a qualified doctor.
         🚨 Emergency: <b>911</b> (USA) | <b>108</b> (India)
     </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <script>
+    function scrollToInput() {
+        const el = document.querySelector('[data-testid="stChatInput"]');
+        if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    }
+    const observer = new MutationObserver(scrollToInput);
+    observer.observe(document.querySelector('.main'), { childList: true, subtree: true });
+    scrollToInput();
+    </script>
     """, unsafe_allow_html=True)
 
 

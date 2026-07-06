@@ -370,15 +370,20 @@ def main():
     st.markdown("""
     <script>
     function closeKeyboard() {
-        const el = document.querySelector('[data-testid="stChatInput"] textarea, [data-testid="stChatInput"] input');
-        if (el && document.activeElement === el) el.blur();
+        var el = document.querySelector('[data-testid="stChatInput"] textarea, [data-testid="stChatInput"] input');
+        if (el && document.activeElement === el) {
+            el.readOnly = true;
+            el.blur();
+            document.body.focus();
+            setTimeout(function(){ el.readOnly = false; }, 200);
+        }
     }
     function scrollToInput() {
-        const el = document.querySelector('[data-testid="stChatInput"]');
-        if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+        var el = document.querySelector('[data-testid="stChatInput"]');
+        if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
     }
-    const observer = new MutationObserver(() => { closeKeyboard(); scrollToInput(); });
-    const main = document.querySelector('.main');
+    var observer = new MutationObserver(function(){ closeKeyboard(); scrollToInput(); });
+    var main = document.querySelector('.main');
     if (main) observer.observe(main, { childList: true, subtree: true });
     </script>
     """, unsafe_allow_html=True)

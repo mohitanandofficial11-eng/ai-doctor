@@ -301,7 +301,7 @@ def main():
 
         if not msgs:
             st.markdown("""
-            <div style="text-align:center; padding:0.6rem 1rem; background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <div style="text-align:center; padding:0.6rem 1rem; background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:1rem;">
                 <p style="color:#1e3a5f; margin:0; font-weight:600; font-size:0.95rem;">👋 Apna symptom batao — Main English aur Hinglish dono samajhta hoon! 🙂</p>
             </div>
             """, unsafe_allow_html=True)

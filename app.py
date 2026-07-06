@@ -182,7 +182,7 @@ def sidebar_content():
                 st.rerun()
         for cid, chat in st.session_state.chats.items():
             if cid == st.session_state.current_chat_id:
-                st.markdown(f"**✦ {chat['name']}**")
+                st.markdown(f"**{chat['name']}**")
             else:
                 if st.button(f"○ {chat['name']}", key=f"switch_{cid}", use_container_width=True):
                     switch_chat(cid)

@@ -123,7 +123,7 @@ st.markdown("""
     .doctor-profile-widget b { color: #ffd700; }
     .happy-header {
         color: #2d7d46; font-size: 1.3rem; font-weight: 700;
-        padding: 5px 0; display: inline-block;
+        padding: 5px 0; display: inline-block; margin-bottom: 0.3rem;
     }
     .disclaimer-footer {
         background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px;
@@ -136,7 +136,8 @@ st.markdown("""
         .main-header { padding: 0.8rem; margin-bottom: 0.8rem; }
         .main-header h1 { font-size: 1.2rem; }
         .main-header p { font-size: 0.8rem; }
-        .happy-header { font-size: 1rem; }
+        .happy-header { font-size: 1rem; margin-bottom: 0 !important; }
+        .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.3rem !important; }
     }
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }

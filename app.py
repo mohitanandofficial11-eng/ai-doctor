@@ -3,7 +3,6 @@ import sys
 import os
 import base64
 import json
-from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from core.doctor_ai import MedicalDoctorAI
@@ -270,7 +269,7 @@ def main():
     st.markdown("""
     <div class="main-header">
         <h1>🏥 Dr. Aarogya — AI Medical Doctor</h1>
-        <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish + English | 🔪 Surgery Knowledge</p>
+        <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish & English | 🔪 Surgery Knowledge</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -301,7 +300,12 @@ def main():
         st.markdown("<br>", unsafe_allow_html=True)
 
         if not msgs:
-            st.info("👋 **Welcome!** I'm Dr. Aarogya. Tell me your symptoms or health concerns. I can help in English or Hinglish!")
+            st.markdown("""
+            <div style="text-align:center; padding:2rem 1rem; background:white; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+                <h3 style="color:#1e3a5f; margin-bottom:10px;">👋 Welcome to Dr. Aarogya</h3>
+                <p style="color:#555; margin:0;">Apna symptom batao ya koi bhi health concern likho.<br>Main English aur Hinglish dono samajhta hoon! 🙂</p>
+            </div>
+            """, unsafe_allow_html=True)
 
         user_input = st.chat_input("Type your message here...", key="chat_input")
         if user_input:
@@ -315,7 +319,6 @@ def main():
             st.rerun()
 
     with col2:
-        st.markdown("#### 👨‍⚕️ Doctor Profile")
         lang = st.session_state.lang
         prof = DOCTOR_PROFILE
         st.markdown(f"""
@@ -332,25 +335,18 @@ def main():
         """, unsafe_allow_html=True)
 
         st.markdown("#### 🎯 Specialties")
-        specs = {
-            "🫀": "Cardiology", "🫁": "Pulmonology", "🧠": "Neurology",
-            "🦴": "Orthopedics", "🩺": "General", "👁️": "Ophthalmology",
-            "👂": "ENT", "🩸": "Dermatology", "🧬": "Surgery"
-        }
-        for emoji, spec in specs.items():
-            st.markdown(f"{emoji} {spec}")
+        tags_html = '<div style="line-height:2.2;">'
+        items = [("🫀","Cardiology"),("🫁","Pulmonology"),("🧠","Neurology"),("🦴","Orthopedics"),("🩺","General"),("👁️","Eye"),("👂","ENT"),("🩸","Skin"),("🧬","Surgery")]
+        for emoji, name in items:
+            tags_html += f'<span class="tag">{emoji} {name}</span> '
+        tags_html += '</div>'
+        st.markdown(tags_html, unsafe_allow_html=True)
 
         st.markdown("#### 🔪 Surgery Knowledge")
-        st.markdown("""
-        - Appendectomy
-        - Cholecystectomy
-        - Hernia Repair
-        - CABG (Bypass)
-        - Knee Replacement
-        - Cataract Surgery
-        - Spinal Fusion
-        - Laparoscopic Surgery
-        """)
+        cols = st.columns(2)
+        surgeris = ["Appendectomy","Cholecystectomy","Hernia Repair","CABG (Bypass)","Knee Replacement","Cataract Surgery","Spinal Fusion","Lap. Surgery"]
+        for i, s in enumerate(surgeris):
+            cols[i % 2].markdown(f"🔪 {s}")
 
 
 

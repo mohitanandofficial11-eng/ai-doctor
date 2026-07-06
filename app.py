@@ -11,7 +11,7 @@ from core.knowledge_base import MEDICINES_DB, SURGERY_INFO, SPECIALTIES, DOCTOR_
 
 
 st.set_page_config(
-    page_title="Dr. Aarogya - AI Medical Doctor",
+    page_title="Dr AI - AI Medical Doctor",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -35,8 +35,8 @@ else:
     PWA_ICON_B64 = base64.b64encode(PWA_ICON_SVG.encode()).decode()
     PWA_ICON_TYPE = "image/svg+xml"
 MANIFEST = {
-    "name": "Dr. Aarogya - AI Medical Doctor",
-    "short_name": "Dr. Aarogya",
+    "name": "Dr AI - AI Medical Doctor",
+    "short_name": "Dr AI",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#1e3a5f",
@@ -50,7 +50,7 @@ st.markdown(f"""
 <link rel="icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
 <link rel="apple-touch-icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Dr. Aarogya">
+<meta name="apple-mobile-web-app-title" content="Dr AI">
 <meta name="theme-color" content="#1e3a5f">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -160,7 +160,7 @@ def switch_chat(cid):
 def sidebar_content():
     with st.sidebar:
         st.image("https://img.icons8.com/color/96/doctor-male--v1.png", width=80)
-        st.markdown("### 👨‍⚕️ Dr. Aarogya")
+        st.markdown("### 👨‍⚕️ Dr AI")
         st.markdown("*AI Medical Assistant*")
 
         st.markdown("---")
@@ -250,7 +250,7 @@ def sidebar_content():
         st.markdown("---")
         st.markdown("#### ⚠️ Disclaimer")
         st.caption(
-            "Dr. Aarogya is an AI assistant for informational purposes only. "
+            "Dr AI is an AI assistant for informational purposes only. "
             "Always consult a qualified doctor for medical advice. "
             "In emergencies, call 911/108 immediately."
         )
@@ -261,7 +261,7 @@ def main():
 
     st.markdown("""
     <div class="main-header">
-        <h1>🏥 Dr. Aarogya — AI Medical Doctor</h1>
+        <h1>🏥 Dr AI — AI Medical Doctor</h1>
         <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish + English | 🔪 Surgery Knowledge</p>
     </div>
     """, unsafe_allow_html=True)
@@ -271,7 +271,7 @@ def main():
     col1, col2 = st.columns([3, 1])
 
     with col1:
-        st.markdown("#### 💬 Chat with Dr. Aarogya")
+        st.markdown("#### 💬 Chat with Dr AI")
 
         msgs = st.session_state.chats[st.session_state.current_chat_id]["messages"]
         chat_container = st.container()
@@ -287,13 +287,13 @@ def main():
                             st.markdown(f'<div class="emergency-banner">{content}</div>',
                                        unsafe_allow_html=True)
                         else:
-                            st.markdown(f'<div class="chat-message doctor-message">👨‍⚕️ <b>Dr. Aarogya</b><br>{content}</div>',
+                            st.markdown(f'<div class="chat-message doctor-message">👨‍⚕️ <b>Dr AI</b><br>{content}</div>',
                                        unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
         if not msgs:
-            st.info("👋 **Welcome!** I'm Dr. Aarogya. Tell me your symptoms or health concerns. I can help in English or Hinglish!")
+            st.info("👋 **Welcome!** I'm Dr AI. Tell me your symptoms or health concerns. I can help in English or Hinglish!")
 
         user_input = st.chat_input("Type your message here...", key="chat_input")
         if user_input:
@@ -350,7 +350,7 @@ def main():
 
     st.markdown("""
     <div class="disclaimer-footer">
-        ⚠️ <b>DISCLAIMER:</b> Dr. Aarogya is an AI assistant for educational purposes only.
+        ⚠️ <b>DISCLAIMER:</b> Dr AI is an AI assistant for educational purposes only.
         Not a substitute for professional medical advice. Always consult a qualified doctor.
         In case of emergency, call 911 / 108 immediately.
     </div>

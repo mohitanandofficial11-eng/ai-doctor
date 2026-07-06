@@ -34,7 +34,7 @@ class PrescriptionGenerator:
 
     def generate(self):
         labels = {
-            "header": ("Dr. Aarogya", "डॉ. आरोग्य"),
+            "header": ("Dr AI", "डॉ. आरोग्य"),
             "qualifications": ("MBBS, MD (Internal Medicine), FICS (Surgery)", "एमबीबीएस, एमडी (आंतरिक चिकित्सा), एफआईसीएस (सर्जरी)"),
             "hospital": ("Aarogya Multispecialty Hospital", "आरोग्य मल्टीस्पेशलिटी हॉस्पिटल"),
             "reg_no": ("Reg. No: DEL-MC-2010-04256", "पंजीकरण संख्या: DEL-MC-2010-04256"),
@@ -56,7 +56,7 @@ class PrescriptionGenerator:
             "empty_state": ("No medicines prescribed yet.", "अभी कोई दवा निर्धारित नहीं की गई है।"),
             "no_investigations": ("No investigations suggested.", "कोई जांच सुझाई नहीं गई।"),
             "diagnosis": ("Diagnosis:", "निदान:"),
-            "signature": ("Dr. Aarogya", "डॉ. आरोग्य"),
+            "signature": ("Dr AI", "डॉ. आरोग्य"),
             "signature_line": ("Signature", "हस्ताक्षर"),
         }
 
@@ -114,7 +114,7 @@ class PrescriptionGenerator:
     def generate_markdown(self):
         idx = 0 if self.lang == "en" else 1
         labels = {
-            "name": ("Dr. Aarogya", "डॉ. आरोग्य"),
+            "name": ("Dr AI", "डॉ. आरोग्य"),
             "qual": ("MBBS, MD, FICS (Surgery)", "एमबीबीएस, एमडी, एफआईसीएस (सर्जरी)"),
             "hosp": ("Aarogya Multispecialty Hospital", "आरोग्य मल्टीस्पेशलिटी हॉस्पिटल"),
             "reg": ("Reg: DEL-MC-2010-04256", "पंजी: DEL-MC-2010-04256"),
@@ -126,7 +126,7 @@ class PrescriptionGenerator:
             "inv": ("🔬 Investigations", "🔬 जांचें"),
             "fup": ("📆 Follow Up", "📆 दोबारा मिलें"),
             "dx": ("📌 Diagnosis:", "📌 निदान:"),
-            "sig": ("✍️ Dr. Aarogya", "✍️ डॉ. आरोग्य"),
+            "sig": ("✍️ Dr AI", "✍️ डॉ. AI"),
             "footer": ("_AI-generated prescription for informational purposes. Consult a qualified doctor._",
                       "_जानकारी के लिए AI-जनित पर्चा। कृपया योग्य डॉक्टर से सलाह लें।_")
         }

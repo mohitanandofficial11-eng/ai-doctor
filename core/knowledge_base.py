@@ -906,7 +906,7 @@ MEDICINES_DB = {
 }
 
 DOCTOR_PROFILE = {
-    "name": "Dr. Aarogya",
+    "name": "Dr AI",
     "qualifications": {
         "en": "MBBS, MD (Internal Medicine), Fellowship in Surgery",
         "hi": "एमबीबीएस, एमडी (आंतरिक चिकित्सा), सर्जरी में फेलोशिप"
@@ -923,9 +923,9 @@ DOCTOR_PROFILE = {
 
 GREETINGS = {
     "en": [
-        "Namaste! I'm Dr. Aarogya. Tell me your health concern.",
-        "Hello! I'm Dr. Aarogya. What's troubling you?",
-        "Hi! Dr. Aarogya here. Describe your symptoms."
+        "Namaste! I'm Dr AI. Tell me your health concern.",
+        "Hello! I'm Dr AI. What's troubling you?",
+        "Hi! Dr AI here. Describe your symptoms."
     ],
     "hi": [
         "नमस्ते! मैं डॉ. आरोग्य हूं। अपनी समस्या बताएं।",

@@ -126,6 +126,13 @@ st.markdown("""
     }
     .doctor-profile-widget p { margin: 0.5rem 0; line-height: 1.7; }
     .doctor-profile-widget b { color: #ffd700; }
+    .happy-header {
+        background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.3rem; font-weight: 700;
+        padding: 5px 0; display: inline-block;
+    }
     .disclaimer-footer {
         background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px;
         padding: 0.8rem; text-align: center; font-size: 0.85rem; color: #856404;
@@ -275,7 +282,7 @@ def main():
     col1, col2 = st.columns([3, 1])
 
     with col1:
-        st.markdown("#### 💬 Chat with Dr. Aarogya")
+        st.markdown("""<span class="happy-header">💬 Chat with Dr. Aarogya</span>""", unsafe_allow_html=True)
 
         msgs = st.session_state.chats[st.session_state.current_chat_id]["messages"]
         chat_container = st.container()

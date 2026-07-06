@@ -266,9 +266,8 @@ def sidebar_content():
         st.markdown("---")
         st.markdown("#### ⚠️ Disclaimer")
         st.caption(
-            "Dr. Aarogya is an AI assistant for informational purposes only. "
-            "Always consult a qualified doctor for medical advice. "
-            "In emergencies, call 911/108 immediately."
+            "AI assistant for info only. Consult a qualified doctor. "
+            "🚨 Emergency: **911** (USA) | **108** (India)"
         )
 
 
@@ -354,9 +353,9 @@ def main():
 
     st.markdown("""
     <div class="disclaimer-footer">
-        ⚠️ <b>DISCLAIMER:</b> Dr. Aarogya is an AI assistant for educational purposes only.
+        ⚠️ <b>DISCLAIMER:</b> Dr. Aarogya is an AI assistant for informational purposes only.
         Not a substitute for professional medical advice. Always consult a qualified doctor.
-        In case of emergency, call 911 / 108 immediately.
+        🚨 Emergency: <b>911</b> (USA) | <b>108</b> (India)
     </div>
     """, unsafe_allow_html=True)
 

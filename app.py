@@ -181,12 +181,21 @@ def sidebar_content():
             if st.button("🔄", use_container_width=True, help="Refresh"):
                 st.rerun()
         for cid, chat in st.session_state.chats.items():
-            if cid == st.session_state.current_chat_id:
-                st.button(f"● {chat['name']}", key=f"active_{cid}", use_container_width=True, disabled=True)
-            else:
-                if st.button(f"○ {chat['name']}", key=f"switch_{cid}", use_container_width=True):
-                    switch_chat(cid)
-                    st.rerun()
+            c1, c2 = st.columns([4, 1])
+            with c1:
+                if cid == st.session_state.current_chat_id:
+                    st.button(f"● {chat['name']}", key=f"active_{cid}", use_container_width=True, disabled=True)
+                else:
+                    if st.button(f"○ {chat['name']}", key=f"switch_{cid}", use_container_width=True):
+                        switch_chat(cid)
+                        st.rerun()
+            with c2:
+                if st.button("🗑️", key=f"del_{cid}", help="Delete chat"):
+                    if len(st.session_state.chats) > 1:
+                        del st.session_state.chats[cid]
+                        if st.session_state.current_chat_id == cid:
+                            st.session_state.current_chat_id = list(st.session_state.chats.keys())[0]
+                        st.rerun()
         st.markdown("---")
 
         st.markdown("#### 🌐 Language / भाषा")

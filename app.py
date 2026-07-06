@@ -127,10 +127,7 @@ st.markdown("""
     .doctor-profile-widget p { margin: 0.5rem 0; line-height: 1.7; }
     .doctor-profile-widget b { color: #ffd700; }
     .happy-header {
-        background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 1.3rem; font-weight: 700;
+        color: #2d7d46; font-size: 1.3rem; font-weight: 700;
         padding: 5px 0; display: inline-block;
     }
     .disclaimer-footer {

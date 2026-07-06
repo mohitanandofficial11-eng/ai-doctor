@@ -45,13 +45,17 @@ MANIFEST = {
 }
 MANIFEST_B64 = base64.b64encode(json.dumps(MANIFEST).encode()).decode()
 
-st.markdown(f"""
-<link rel="manifest" href="data:application/json;base64,{MANIFEST_B64}">
-<link rel="icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
-<link rel="apple-touch-icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Dr. Aarogya">
-<meta name="theme-color" content="#1e3a5f">
+st.markdown(
+    '<link rel="manifest" href="data:application/json;base64,' + MANIFEST_B64 + '">'
+    + '<link rel="icon" href="data:' + PWA_ICON_TYPE + ';base64,' + PWA_ICON_B64 + '">'
+    + '<link rel="apple-touch-icon" href="data:' + PWA_ICON_TYPE + ';base64,' + PWA_ICON_B64 + '">'
+    + '<meta name="apple-mobile-web-app-capable" content="yes">'
+    + '<meta name="apple-mobile-web-app-title" content="Dr. Aarogya">'
+    + '<meta name="theme-color" content="#1e3a5f">',
+    unsafe_allow_html=True
+)
+
+st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     * { font-family: 'Inter', sans-serif; }

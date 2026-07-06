@@ -1,0 +1,31 @@
+### 📋 PRESCRIPTION
+---
+**Dr. Aarogya**
+*MBBS, MD, FICS (Surgery)*
+*Aarogya Multispecialty Hospital*
+*Reg: DEL-MC-2010-04256*
+---
+🧑‍⚕️ Patient: **Test Patient**  |  📅 Date: 06-Jul-2026 11:01
+---
+#### 💊 Prescribed Medicines
+| # | Medicine | Dosage | Timing | Duration | Note |
+|---|----------|--------|--------|----------|------|
+| 1 | Paracetamol (Crocin/Calpol) | 500-650 mg every 6 hours | as directed | tablet/syrup |  |
+| 2 | Ibuprofen (Brufen) | 400 mg every 8 hours with food | as directed | tablet |  |
+| 3 | Paracetamol (for fever/body ache) | 500-650 mg as needed | as directed | tablet |  |
+| 4 | Cetirizine (for runny nose/sneezing) | 10 mg at night | as directed | tablet |  |
+| 5 | Cough syrup (Dextromethorphan for dry cough) | 5-10 ml three times daily | as directed | syrup |  |
+| 6 | Amoxicillin (if bacterial infection suspected) | 500 mg three times daily - 5 days | as directed | capsule |  |
+
+#### 📝 Advice & Precautions
+- ✅ Complete the full course of medication even if you feel better
+- ✅ Drink plenty of water and get adequate rest
+- ✅ Consult a doctor if symptoms persist beyond 3 days
+
+#### 📆 Follow Up  
+Re-evaluate in 3 days if symptoms persist
+
+---
+✍️ Dr. Aarogya
+
+_AI-generated prescription for informational purposes. Consult a qualified doctor._

@@ -1,6 +1,8 @@
 import streamlit as st
 import sys
 import os
+import base64
+import json
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -16,7 +18,33 @@ st.set_page_config(
 )
 
 
-st.markdown("""
+# PWA icons (SVG data URI)
+PWA_ICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#1e3a5f"/><stop offset="100%" style="stop-color:#2d6a9f"/>
+</linearGradient></defs>
+<rect width="512" height="512" rx="100" fill="url(#g)"/>
+<text x="256" y="310" text-anchor="middle" font-size="280" fill="white">🏥</text>
+</svg>"""
+PWA_ICON_B64 = base64.b64encode(PWA_ICON_SVG.encode()).decode()
+MANIFEST = {
+    "name": "Dr. Aarogya - AI Medical Doctor",
+    "short_name": "Dr. Aarogya",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#1e3a5f",
+    "theme_color": "#1e3a5f",
+    "icons": [{"src": f"data:image/svg+xml;base64,{PWA_ICON_B64}", "sizes": "512x512", "type": "image/svg+xml"}]
+}
+MANIFEST_B64 = base64.b64encode(json.dumps(MANIFEST).encode()).decode()
+
+st.markdown(f"""
+<link rel="manifest" href="data:application/json;base64,{MANIFEST_B64}">
+<link rel="icon" href="data:image/svg+xml;base64,{PWA_ICON_B64}">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,{PWA_ICON_B64}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dr. Aarogya">
+<meta name="theme-color" content="#1e3a5f">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     * { font-family: 'Inter', sans-serif; }

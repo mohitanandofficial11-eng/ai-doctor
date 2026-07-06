@@ -369,14 +369,17 @@ def main():
 
     st.markdown("""
     <script>
+    function closeKeyboard() {
+        const el = document.querySelector('[data-testid="stChatInput"] textarea, [data-testid="stChatInput"] input');
+        if (el && document.activeElement === el) el.blur();
+    }
     function scrollToInput() {
         const el = document.querySelector('[data-testid="stChatInput"]');
         if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
     }
-    const observer = new MutationObserver(scrollToInput);
+    const observer = new MutationObserver(() => { closeKeyboard(); scrollToInput(); });
     const main = document.querySelector('.main');
     if (main) observer.observe(main, { childList: true, subtree: true });
-    scrollToInput();
     </script>
     """, unsafe_allow_html=True)
 

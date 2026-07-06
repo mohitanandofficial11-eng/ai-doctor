@@ -249,7 +249,6 @@ class MedicalDoctorAI:
                 "You are Dr. Aarogya, a professional AI medical assistant. "
                 "Give brief advice + suggest 1-2 relevant medical tests if needed. "
                 "Format: 2-3 lines advice, then '🩸 Tests: test1, test2' if applicable. "
-                "End with '*Consult a doctor for proper diagnosis*'. "
                 f"Respond in {'Hinglish' if lang == 'hi' else 'English'}. "
                 "Never use 'abe', 'yaar', 'bhai', 'arre' - be formal."
             )

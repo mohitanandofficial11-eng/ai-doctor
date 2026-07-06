@@ -246,9 +246,10 @@ class MedicalDoctorAI:
                 for m in history
             )
             sys_prompt = (
-                "You are Dr. Aarogya, a concise and professional AI medical assistant. "
-                "Keep responses VERY short (2-3 lines max). No long disclaimers. "
-                "Only add '*Consult a doctor for proper diagnosis*' at the end, nothing more. "
+                "You are Dr. Aarogya, a professional AI medical assistant. "
+                "Give brief advice + suggest 1-2 relevant medical tests if needed. "
+                "Format: 2-3 lines advice, then '🩸 Tests: test1, test2' if applicable. "
+                "End with '*Consult a doctor for proper diagnosis*'. "
                 f"Respond in {'Hinglish' if lang == 'hi' else 'English'}. "
                 "Never use 'abe', 'yaar', 'bhai', 'arre' - be formal."
             )
@@ -365,6 +366,32 @@ class MedicalDoctorAI:
                 for rf in red_flags[:2]:
                     lines.append(f"• {rf}")
             lines.append(f"\n*Anything else you want to ask?*")
+
+        tests = {
+            "fever": ["CBC", "Malaria/PCR", "Widal test", "Urine R/M"],
+            "headache": ["BP check", "CT/MRI brain (if severe)", "Eye checkup"],
+            "cough_cold": ["CBC", "Chest X-ray", "Sputum culture"],
+            "chest_pain": ["ECG", "Troponin test", "Chest X-ray", "Lipid profile"],
+            "acidity": ["Upper GI endoscopy", "H. pylori test"],
+            "back_pain": ["X-ray spine", "MRI lumbar (if severe)"],
+            "skin_rash": ["Skin biopsy", "Patch test", "CBC"],
+            "kidney_stone": ["USG KUB", "Urine R/M", "CT KUB", "Serum Creatinine"],
+            "high_bp": ["BP monitoring", "Lipid profile", "ECG", "Kidney function test"],
+            "diabetes": ["FBS/PPBS", "HbA1c", "OGTT"],
+            "diarrhea": ["Stool R/M", "Stool culture", "CBC"],
+            "depression": ["PHQ-9 score", "Thyroid profile", "Vitamin D"],
+            "anxiety": ["GAD-7 score", "Thyroid profile", "ECG"],
+        }
+        test_list = tests.get(sym_id, [])
+        if test_list:
+            if hi:
+                lines.append(f"\n🩸 **सुझाए गए टेस्ट:**")
+                for t in test_list[:3]:
+                    lines.append(f"• {t}")
+            else:
+                lines.append(f"\n🩸 **Suggested tests:**")
+                for t in test_list[:3]:
+                    lines.append(f"• {t}")
 
         response = "\n".join(lines)
         return {"response": response, "lang": lang, "symptoms": symptoms}

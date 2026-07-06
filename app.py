@@ -18,15 +18,22 @@ st.set_page_config(
 )
 
 
-# PWA icons (SVG data URI)
-PWA_ICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+# PWA icons - use custom icon.png if exists, else fallback to SVG
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icon.png")
+if os.path.exists(ICON_PATH):
+    with open(ICON_PATH, "rb") as f:
+        PWA_ICON_B64 = base64.b64encode(f.read()).decode()
+    PWA_ICON_TYPE = "image/png"
+else:
+    PWA_ICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
 <stop offset="0%" style="stop-color:#1e3a5f"/><stop offset="100%" style="stop-color:#2d6a9f"/>
 </linearGradient></defs>
 <rect width="512" height="512" rx="100" fill="url(#g)"/>
 <text x="256" y="310" text-anchor="middle" font-size="280" fill="white">🏥</text>
 </svg>"""
-PWA_ICON_B64 = base64.b64encode(PWA_ICON_SVG.encode()).decode()
+    PWA_ICON_B64 = base64.b64encode(PWA_ICON_SVG.encode()).decode()
+    PWA_ICON_TYPE = "image/svg+xml"
 MANIFEST = {
     "name": "Dr. Aarogya - AI Medical Doctor",
     "short_name": "Dr. Aarogya",
@@ -34,14 +41,14 @@ MANIFEST = {
     "display": "standalone",
     "background_color": "#1e3a5f",
     "theme_color": "#1e3a5f",
-    "icons": [{"src": f"data:image/svg+xml;base64,{PWA_ICON_B64}", "sizes": "512x512", "type": "image/svg+xml"}]
+    "icons": [{"src": f"data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}", "sizes": "512x512", "type": PWA_ICON_TYPE}]
 }
 MANIFEST_B64 = base64.b64encode(json.dumps(MANIFEST).encode()).decode()
 
 st.markdown(f"""
 <link rel="manifest" href="data:application/json;base64,{MANIFEST_B64}">
-<link rel="icon" href="data:image/svg+xml;base64,{PWA_ICON_B64}">
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,{PWA_ICON_B64}">
+<link rel="icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
+<link rel="apple-touch-icon" href="data:{PWA_ICON_TYPE};base64,{PWA_ICON_B64}">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Dr. Aarogya">
 <meta name="theme-color" content="#1e3a5f">

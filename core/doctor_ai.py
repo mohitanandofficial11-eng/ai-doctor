@@ -240,26 +240,23 @@ class MedicalDoctorAI:
 
     def _ai_respond(self, user_message, lang):
         try:
-            history = self.conversation_history[-6:]
-            context = "\n".join(
-                f"{'Patient' if m['role'] == 'user' else 'Doctor'}: {m['message']}"
-                for m in history
-            )
             sys_prompt = (
-                "You are Dr. Aarogya, a professional AI medical assistant. "
-                "Give brief advice + suggest 1-2 relevant medical tests if needed. "
-                "Format: 2-3 lines advice, then '🩸 Tests: test1, test2' if applicable. "
-                f"Respond in {'Hinglish' if lang == 'hi' else 'English'}. "
-                "Never use 'abe', 'yaar', 'bhai', 'arre' - be formal."
+                "You are Dr. Aarogya, an AI medical assistant. Talk like a real doctor - "
+                "friendly, empathetic, and professional. Ask follow-up questions naturally. "
+                "Give detailed advice, home remedies, and suggest relevant tests. "
+                "Use natural conversational language, not robotic. "
+                f"Respond in {'Hinglish' if lang == 'hi' else 'English'} naturally. "
+                "Never use 'abe', 'yaar', 'bhai', 'arre'."
             )
-            messages = [
-                {"role": "system", "content": sys_prompt},
-                {"role": "user", "content": f"Previous conversation:\n{context}\n\nPatient: {user_message}\nDoctor:"}
-            ]
+            messages = [{"role": "system", "content": sys_prompt}]
+            for m in self.conversation_history[-10:]:
+                role = "user" if m["role"] == "user" else "assistant"
+                messages.append({"role": role, "content": m["message"]})
+            messages.append({"role": "user", "content": user_message})
             response = AI_CLIENT.chat.completions.create(
                 model=AI_MODEL,
                 messages=messages,
-                max_tokens=500
+                max_tokens=800
             )
             text = response.choices[0].message.content.strip()
             return {"response": text, "lang": lang}

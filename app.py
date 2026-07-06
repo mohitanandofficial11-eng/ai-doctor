@@ -342,12 +342,6 @@ def main():
         tags_html += '</div>'
         st.markdown(tags_html, unsafe_allow_html=True)
 
-        st.markdown("#### 🔪 Surgery Knowledge")
-        cols = st.columns(2)
-        surgeris = ["Appendectomy","Cholecystectomy","Hernia Repair","CABG (Bypass)","Knee Replacement","Cataract Surgery","Spinal Fusion","Lap. Surgery"]
-        for i, s in enumerate(surgeris):
-            cols[i % 2].markdown(f"🔪 {s}")
-
 
 
     st.markdown("""

@@ -905,6 +905,63 @@ MEDICINES_DB = {
     }
 }
 
+MEDICINES_DB["aspirin"] = {
+    "generic": "Aspirin (Low Dose)",
+    "brands": ["Aspirin", "Ecosprin", "Aspro", "Disprin"],
+    "uses": {"en": ["Heart attack prevention", "Stroke prevention", "Mild pain"], "hi": ["दिल का दौरा रोकथाम", "स्ट्रोक रोकथाम", "हल्का दर्द"]},
+    "dosage": {"en": "75-100 mg once daily (prevention)", "hi": "75-100 mg रोज़ (रोकथाम)"},
+    "side_effects": {"en": ["Heartburn", "Bleeding risk"], "hi": ["सीने में जलन", "खून बहने का खतरा"]},
+    "contraindications": {"en": ["Active ulcer", "Bleeding disorder"], "hi": ["अल्सर", "खून बहने की बीमारी"]}
+}
+MEDICINES_DB["atorvastatin"] = {
+    "generic": "Atorvastatin",
+    "brands": ["Atorvastatin", "Lipitor", "Atorva", "Storvas"],
+    "uses": {"en": ["High cholesterol", "Heart disease prevention"], "hi": ["कोलेस्ट्रॉल कम", "दिल की बीमारी रोकथाम"]},
+    "dosage": {"en": "10-80 mg once daily (evening)", "hi": "10-80 mg दिन में एक बार (शाम)"},
+    "side_effects": {"en": ["Muscle pain", "Liver enzyme elevation"], "hi": ["मांसपेशियों में दर्द", "लिवर एंजाइम बढ़ना"]},
+    "contraindications": {"en": ["Active liver disease", "Pregnancy"], "hi": ["लिवर रोग", "गर्भावस्था"]}
+}
+MEDICINES_DB["losartan"] = {
+    "generic": "Losartan",
+    "brands": ["Losartan", "Losar", "Losakind", "Cozaar"],
+    "uses": {"en": ["Hypertension", "Diabetic kidney disease"], "hi": ["उच्च रक्तचाप", "डायबिटिक किडनी"]},
+    "dosage": {"en": "25-100 mg once or twice daily", "hi": "25-100 mg दिन में एक या दो बार"},
+    "side_effects": {"en": ["Dizziness", "Low BP", "Cough (rare)"], "hi": ["चक्कर", "निम्न रक्तचाप", "खांसी"]},
+    "contraindications": {"en": ["Pregnancy", "Severe kidney disease"], "hi": ["गर्भावस्था", "गंभीर किडनी रोग"]}
+}
+MEDICINES_DB["azithromycin"] = {
+    "generic": "Azithromycin",
+    "brands": ["Azithromycin", "Azee", "Azithral", "Zithrox"],
+    "uses": {"en": ["Respiratory infections", "Skin infections", "Typhoid"], "hi": ["श्वसन संक्रमण", "त्वचा संक्रमण", "टाइफाइड"]},
+    "dosage": {"en": "500 mg once daily for 3-5 days", "hi": "500 mg दिन में एक बार 3-5 दिन"},
+    "side_effects": {"en": ["Nausea", "Diarrhea", "Abdominal pain"], "hi": ["मतली", "दस्त", "पेट दर्द"]},
+    "contraindications": {"en": ["Severe liver disease", "Allergy"], "hi": ["गंभीर लिवर रोग", "एलर्जी"]}
+}
+MEDICINES_DB["salbutamol"] = {
+    "generic": "Salbutamol (Albuterol)",
+    "brands": ["Salbutamol", "Asthalin", "Ventolin", "Levolin"],
+    "uses": {"en": ["Asthma attack", "COPD", "Wheezing"], "hi": ["अस्थमा", "सांस फूलना", "सीटी बजना"]},
+    "dosage": {"en": "1-2 puffs via inhaler as needed", "hi": "ज़रूरत पर 1-2 पफ"},
+    "side_effects": {"en": ["Tremor", "Palpitations", "Headache"], "hi": ["कंपन", "धड़कन बढ़ना", "सिरदर्द"]},
+    "contraindications": {"en": ["Hypersensitivity", "Tachyarrhythmias"], "hi": ["अतिसंवेदनशीलता"]}
+}
+MEDICINES_DB["ondansetron"] = {
+    "generic": "Ondansetron",
+    "brands": ["Ondansetron", "Emeset", "Vomistop", "Zofran"],
+    "uses": {"en": ["Nausea & vomiting", "Post-chemotherapy"], "hi": ["मतली और उल्टी", "कीमोथेरेपी के बाद"]},
+    "dosage": {"en": "4-8 mg as needed, max 24 mg/day", "hi": "4-8 mg ज़रूरत पर"},
+    "side_effects": {"en": ["Headache", "Constipation", "Dizziness"], "hi": ["सिरदर्द", "कब्ज", "चक्कर"]},
+    "contraindications": {"en": ["QT prolongation", "Severe liver disease"], "hi": ["गंभीर लिवर रोग", "एलर्जी"]}
+}
+MEDICINES_DB["levothyroxine"] = {
+    "generic": "Levothyroxine",
+    "brands": ["Levothyroxine", "Thyrox", "Eltroxin", "Thyronorm"],
+    "uses": {"en": ["Hypothyroidism", "Goiter"], "hi": ["थायराइड की कमी", "गण्डमाला"]},
+    "dosage": {"en": "25-200 mcg once daily (morning empty stomach)", "hi": "25-200 mcg सुबह खाली पेट"},
+    "side_effects": {"en": ["Palpitations", "Anxiety", "Weight loss"], "hi": ["धड़कन", "चिंता", "वजन घटना"]},
+    "contraindications": {"en": ["Untreated adrenal insufficiency", "Thyrotoxicosis"], "hi": ["अनुपचारित अधिवृक्क अपर्याप्तता"]}
+}
+
 DOCTOR_PROFILE = {
     "name": "Dr. Aarogya",
     "qualifications": {

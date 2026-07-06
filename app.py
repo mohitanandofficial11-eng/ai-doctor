@@ -353,8 +353,8 @@ def main():
         """)
 
         st.markdown("#### 🩺 Available Medicines")
-        for med_id in list(MEDICINES_DB.keys())[:8]:
-            st.markdown(f"💊 {MEDICINES_DB[med_id]['generic']}")
+        for med in sorted(MEDICINES_DB.values(), key=lambda x: x['generic']):
+            st.markdown(f"💊 {med['generic']}")
 
     st.markdown("""
     <div class="disclaimer-footer">

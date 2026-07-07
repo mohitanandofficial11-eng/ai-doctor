@@ -334,6 +334,8 @@ class MedicalDoctorAI:
         from .prescription_gen import PrescriptionGenerator
         pg = PrescriptionGenerator(
             patient_name=self.patient_info.get("name", "Patient"),
+            patient_age=self.patient_info.get("age", ""),
+            patient_weight=self.patient_info.get("weight", ""),
             lang=lang
         )
         for sym_id in self.reported_symptoms:

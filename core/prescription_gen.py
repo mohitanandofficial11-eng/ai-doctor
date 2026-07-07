@@ -4,8 +4,10 @@ import tempfile
 
 
 class PrescriptionGenerator:
-    def __init__(self, patient_name="Patient", lang="en"):
+    def __init__(self, patient_name="Patient", patient_age="", patient_weight="", lang="en"):
         self.patient_name = patient_name
+        self.patient_age = patient_age
+        self.patient_weight = patient_weight
         self.lang = lang
         self.medicines = []
         self.advice = []
@@ -76,6 +78,10 @@ class PrescriptionGenerator:
         lines.append(f"{labels['patient'][idx]} {self.patient_name}")
         lines.append(
             f"{labels['date'][idx]} {self.date.strftime('%d-%b-%Y, %H:%M')}")
+        if self.patient_age:
+            lines.append(f"Age/Umar: {self.patient_age}")
+        if self.patient_weight:
+            lines.append(f"Weight/Vajan: {self.patient_weight}")
         lines.append("-" * 60)
 
         if self.medicines:
@@ -143,6 +149,10 @@ class PrescriptionGenerator:
         md.append("---")
         md.append(
             f"{labels['patient'][idx]} **{self.patient_name}**  |  {labels['date'][idx]} {self.date.strftime('%d-%b-%Y %H:%M')}")
+        if self.patient_age:
+            md.append(f"🎂 **Age:** {self.patient_age}")
+        if self.patient_weight:
+            md.append(f"⚖️ **Weight:** {self.patient_weight}")
         md.append("---")
 
         if self.medicines:
@@ -212,6 +222,10 @@ class PrescriptionGenerator:
         pat_label = "Patient:" if idx == 0 else "मरीज:"
         date_label = "Date:" if idx == 0 else "तारीख:"
         pdf.cell(0, 7, f"{pat_label} {self.patient_name}", new_x="LMARGIN", new_y="NEXT")
+        if self.patient_age:
+            pdf.cell(0, 7, f"Age/Umar: {self.patient_age}", new_x="LMARGIN", new_y="NEXT")
+        if self.patient_weight:
+            pdf.cell(0, 7, f"Weight/Vajan: {self.patient_weight}", new_x="LMARGIN", new_y="NEXT")
         pdf.cell(0, 7, f"{date_label} {self.date.strftime('%d-%b-%Y %H:%M')}", new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln(4)

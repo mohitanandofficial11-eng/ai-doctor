@@ -159,12 +159,6 @@ def init_session():
         st.session_state.user_name = ""
     if "lang" not in st.session_state:
         st.session_state.lang = "en"
-    if "patient_name" not in st.session_state:
-        st.session_state.patient_name = ""
-    if "patient_age" not in st.session_state:
-        st.session_state.patient_age = ""
-    if "patient_weight" not in st.session_state:
-        st.session_state.patient_weight = ""
     if "patient_registered" not in st.session_state:
         st.session_state.patient_registered = False
 
@@ -175,9 +169,6 @@ def new_chat():
     st.session_state.chats[cid] = {"name": f"Chat {st.session_state.chat_counter}", "messages": []}
     st.session_state.current_chat_id = cid
     st.session_state.patient_registered = False
-    st.session_state.patient_name = ""
-    st.session_state.patient_age = ""
-    st.session_state.patient_weight = ""
     st.session_state.doctor = MedicalDoctorAI()
 
 
@@ -192,14 +183,15 @@ def sidebar_content():
         st.markdown("*AI Medical Assistant*")
 
         # Patient info if registered
-        if st.session_state.patient_registered:
+        p = st.session_state.doctor.patient_info
+        if p.get("name"):
             st.markdown("---")
             info_html = f"<div style='background:#e8f4f8; border-radius:10px; padding:0.6rem; margin:0.3rem 0; font-size:0.9rem;'>"
-            info_html += f"🧑 <b>{st.session_state.patient_name}</b>"
-            if st.session_state.patient_age.strip():
-                info_html += f" | 🎂 {st.session_state.patient_age}"
-            if st.session_state.patient_weight.strip():
-                info_html += f" | ⚖️ {st.session_state.patient_weight}"
+            info_html += f"🧑 <b>{p.get('name', '')}</b>"
+            if p.get("age"):
+                info_html += f" | 🎂 {p['age']}"
+            if p.get("weight"):
+                info_html += f" | ⚖️ {p['weight']}"
             info_html += "</div>"
             st.markdown(info_html, unsafe_allow_html=True)
 
@@ -332,35 +324,15 @@ def main():
     with col1:
         st.markdown("""<span class="happy-header">💬 Chat with Dr. Aarogya</span>""", unsafe_allow_html=True)
 
-        # Patient registration form (before chat starts)
-        if not st.session_state.patient_registered:
-            with st.container():
-                st.markdown("""
-                <div style="background:white; border-radius:15px; padding:1.5rem; box-shadow:0 2px 10px rgba(0,0,0,0.08); margin-bottom:1rem; text-align:center;">
-                    <h3 style="color:#1e3a5f; margin-top:0;">👋 Welcome to Dr. Aarogya</h3>
-                    <p style="color:#666;">Kripya apni jaankari dein taaki hum aapka behtar ilaaj kar sakein</p>
-                </div>
-                """, unsafe_allow_html=True)
-                name = st.text_input("🧑 Patient Name / Naam:", key="reg_name", placeholder="e.g. Rahul")
-                age = st.text_input("🎂 Age / Umar:", key="reg_age", placeholder="e.g. 30")
-                weight = st.text_input("⚖️ Weight / Vajan (optional):", key="reg_weight", placeholder="e.g. 70 kg")
-                lang_text = "हिंदी / Hinglish" if st.session_state.lang == "hi" else "English"
-                if st.button("✅ Start Consultation", use_container_width=True, type="primary"):
-                    if name.strip():
-                        st.session_state.patient_name = name.strip()
-                        st.session_state.patient_age = age.strip()
-                        st.session_state.patient_weight = weight.strip()
-                        st.session_state.patient_registered = True
-                        st.session_state.doctor.patient_info["name"] = name.strip()
-                        st.session_state.doctor.patient_info["age"] = age.strip()
-                        if weight.strip():
-                            st.session_state.doctor.patient_info["weight"] = weight.strip()
-                        st.rerun()
-                    else:
-                        st.error("Please enter your name / Kripya apna naam daalein")
-            return
-
         msgs = st.session_state.chats[st.session_state.current_chat_id]["messages"]
+
+        # First visit: doctor asks for name automatically
+        if not msgs:
+            dr = st.session_state.doctor
+            if dr.stage == "ask_name":
+                greeting = dr._ask_name(st.session_state.lang)
+                msgs.append({"role": "doctor", "response": greeting})
+                st.rerun()
         chat_container = st.container()
         with chat_container:
             for chat in msgs:
@@ -378,13 +350,6 @@ def main():
                                        unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
-
-        if not msgs:
-            st.markdown("""
-            <div style="text-align:center; padding:0.6rem 1rem; background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:1rem;">
-                <p style="color:#1e3a5f; margin:0; font-weight:600; font-size:0.95rem;">👋 Apna symptom batao — Main English aur Hinglish dono samajhta hoon! 🙂</p>
-            </div>
-            """, unsafe_allow_html=True)
 
         user_input = st.chat_input("Type your message here...", key="chat_input")
         if user_input:

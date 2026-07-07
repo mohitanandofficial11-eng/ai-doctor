@@ -95,10 +95,10 @@ class MedicalDoctorAI:
     def __init__(self):
         self.hinglish = HinglishProcessor()
         self.conversation_history = []
-        self.patient_info = {"name": "", "age": "", "gender": ""}
+        self.patient_info = {"name": "", "age": "", "gender": "", "weight": ""}
         self.current_symptoms = []
         self.reported_symptoms = []
-        self.stage = "new"
+        self.stage = "ask_name"
         self.follow_up_asked = set()
         self.follow_up_count = 0
         self.greeted = False
@@ -225,17 +225,53 @@ class MedicalDoctorAI:
         ]
         return any(kw in lower for kw in keywords)
 
+    def _ask_name(self, lang):
+        if lang == "hi":
+            return "Namaste! 🏥 Main Dr. Aarogya hoon. Aapka naam kya hai?"
+        return "Namaste! 🏥 I'm Dr. Aarogya. What's your name?"
+
+    def _ask_age(self, lang):
+        name = self.patient_info.get("name", "")
+        prefix = f"{name} ji, " if name else ""
+        if lang == "hi":
+            return f"{prefix}Aapki umar kya hai? (kitne saal)"
+        return f"{prefix}What is your age?"
+
+    def _ask_concern(self, lang):
+        name = self.patient_info.get("name", "")
+        prefix = f"{name} ji, " if name else ""
+        if lang == "hi":
+            return f"{prefix}Dhanyavaad! Ab mujhe batao ki aapko kya problem hai? Kya takleef hai?"
+        return f"{prefix}Thank you! Now tell me, what health concern are you facing?"
+
     def process_message(self, user_message):
         lang = self.hinglish.detect_language(user_message)
 
         self.extract_patient_info(user_message)
-        detected_symptoms = self.extract_symptoms(user_message)
+        self.conversation_history.append({"role": "user", "message": user_message, "lang": lang})
 
+        # Stage 1: Ask for name
+        if self.stage == "ask_name":
+            if self.patient_info.get("name"):
+                self.stage = "ask_age"
+                if self.patient_info.get("age"):
+                    self.stage = "consult"
+                    return {"response": self._ask_concern(lang), "lang": lang}
+                return {"response": self._ask_age(lang), "lang": lang}
+            return {"response": self._ask_name(lang), "lang": lang}
+
+        # Stage 2: Ask for age
+        if self.stage == "ask_age":
+            if self.patient_info.get("age"):
+                self.stage = "consult"
+                return {"response": self._ask_concern(lang), "lang": lang}
+            return {"response": self._ask_age(lang), "lang": lang}
+
+        # Stage 3: Normal consultation
+        detected_symptoms = self.extract_symptoms(user_message)
         lower = user_message.lower().strip()
         is_prescription_req = self._is_prescription_request(user_message)
         is_surg_query = any(t in lower for t in [" surgery ", " operation ", " surgeri "])
-
-        self.conversation_history.append({"role": "user", "message": user_message, "lang": lang})
 
         if self.detect_danger(user_message):
             result = self._emergency_response(lang)
@@ -254,12 +290,12 @@ class MedicalDoctorAI:
             result = self._give_advice(self.current_symptoms, lang)
         elif self.use_ai:
             result = self._ai_respond(user_message, lang)
-        elif not detected_symptoms and self.stage == "new" and not self.greeted:
+        elif not detected_symptoms and self.stage == "consult" and not self.greeted:
             self.greeted = True
             result = self._greeting_response(lang)
-        elif not detected_symptoms and self.stage == "new":
+        elif not detected_symptoms and self.stage == "consult":
             result = self._ask_symptoms(lang)
-        elif not detected_symptoms and self.stage != "new":
+        elif not detected_symptoms and self.stage != "consult":
             result = self._handle_follow_up_answer(lang)
         else:
             if not self.greeted:

@@ -1044,6 +1044,295 @@ SYMPTOMS_DB = {
         },
         "needs_surgery": False
     },
+    "asthma": {
+        "en": ["asthma", "breathing problem", "sans ki problem", "wheezing", "sans phoolna", "sans lene mein taklif", "dama"],
+        "hi": "अस्थमा / दमा",
+        "description": {
+            "en": "Asthma is a chronic lung disease causing airway inflammation, narrowing, and difficulty breathing. Triggers include allergens, cold air, exercise, and stress.",
+            "hi": "अस्थमा एक पुरानी फेफड़ों की बीमारी है जिसमें वायुमार्ग में सूजन और संकुचन होता है। ट्रिगर: एलर्जी, ठंडी हवा, व्यायाम, तनाव।"
+        },
+        "possible_causes": {
+            "en": ["Allergens (dust, pollen, pet dander)", "Cold air or weather changes", "Exercise-induced", "Stress and anxiety", "Respiratory infections", "Smoking or air pollution", "Genetics (family history)"],
+            "hi": ["एलर्जी (धूल, पराग, पालतू जानवर)", "ठंडी हवा या मौसम बदलना", "व्यायाम से", "तनाव और चिंता", "सांस का संक्रमण", "धूम्रपान या वायु प्रदूषण", "आनुवंशिकता"]
+        },
+        "home_remedies": {
+            "en": ["Sit upright, do not lie down", "Practice pursed-lip breathing (inhale nose, exhale slowly through mouth)", "Avoid known triggers", "Use steam inhalation with eucalyptus oil", "Drink warm fluids", "Keep rescue inhaler (salbutamol) accessible"],
+            "hi": ["सीधे बैठें, लेटें नहीं", "होंठ बंद करके सांस लें (नाक से लें, मुंह से धीरे छोड़ें)", "ट्रिगर से बचें", "नीलगिरी तेल के साथ भाप लें", "गर्म तरल पिएं", "इनहेलर पास में रखें"]
+        },
+        "medicines": [
+            {"name": "Salbutamol (Albuterol) Inhaler 100mcg", "dosage": "1-2 puffs every 4-6 hours as needed (rescue)", "type": "inhaler", "line": "first", "source": "GINA Guidelines 2025"},
+            {"name": "Budesonide Inhaler 200mcg", "dosage": "1-2 puffs twice daily (controller)", "type": "inhaler", "line": "first", "source": "GINA Guidelines; NIH Asthma Guidelines"},
+            {"name": "Montelukast 10mg", "dosage": "10 mg once daily at bedtime", "type": "tablet", "line": "second", "source": "GINA Guidelines; FDA Approved"},
+        ],
+        "red_flags": {
+            "en": ["Severe shortness of breath (can't speak full sentences)", "Lips or face turning blue", "No relief from inhaler", "Chest feels tight/sucked in", "Extreme anxiety due to breathlessness"],
+            "hi": ["गंभीर सांस फूलना (पूरा वाक्य नहीं बोल पाना)", "होंठ या चेहरा नीला पड़ना", "इनहेलर से कोई आराम नहीं", "सीने में जकड़न", "सांस न आने से बेचैनी"]
+        },
+        "needs_surgery": False
+    },
+    "anemia": {
+        "en": ["anemia", "low hemoglobin", "khoon ki kami", "weakness", "blood deficiency", "pallor", "pila pan"],
+        "hi": "एनीमिया / खून की कमी",
+        "description": {
+            "en": "Anemia is a condition where blood lacks enough healthy red blood cells or hemoglobin. Common types include iron-deficiency, vitamin B12 deficiency, and thalassemia.",
+            "hi": "एनीमिया वह स्थिति है जहां खून में पर्याप्त लाल रक्त कोशिकाएं या हीमोग्लोबिन नहीं होता। आम प्रकार: आयरन की कमी, विटामिन B12 की कमी, थैलेसीमिया।"
+        },
+        "possible_causes": {
+            "en": ["Iron deficiency (most common - poor diet, heavy periods)", "Vitamin B12 or folate deficiency", "Chronic diseases (kidney disease, cancer)", "Blood loss (ulcer, injury, surgery)", "Genetic (thalassemia, sickle cell)", "Poor diet / malnutrition"],
+            "hi": ["आयरन की कमी (सबसे आम - खराब आहार, भारी पीरियड्स)", "विटामिन B12 या फोलेट की कमी", "पुरानी बीमारियां (गुर्दा रोग, कैंसर)", "खून की कमी (अल्सर, चोट, सर्जरी)", "आनुवंशिक (थैलेसीमिया, सिकल सेल)", "कुपोषण"]
+        },
+        "home_remedies": {
+            "en": ["Eat iron-rich foods: spinach, beetroot, jaggery (gur), lentils, red meat", "Vitamin C helps iron absorption - eat citrus fruits, amla, tomatoes with meals", "Cook in iron utensils if possible", "Avoid tea/coffee with meals (blocks iron absorption)", "Include B12 sources: eggs, dairy, fortified cereals"],
+            "hi": ["आयरन युक्त भोजन: पालक, चुकंदर, गुड़, दाल, लाल मांस", "विटामिन C आयरन अवशोषण बढ़ाता है - खट्टे फल, आंवला, टमाटर खाएं", "लोहे के बर्तन में पकाएं", "खाने के साथ चाय/कॉफी न पिएं", "B12 स्रोत: अंडे, दूध, फोर्टिफाइड अनाज"]
+        },
+        "medicines": [
+            {"name": "Ferrous Sulphate 325mg (100mg elemental iron)", "dosage": "1 tablet twice daily on empty stomach (or with food if stomach upset)", "type": "tablet", "line": "first", "source": "WHO; CDC Anemia Guidelines"},
+            {"name": "Folic Acid 5mg", "dosage": "5 mg once daily", "type": "tablet", "line": "first", "source": "ICMR India; WHO"},
+            {"name": "Vitamin B12 (Methylcobalamin) 500mcg", "dosage": "500 mcg once daily", "type": "tablet", "line": "first", "source": "ICMR India; ASH Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Severe fatigue with shortness of breath", "Chest pain or rapid heartbeat", "Pale skin with dizziness/fainting", "Blood in stool or heavy bleeding", "Unexplained weight loss with anemia"],
+            "hi": ["सांस फूलने के साथ गंभीर थकान", "सीने में दर्द या तेज धड़कन", "चक्कर के साथ पीली त्वचा", "मल में खून या भारी रक्तस्राव", "अचानक वजन कमी के साथ एनीमिया"]
+        },
+        "needs_surgery": False
+    },
+    "migraine": {
+        "en": ["migraine", "migrain", "aadha sir dard", "half headache", "nausea headache", "light sensitive headache"],
+        "hi": "माइग्रेन",
+        "description": {
+            "en": "Migraine is a neurological condition causing intense, throbbing headache often on one side. May be preceded by aura (visual disturbances) and accompanied by nausea, vomiting, and light/sound sensitivity.",
+            "hi": "माइग्रेन एक न्यूरोलॉजिकल स्थिति है जिसमें एक तरफ तेज धड़कता हुआ सिरदर्द होता है। आभा (दृष्टि गड़बड़ी), मतली, उल्टी, रोशनी/आवाज से तकलीफ हो सकती है।"
+        },
+        "possible_causes": {
+            "en": ["Genetics (strong family history)", "Hormonal changes (menstruation, pregnancy)", "Stress and anxiety", "Sleep changes (too much or too little)", "Dietary triggers (aged cheese, wine, caffeine, chocolate)", "Weather changes", "Sensory triggers (bright lights, loud sounds, strong smells)"],
+            "hi": ["आनुवंशिकता", "हार्मोनल बदलाव (मासिक धर्म, गर्भावस्था)", "तनाव और चिंता", "नींद में बदलाव (अधिक या कम)", "आहार ट्रिगर (पनीर, शराब, कैफीन, चॉकलेट)", "मौसम बदलना", "संवेदी ट्रिगर (तेज रोशनी, आवाज, गंध)"]
+        },
+        "home_remedies": {
+            "en": ["Lie down in a dark, quiet room", "Apply cold compress to forehead", "Stay hydrated", "Avoid known triggers", "Practice relaxation techniques", "Caffeine may help in early stages (small amount)", "Keep a migraine diary to identify patterns"],
+            "hi": ["अंधेरे, शांत कमरे में लेटें", "माथे पर ठंडी पट्टी रखें", "पानी पिएं", "ट्रिगर से बचें", "ध्यान/रिलैक्सेशन करें", "शुरुआत में कैफीन मदद कर सकता है", "माइग्रेन डायरी रखें"]
+        },
+        "medicines": [
+            {"name": "Sumatriptan 50mg", "dosage": "50-100 mg at onset of migraine, may repeat after 2 hours (max 200 mg/day)", "type": "tablet", "line": "first", "source": "IHS Migraine Guidelines 2025; AHS 2025"},
+            {"name": "Naproxen Sodium 550mg", "dosage": "550 mg at onset, then 275 mg after 6-8 hours", "type": "tablet", "line": "first", "source": "Mayo Clinic; UpToDate"},
+            {"name": "Rizatriptan ODT 10mg", "dosage": "10 mg at onset, dissolve on tongue", "type": "tablet", "line": "second", "source": "IHS Guidelines; FDA"},
+            {"name": "Propranolol 40mg (preventive)", "dosage": "40-80 mg twice daily (for prevention)", "type": "tablet", "line": "second", "source": "AHS Prevention Guidelines; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Sudden worst headache of life (thunderclap)", "Headache with fever, stiff neck, confusion", "Headache after head injury", "New headache in pregnancy or postpartum", "Headache with weakness, slurred speech, vision loss"],
+            "hi": ["अचानक जीवन का सबसे बुरा सिरदर्द", "बुखार, गर्दन अकड़न, भ्रम के साथ सिरदर्द", "सिर में चोट के बाद सिरदर्द", "गर्भावस्था में नया सिरदर्द", "कमजोरी, बोलने में परेशानी के साथ सिरदर्द"]
+        },
+        "needs_surgery": False
+    },
+    "dengue": {
+        "en": ["dengue", "dengue fever", "haddi tod bukhar", "bone breaking fever", "viral fever", "high fever with body pain"],
+        "hi": "डेंगू बुखार",
+        "description": {
+            "en": "Dengue is a mosquito-borne viral infection causing high fever, severe body aches, headache, and rash. Can progress to severe dengue (dengue hemorrhagic fever) with bleeding and plasma leakage.",
+            "hi": "डेंगू मच्छरों से फैलने वाला वायरल संक्रमण है जिसमें तेज बुखार, गंभीर शरीर दर्द, सिरदर्द और दाने होते हैं। गंभीर डेंगू में रक्तस्राव हो सकता है।"
+        },
+        "possible_causes": {
+            "en": ["Aedes aegypti mosquito bite", "Stagnant water breeding grounds", "Travel to endemic areas", "Second infection with different serotype increases risk of severe dengue"],
+            "hi": ["एडीज मच्छर का काटना", "गंदा पानी जमा होना", "एंडेमिक क्षेत्रों की यात्रा", "दूसरी बार डेंगू अधिक गंभीर हो सकता है"]
+        },
+        "home_remedies": {
+            "en": ["Complete bed rest", "Drink plenty of fluids (ORS, coconut water, soup)", "Use mosquito net to prevent further spread", "Monitor temperature every 4 hours", "Watch for warning signs (bleeding, severe pain, vomiting)"],
+            "hi": ["पूरा आराम करें", "खूब सारे तरल पिएं (ORS, नारियल पानी, सूप)", "मच्छरदानी का उपयोग करें", "हर 4 घंटे में तापमान जांचें", "चेतावनी संकेत देखें (रक्तस्राव, तेज दर्द, उल्टी)"]
+        },
+        "medicines": [
+            {"name": "Paracetamol 500mg", "dosage": "500-650 mg every 6 hours (max 3000 mg/day) - AVOID ibuprofen/aspirin", "type": "tablet", "line": "first", "source": "WHO Dengue Guidelines; ICMR India"},
+            {"name": "ORS Solution", "dosage": "Frequent sips throughout the day", "type": "liquid", "line": "first", "source": "WHO Dengue Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Severe abdominal pain / persistent vomiting", "Bleeding (gums, nose, blood in stool/vomit)", "Extreme weakness / restlessness", "Platlets dropping rapidly", "Difficulty breathing", "Cold/clammy skin with pulse weak"],
+            "hi": ["गंभीर पेट दर्द / लगातार उल्टी", "रक्तस्राव (मसूड़े, नाक, मल/उल्टी में खून)", "अत्यधिक कमजोरी / बेचैनी", "प्लेटलेट्स तेजी से गिरना", "सांस लेने में कठिनाई", "ठंडी/गीली त्वचा और कमजोर नाड़ी"]
+        },
+        "needs_surgery": False
+    },
+    "vertigo": {
+        "en": ["vertigo", "chakkar", "dizziness", "spinning sensation", "ghumna", "balance problem", "lightheaded"],
+        "hi": "वर्टिगो / चक्कर",
+        "description": {
+            "en": "Vertigo is a sensation of spinning or dizziness, often caused by inner ear problems. BPPV (benign paroxysmal positional vertigo) is most common. Can also be due to vestibular neuritis or Meniere's disease.",
+            "hi": "वर्टिगो चक्कर आने या घूमने जैसी अनुभूति है, अक्सर कान की आंतरिक समस्या से होता है। BPPV (सौम्य पैरॉक्सिस्मल पोजीशनल वर्टिगो) सबसे आम है।"
+        },
+        "possible_causes": {
+            "en": ["BPPV (inner ear crystals dislodged)", "Vestibular neuritis (inner ear infection)", "Meniere's disease (fluid buildup in ear)", "Migraine-associated vertigo", "Low blood pressure / dehydration", "Certain medications (ototoxic)", "Stroke or TIA (rare but serious)"],
+            "hi": ["BPPV (कान के क्रिस्टल खिसकना)", "वेस्टिबुलर न्यूराइटिस (कान का संक्रमण)", "मेनिएयर रोग (कान में तरल जमना)", "माइग्रेन से जुड़ा चक्कर", "निम्न रक्तचाप / निर्जलीकरण", "दवाओं का साइड इफेक्ट", "स्ट्रोक (दुर्लभ लेकिन गंभीर)"]
+        },
+        "home_remedies": {
+            "en": ["Sit or lie down immediately when dizzy", "Avoid sudden head movements", "Epley maneuver (for BPPV - watch YouTube tutorial)", "Stay hydrated", "Avoid bright lights and loud sounds", "Sleep with head elevated on 2 pillows", "Move slowly when getting up from bed"],
+            "hi": ["चक्कर आने पर तुरंत बैठें या लेटें", "अचानक सिर न हिलाएं", "एप्ली मैन्यूवर करें (BPPV के लिए)", "पानी पिएं", "तेज रोशनी और आवाज से बचें", "दो तकिए पर सिर ऊंचा करके सोएं", "बिस्तर से धीरे उठें"]
+        },
+        "medicines": [
+            {"name": "Betahistine 16mg", "dosage": "8-16 mg three times daily with food", "type": "tablet", "line": "first", "source": "AAO-HNS Guidelines; ICMR India"},
+            {"name": "Meclizine 25mg", "dosage": "25 mg once daily as needed for vertigo", "type": "tablet", "line": "first", "source": "UpToDate; FDA Approved"},
+            {"name": "Dimenhydrinate 50mg", "dosage": "50 mg every 4-6 hours as needed for motion sickness/vertigo", "type": "tablet", "line": "first", "source": "WHO; FDA Approved"},
+        ],
+        "red_flags": {
+            "en": ["Vertigo with slurred speech, facial drooping, or arm weakness (possible stroke)", "Sudden severe vertigo with hearing loss", "Vertigo after head injury", "Vertigo with chest pain or palpitations", "Fainting / loss of consciousness"],
+            "hi": ["चक्कर के साथ बोलने में परेशानी, चेहरा झुकना (स्ट्रोक)", "सुनवाई हानि के साथ अचानक चक्कर", "सिर में चोट के बाद चक्कर", "सीने में दर्द या धड़कन के साथ चक्कर", "बेहोशी"]
+        },
+        "needs_surgery": False
+    },
+    "acne": {
+        "en": ["acne", "pimples", "muhase", "muhase", "pimpals", "breakout", "zits", "blackheads", "whiteheads", "skin bumps"],
+        "hi": "मुंहासे / पिंपल्स",
+        "description": {
+            "en": "Acne is a skin condition where hair follicles become clogged with oil and dead skin cells. Common on face, chest, back. Ranges from blackheads/whiteheads to inflammatory cysts.",
+            "hi": "मुंहासे त्वचा की स्थिति है जहां बालों के रोम छिद्र तेल और मृत त्वचा कोशिकाओं से बंद हो जाते हैं। चेहरे, छाती, पीठ पर आम है।"
+        },
+        "possible_causes": {
+            "en": ["Hormonal changes (puberty, menstruation, PCOS)", "Excess oil production (sebum)", "Clogged pores (dead skin + oil)", "Bacteria (Propionibacterium acnes)", "Genetics", "Stress", "Certain cosmetics or hair products", "Diet high in sugar/dairy (for some people)"],
+            "hi": ["हार्मोनल बदलाव (यौवन, मासिक धर्म, PCOS)", "अधिक तेल उत्पादन", "रोम छिद्रों का बंद होना", "बैक्टीरिया", "आनुवंशिकता", "तनाव", "कुछ कॉस्मेटिक्स", "अधिक चीनी/दूध वाला आहार"]
+        },
+        "home_remedies": {
+            "en": ["Wash face twice daily with gentle cleanser", "Do not pick or squeeze pimples (causes scarring)", "Use oil-free / non-comedogenic products", "Apply aloe vera gel or green tea extract", "Change pillowcases frequently", "Keep hair clean and off face", "Avoid touching face frequently", "Use sunscreen daily (oil-free)"],
+            "hi": ["दिन में दो बार हल्के क्लींजर से चेहरा धोएं", "पिंपल्स को न निचोड़ें (निशान पड़ जाते हैं)", "ऑयल-फ्री उत्पादों का उपयोग करें", "एलोवेरा जेल लगाएं", "तकिया का कवर बार-बार बदलें", "चेहरे को बार-बार न छुएं", "सनस्क्रीन जरूर लगाएं"]
+        },
+        "medicines": [
+            {"name": "Benzoyl Peroxide 2.5% Gel", "dosage": "Apply thin layer to affected area once daily at bedtime", "type": "gel", "line": "first", "source": "AAD Acne Guidelines 2025; FDA"},
+            {"name": "Salicylic Acid 2% Face Wash", "dosage": "Use twice daily while washing face", "type": "wash", "line": "first", "source": "AAD Guidelines; Dermatology Times"},
+            {"name": "Adapalene 0.1% Gel (retinoid)", "dosage": "Pea-sized amount on entire face at bedtime (avoid eyes/mouth)", "type": "gel", "line": "second", "source": "AAD Guidelines; FDA"},
+            {"name": "Clindamycin 1% Lotion", "dosage": "Apply twice daily to affected areas", "type": "lotion", "line": "second", "source": "AAD Guidelines; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Severe cystic acne (deep painful bumps)", "Acne with fever or joint pain", "Sudden severe acne in adults (possible hormonal disorder)", "Acne not responding to OTC treatment for 3 months", "Scarring or dark spots from acne"],
+            "hi": ["गंभीर सिस्टिक मुंहासे (गहरे दर्दनाक दाने)", "बुखार या जोड़ों के दर्द के साथ मुंहासे", "वयस्कों में अचानक गंभीर मुंहासे", "3 महीने OTC उपचार के बाद भी ठीक न हों", "निशान पड़ना"]
+        },
+        "needs_surgery": False
+    },
+    "food_poisoning": {
+        "en": ["food poisoning", "food infection", "kharab khana", "stomach infection", "vomiting diarrhea", "gastroenteritis", "pet mein infection"],
+        "hi": "फूड पॉइज़निंग / खाने का जहर",
+        "description": {
+            "en": "Food poisoning is illness caused by eating contaminated food (bacteria, viruses, or toxins). Common culprits: stale food, undercooked meat, unwashed vegetables. Symptoms start within hours of eating.",
+            "hi": "फूड पॉइज़निंग दूषित भोजन खाने से होने वाली बीमारी है। आम कारण: बासी खाना, अधपका मांस, बिना धुली सब्जियां। खाने के कुछ घंटों में लक्षण शुरू होते हैं।"
+        },
+        "possible_causes": {
+            "en": ["Bacterial (Salmonella, E. coli, Staphylococcus, Listeria)", "Viral (Norovirus, Rotavirus)", "Parasitic (Giardia, Amoeba)", "Toxins in food (stale rice, reheated leftovers)", "Undercooked meat, poultry, eggs", "Unwashed fruits/vegetables", "Contaminated water"],
+            "hi": ["जीवाणु (साल्मोनेला, ई. कोलाई, स्टैफिलोकोकस)", "वायरल (नोरोवायरस, रोटावायरस)", "परजीवी (जियार्डिया, अमीबा)", "खाने में विषाक्त पदार्थ", "अधपका मांस, अंडे", "बिना धुली सब्जियां/फल", "दूषित पानी"]
+        },
+        "home_remedies": {
+            "en": ["ORS (Oral Rehydration Solution) - frequent sips", "Avoid solid food for 6-8 hours (let stomach rest)", "Banana, rice, apple sauce, toast (BRAT diet)", "Ginger tea for nausea", "Activated charcoal (if taken within 1 hour)", "Rest completely", "Don't take anti-diarrhea medicine (body needs to flush toxins)"],
+            "hi": ["ORS बार-बार पिएं", "6-8 घंटे ठोस भोजन न खाएं", "केला, चावल, सेब, टोस्ट खाएं", "मतली के लिए अदरक की चाय", "पूरा आराम करें", "डायरिया रोकने वाली दवा न लें (शरीर विषाक्त पदार्थ निकाल रहा है)"]
+        },
+        "medicines": [
+            {"name": "ORS Solution", "dosage": "Sip frequently throughout day - 1 packet in 1 liter clean water", "type": "powder", "line": "first", "source": "WHO; CDC"},
+            {"name": "Ondansetron 4mg (for vomiting)", "dosage": "4 mg sublingual tablet every 8 hours as needed", "type": "tablet", "line": "second", "source": "FDA; ICMR India"},
+            {"name": "Probiotic (Lactobacillus) Capsules", "dosage": "1 capsule twice daily with water", "type": "capsule", "line": "first", "source": "AGA Guidelines; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Blood in stool or vomit", "High fever >101°F (38.3°C)", "Cannot keep any liquids down for 24 hours", "Severe abdominal pain", "Signs of dehydration: dry mouth, no urination for 8h, dizziness", "Symptoms in elderly, pregnant, or young children"],
+            "hi": ["मल या उल्टी में खून", "तेज बुखार >101°F", "24 घंटे कुछ भी न रुकना", "गंभीर पेट दर्द", "निर्जलीकरण: सूखा मुंह, 8 घंटे पेशाब नहीं, चक्कर", "बुजुर्ग, गर्भवती, छोटे बच्चों में गंभीर"]
+        },
+        "needs_surgery": False
+    },
+    "sinusitis": {
+        "en": ["sinus", "sinusitis", "sinus infection", "nasal congestion", "nose block", "facial pain", "aankhon ke niche dard", "naak band"],
+        "hi": "साइनसाइटिस / साइनस संक्रमण",
+        "description": {
+            "en": "Sinusitis is inflammation of the sinuses (air-filled cavities around the nose). Often follows a cold. Causes facial pain, nasal congestion, headache, and thick nasal discharge.",
+            "hi": "साइनसाइटिस नाक के आसपास की हवा वाली गुहाओं (साइनस) की सूजन है। अक्सर जुकाम के बाद होता है। चेहरे में दर्द, नाक बंद, सिरदर्द होता है।"
+        },
+        "possible_causes": {
+            "en": ["Viral infection (following common cold)", "Bacterial infection (sinusitis >10 days)", "Allergies (hay fever, dust)", "Nasal polyps or deviated septum", "Dental infection spreading to sinuses", "Smoking or air pollution"],
+            "hi": ["वायरल संक्रमण (जुकाम के बाद)", "जीवाणु संक्रमण (10 दिन से अधिक)", "एलर्जी", "नाक में पॉलिप्स या नाक की हड्डी टेढ़ी", "दांत का संक्रमण साइनस में फैलना", "धूम्रपान या प्रदूषण"]
+        },
+        "home_remedies": {
+            "en": ["Steam inhalation 2-3 times daily (add eucalyptus or menthol)", "Saline nasal spray or Neti pot / jal neti", "Apply warm compresses on face (cheeks, forehead)", "Elevate head while sleeping", "Drink plenty of warm fluids (soup, herbal tea)", "Use a humidifier in room", "Avoid flying if sinuses are blocked"],
+            "hi": ["दिन में 2-3 बार भाप लें (नीलगिरी या मेंथा डालें)", "खारे पानी का नाक स्प्रे या नेति पॉट", "चेहरे पर गर्म पट्टी रखें", "सिर ऊंचा करके सोएं", "गर्म पेय पिएं", "ह्यूमिडिफायर का उपयोग करें", "साइनस बंद होने पर उड़ान न भरें"]
+        },
+        "medicines": [
+            {"name": "Amoxicillin-Clavulanate 625mg", "dosage": "625 mg every 12 hours for 7-10 days (only if bacterial)", "type": "tablet", "line": "second", "source": "AAO-HNS Sinusitis Guidelines; ICMR India"},
+            {"name": "Pseudoephedrine 60mg (decongestant)", "dosage": "60 mg every 4-6 hours (max 4 doses/day)", "type": "tablet", "line": "first", "source": "FDA; AAO-HNS Guidelines"},
+            {"name": "Fluticasone Nasal Spray 50mcg", "dosage": "2 sprays each nostril twice daily", "type": "spray", "line": "first", "source": "AAO-HNS Guidelines; GINA"},
+            {"name": "Cetirizine 10mg (if allergic)", "dosage": "10 mg once daily at bedtime", "type": "tablet", "line": "first", "source": "AAO-HNS; WHO Essential Medicines"},
+        ],
+        "red_flags": {
+            "en": ["High fever >102°F with severe facial pain", "Swelling around eye or vision changes", "Confusion or neck stiffness", "Symptoms lasting >10 days without improvement", "Recurrent sinusitis (4+ episodes per year)"],
+            "hi": ["102°F से अधिक बुखार", "आंख के आसपास सूजन या दृष्टि में बदलाव", "भ्रम या गर्दन में अकड़न", "10 दिन से अधिक लक्षण", "बार-बार साइनसाइटिस (साल में 4+ बार)"]
+        },
+        "needs_surgery": False
+    },
+    "gastritis": {
+        "en": ["gastritis", "stomach ulcer", "pet mein ulcer", "pet ki jalan", "stomach inflammation", "burning stomach", "pet jalna"],
+        "hi": "गैस्ट्राइटिस / पेट की सूजन",
+        "description": {
+            "en": "Gastritis is inflammation of the stomach lining. Can be acute (sudden) or chronic (long-term). Causes burning pain, nausea, bloating. Can lead to ulcers if untreated.",
+            "hi": "गैस्ट्राइटिस पेट की परत की सूजन है। तीव्र (अचानक) या पुरानी (लंबे समय) हो सकती है। जलन, मतली, पेट फूलना होता है। इलाज न होने पर अल्सर हो सकता है।"
+        },
+        "possible_causes": {
+            "en": ["H. pylori bacterial infection", "NSAIDS (ibuprofen, aspirin) overuse", "Excessive alcohol consumption", "Stress", "Spicy/oily food", "Smoking", "Autoimmune gastritis", "Bile reflux"],
+            "hi": ["H. पाइलोरी जीवाणु संक्रमण", "दर्द निवारक दवाओं (ibuprofen) का अधिक उपयोग", "अत्यधिक शराब", "तनाव", "मसालेदार/तेल युक्त भोजन", "धूम्रपान", "ऑटोइम्यून गैस्ट्राइटिस", "पित्त का वापस आना"]
+        },
+        "home_remedies": {
+            "en": ["Eat small, frequent meals (5-6 times/day)", "Avoid spicy, fried, acidic foods", "Don't lie down immediately after eating (wait 2-3 hours)", "Drink coconut water or cold milk for relief", "Probiotics (yogurt, buttermilk)", "Chew food properly and eat slowly", "Quit smoking and limit alcohol"],
+            "hi": ["थोड़ा-थोड़ा बार-बार खाएं (5-6 बार/दिन)", "मसालेदार, तला, खट्टा भोजन न खाएं", "खाने के तुरंत बाद न लेटें", "नारियल पानी या ठंडा दूध पिएं", "प्रोबायोटिक्स (दही, छाछ)", "धीरे-धीरे चबाकर खाएं", "धूम्रपान और शराब छोड़ें"]
+        },
+        "medicines": [
+            {"name": "Omeprazole 20mg (proton pump inhibitor)", "dosage": "20 mg once daily before breakfast", "type": "capsule", "line": "first", "source": "ACG Guidelines; ICMR India"},
+            {"name": "Antacid (Magnesium Hydroxide + Aluminum)", "dosage": "10-20 ml as needed after meals and at bedtime", "type": "liquid", "line": "first", "source": "FDA; WHO Essential Medicines"},
+            {"name": "Ranitidine 150mg (H2 blocker)", "dosage": "150 mg twice daily", "type": "tablet", "line": "first", "source": "FDA; ACG Guidelines"},
+            {"name": "Sucralfate 1g", "dosage": "1 g four times daily (empty stomach)", "type": "tablet", "line": "second", "source": "ICMR India; UpToDate"},
+        ],
+        "red_flags": {
+            "en": ["Blood in vomit (red or coffee-ground)", "Black/tarry stool (internal bleeding)", "Severe abdominal pain", "Unexplained weight loss", "Difficulty swallowing", "Persistent vomiting"],
+            "hi": ["उल्टी में खून (लाल या कॉफी जैसा)", "काला मल (आंतरिक रक्तस्राव)", "गंभीर पेट दर्द", "अचानक वजन कमी", "निगलने में कठिनाई", "लगातार उल्टी"]
+        },
+        "needs_surgery": False
+    },
+    "dehydration": {
+        "en": ["dehydration", "paani ki kami", "water deficiency", "body dry", "niraljeekaran", "less urine", "dizziness due to heat"],
+        "hi": "निर्जलीकरण / पानी की कमी",
+        "description": {
+            "en": "Dehydration occurs when the body loses more fluids than it takes in. Common in hot weather, diarrhea, vomiting, fever, and excessive sweating. Can range from mild to severe.",
+            "hi": "निर्जलीकरण तब होता है जब शरीर जितना तरल लेता है उससे अधिक खो देता है। गर्मी, दस्त, उल्टी, बुखार, अधिक पसीने में आम। हल्के से गंभीर तक हो सकता है।"
+        },
+        "possible_causes": {
+            "en": ["Not drinking enough water", "Excessive sweating (exercise, heat, fever)", "Diarrhea and vomiting", "Diabetes (frequent urination)", "Certain medications (diuretics)", "Alcohol consumption", "Hot climate without adequate fluid intake"],
+            "hi": ["पर्याप्त पानी न पीना", "अधिक पसीना (व्यायाम, गर्मी, बुखार)", "दस्त और उल्टी", "मधुमेह (बार-बार पेशाब)", "कुछ दवाएं", "शराब", "गर्म मौसम में कम पानी पीना"]
+        },
+        "home_remedies": {
+            "en": ["ORS (Oral Rehydration Solution) - best for rehydration", "Coconut water (rich in electrolytes)", "Drink water in small sips, not gulps", "Buttermilk (chaas) with salt", "Fresh fruit juices (watermelon, orange)", "Avoid caffeine and alcohol", "Eat water-rich foods (cucumber, melon, citrus)", "Rest in cool, shaded area"],
+            "hi": ["ORS सबसे अच्छा - 1 पैकेट 1 लीटर पानी में", "नारियल पानी (इलेक्ट्रोलाइट्स से भरपूर)", "एक साथ नहीं, घूंट-घूंट पिएं", "नमक वाली छाछ", "ताजे फलों का रस (तरबूज, संतरा)", "कैफीन और शराब से बचें", "पानी वाली चीजें खाएं (खीरा, तरबूज)", "छाया में आराम करें"]
+        },
+        "medicines": [
+            {"name": "ORS (WHO Formula)", "dosage": "1 packet in 1 liter clean water - sip frequently", "type": "powder", "line": "first", "source": "WHO; CDC"},
+            {"name": "Zinc Sulfate 20mg", "dosage": "20 mg once daily (helps with diarrhea recovery)", "type": "tablet", "line": "first", "source": "WHO; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Severe dehydration: no urine for 8+ hours", "Very dry mouth and sunken eyes", "Confusion or irritability", "Rapid heartbeat and breathing", "Fainting or dizziness when standing", "Cannot keep fluids down", "Dark yellow urine or no urine"],
+            "hi": ["गंभीर: 8+ घंटे पेशाब नहीं", "बहुत सूखा मुंह और धंसी आंखें", "भ्रम या चिड़चिड़ापन", "तेज धड़कन और सांस", "खड़े होने पर चक्कर", "कुछ भी न रुकना", "गहरा पीला पेशाब या पेशाब नहीं"]
+        },
+        "needs_surgery": False
+    },
+    "piles": {
+        "en": ["piles", "hemorrhoids", "bawaseer", "blood in stool", "anal pain", "anus mein dard", "gud mein dard", "sitting pain"],
+        "hi": "बवासीर / पाइल्स",
+        "description": {
+            "en": "Piles (hemorrhoids) are swollen veins in the rectum and anus. Internal (inside) or external (outside). Common causes: constipation, straining, pregnancy, obesity. Symptoms: bleeding, pain, itching.",
+            "hi": "बवासीर मलाशय और गुदा में सूजी हुई नसें हैं। आंतरिक (अंदर) या बाहरी (बाहर)। कारण: कब्ज, जोर लगाना, गर्भावस्था, मोटापा। लक्षण: खून, दर्द, खुजली।"
+        },
+        "possible_causes": {
+            "en": ["Chronic constipation and straining", "Prolonged sitting (especially on toilet)", "Pregnancy and childbirth", "Obesity", "Low fiber diet", "Age (tissues weaken)", "Heavy lifting", "Genetics"],
+            "hi": ["पुरानी कब्ज और जोर लगाना", "लंबे समय तक बैठना (विशेषकर शौचालय पर)", "गर्भावस्था और प्रसव", "मोटापा", "कम फाइबर वाला आहार", "उम्र बढ़ना", "भारी वजन उठाना", "आनुवंशिकता"]
+        },
+        "home_remedies": {
+            "en": ["Warm sitz bath (sit in warm water for 15 min) 2-3 times daily", "Increase fiber intake (fruits, vegetables, whole grains)", "Drink 8-10 glasses of water daily", "Use wet wipes instead of dry toilet paper", "Apply aloe vera gel or coconut oil", "Avoid sitting for long periods", "Don't strain during bowel movements", "Cold compress for swelling"],
+            "hi": ["दिन में 2-3 बार गर्म पानी में बैठें (15 मिनट)", "फाइबर बढ़ाएं (फल, सब्जी, साबुत अनाज)", "8-10 गिलास पानी पिएं", "सूखे टॉयलेट पेपर की जगह गीला इस्तेमाल करें", "एलोवेरा जेल या नारियल तेल लगाएं", "ज्यादा देर न बैठें", "मल त्याग में जोर न लगाएं", "सूजन के लिए ठंडी पट्टी"]
+        },
+        "medicines": [
+            {"name": "Pilex Tablet (herbal - Ayurvedic)", "dosage": "2 tablets twice daily", "type": "tablet", "line": "first", "source": "Himalaya; ICMR India"},
+            {"name": "Lidocaine 2% Gel (local anesthetic)", "dosage": "Apply thin layer to affected area up to 3 times daily", "type": "gel", "line": "first", "source": "FDA; ASCRS Guidelines"},
+            {"name": "Hydrocortisone 1% Cream", "dosage": "Apply to affected area 2 times daily for up to 1 week", "type": "cream", "line": "first", "source": "ASCRS Guidelines; FDA"},
+            {"name": "Docusate Sodium 100mg (stool softener)", "dosage": "100 mg once daily with water", "type": "capsule", "line": "first", "source": "ICMR India; ACG Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Heavy bleeding from rectum (blood clots)", "Prolapsed hemorrhoid that cannot be pushed back", "Severe pain not relieved by OTC", "Change in bowel habits with weight loss", "Blood mixed with stool (not just on paper)", "Fever with anal pain"],
+            "hi": ["गुदा से भारी रक्तस्राव (थक्के)", "बाहर निकली बवासीर वापस न जाए", "OTC से न ठीक होने वाला दर्द", "मल त्याग में बदलाव के साथ वजन कमी", "मल में खून मिला हो", "दर्द के साथ बुखार"]
+        },
+        "needs_surgery": True
+    },
 }
 
 SURGERY_INFO = {

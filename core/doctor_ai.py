@@ -252,6 +252,11 @@ class MedicalDoctorAI:
 
         # Stage 1: Ask for name
         if self.stage == "ask_name":
+            if not self.patient_info.get("name"):
+                # If patterns didn't catch it, take entire clean input as name
+                clean = user_message.strip().title()
+                if clean and len(clean.split()) <= 3:
+                    self.patient_info["name"] = clean
             if self.patient_info.get("name"):
                 self.stage = "ask_age"
                 if self.patient_info.get("age"):
@@ -262,6 +267,11 @@ class MedicalDoctorAI:
 
         # Stage 2: Ask for age
         if self.stage == "ask_age":
+            if not self.patient_info.get("age"):
+                # If patterns didn't catch age, try treating input as raw number
+                age_match = re.search(r"(\d+)", user_message)
+                if age_match:
+                    self.patient_info["age"] = age_match.group(1)
             if self.patient_info.get("age"):
                 self.stage = "consult"
                 return {"role": "doctor", "response": self._ask_concern(lang), "lang": lang}

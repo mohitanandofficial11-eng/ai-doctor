@@ -131,7 +131,7 @@ SYMPTOMS_DB = {
         "needs_surgery": False
     },
     "headache": {
-        "en": ["headache", "sir dard", "head pain", "migraine", "sardard"],
+        "en": ["headache", "sir dard", "head pain", "migraine", "sardard", "headeach", "headach", "head ace"],
         "hi": "सिरदर्द",
         "description": {
             "en": "Headache is pain in any region of the head. Types include tension-type (most common), migraine, cluster, and secondary headaches due to other conditions.",

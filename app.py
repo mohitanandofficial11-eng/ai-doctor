@@ -362,8 +362,14 @@ def main():
                 msgs.append({"role": "doctor", "response": result})
             st.rerun()
 
-        # Specialist referral and prescription buttons (show after chat)
-        if msgs and st.session_state.doctor.reported_symptoms:
+        # Specialist referral and prescription buttons
+        show_buttons = (
+            msgs and (
+                st.session_state.doctor.reported_symptoms
+                or st.session_state.doctor.stage == "advised"
+            )
+        )
+        if show_buttons:
             col_a, col_b, col_c = st.columns(3)
             with col_a:
                 if st.button("👨‍⚕️ Suggest Specialist", use_container_width=True):

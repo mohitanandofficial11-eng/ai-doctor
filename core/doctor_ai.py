@@ -283,6 +283,10 @@ class MedicalDoctorAI:
         is_prescription_req = self._is_prescription_request(user_message)
         is_surg_query = any(t in lower for t in [" surgery ", " operation ", " surgeri "])
 
+        # Always update reported_symptoms when symptoms are detected
+        if detected_symptoms:
+            self.reported_symptoms = detected_symptoms
+
         if self.detect_danger(user_message):
             result = self._emergency_response(lang)
         elif is_surg_query and any(s in lower for s in SURGERY_INFO):
@@ -292,14 +296,24 @@ class MedicalDoctorAI:
                 result = {"response": info, "lang": lang}
             else:
                 result = self._ai_respond(user_message, lang)
-        elif is_prescription_req and self.reported_symptoms:
+        elif is_prescription_req:
             self.stage = "advised"
-            result = self._give_advice(self.reported_symptoms, lang)
-        elif is_prescription_req and self.current_symptoms:
-            self.stage = "advised"
-            result = self._give_advice(self.current_symptoms, lang)
+            if self.reported_symptoms:
+                result = self._give_advice(self.reported_symptoms, lang)
+            else:
+                result = self._ai_respond(user_message, lang)
         elif self.use_ai:
+            # After AI response, try to back-fill symptoms from the full conversation
             result = self._ai_respond(user_message, lang)
+            if not self.reported_symptoms:
+                # Re-check symptoms from all user messages so far
+                for m in self.conversation_history:
+                    if m["role"] == "user":
+                        self.extract_symptoms(m["message"])
+                        if self.current_symptoms:
+                            self.reported_symptoms = list(set(self.reported_symptoms + self.current_symptoms))
+                if self.reported_symptoms:
+                    self.stage = "symptom_reported"
         elif not detected_symptoms and self.stage == "consult" and not self.greeted:
             self.greeted = True
             result = self._greeting_response(lang)
@@ -456,7 +470,8 @@ class MedicalDoctorAI:
                 "- Suggest relevant tests (CT scan, MRI, blood tests, etc.)\n"
                 "- Recommend OTC medicines like Paracetamol, Ibuprofen, Cetirizine when safe\n"
                 "- For prescription drugs, say 'consult a doctor for this medicine'\n"
-                "- For emergencies, say 'This needs immediate medical attention'\n"
+                "- Only recommend emergency care for TRUE emergencies: difficulty breathing, severe bleeding, unconsciousness, chest pain with sweating, major trauma\n"
+                "- For minor bumps, bruises, or possible mild head injuries: stay calm, advise ice pack, rest, and monitoring. Do NOT send to ER unless symptoms are severe.\n"
                 f"Respond in {'Hinglish (Hindi-English mix)' if lang == 'hi' else 'English'} naturally.\n"
                 "Never use 'abe', 'yaar', 'bhai', 'arre'."
             )

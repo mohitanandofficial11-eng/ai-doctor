@@ -631,9 +631,7 @@ SYMPTOMS_DB = {
                    "यदि अभिभूत महसूस करें - हेल्पलाइन: 988 (भारत: 9152987821)"]
         },
         "needs_surgery": False
-    }
-}
-
+    },
     "uti": {
         "en": ["uti", "urine infection", "burning urine", "peshab mein jalan", "urinary infection",
                "frequent urine", "peshab mein dard", "uti infection"],

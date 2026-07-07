@@ -132,6 +132,24 @@ class MedicalDoctorAI:
                 return True
         return False
 
+    def _is_symptom_word(self, word):
+        """Check if a word looks like a symptom rather than a name."""
+        word_lower = word.lower().strip()
+        # Common symptom-like patterns
+        symptom_indicators = [
+            "pain", "dard", "fever", "bukhar", "cough", "khansi", "cold",
+            "headache", "headeach", "migraine", "sardard", "sir", "chest",
+            "acidity", "gas", "back", "kamar", "rash", "skin", "itching",
+            "diarrhea", "dast", "vomit", "ulti", "nausea", "infection",
+            "stone", "sugar", "diabetes", "bp", "pressure", "depression",
+            "anxiety", "tension", "stress", "fatigue", "thakaan", "insomnia",
+            "neend", "allergy", "hives", "constipation", "kabj", "joint",
+            "arthritis", "eye", "aankh", "ear", "kaan", "period", "cramps",
+            "injury", "hit", "hurt", "cut", "wound", "bleed", "khoon",
+            "swell", "sujan", "burn", "jala", "fracture", "hair",
+        ]
+        return word_lower in symptom_indicators
+
     def extract_patient_info(self, text):
         text_lower = text.lower()
         patterns = {
@@ -144,8 +162,8 @@ class MedicalDoctorAI:
                 r"(\d+)\s*(?:yo|yr)",
             ],
             "name": [
-                r"(my name is|i'm|i am|mera naam|mera nam)\s*(\w+\s*\w*)",
-                r"name\s*(is|:)?\s*(\w+\s*\w*)",
+                r"(my name is|i'm|i am|mera naam|mera nam)\s*(\w+)",
+                r"name\s*(is|:)?\s*(\w+)",
                 r"call me\s*(\w+)",
                 r"i am\s*(\w+)",
             ],
@@ -255,7 +273,8 @@ class MedicalDoctorAI:
             if not self.patient_info.get("name"):
                 # If patterns didn't catch it, take entire clean input as name
                 clean = user_message.strip().title()
-                if clean and len(clean.split()) <= 3:
+                # Don't treat symptom words as names
+                if clean and len(clean.split()) <= 3 and not self._is_symptom_word(clean):
                     self.patient_info["name"] = clean
             if self.patient_info.get("name"):
                 self.stage = "ask_age"

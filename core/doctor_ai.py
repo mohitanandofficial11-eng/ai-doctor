@@ -329,6 +329,47 @@ class MedicalDoctorAI:
             return f"👉 **सुझाव:** कृपया **{name_hi}** विशेषज्ञ से सलाह लें।"
         return f"👉 **Recommendation:** Please consult a **{name_en}** specialist."
 
+    def generate_prescription_pdf(self, lang="en"):
+        """Generate a downloadable PDF prescription."""
+        from .prescription_gen import PrescriptionGenerator
+        pg = PrescriptionGenerator(
+            patient_name=self.patient_info.get("name", "Patient"),
+            lang=lang
+        )
+        for sym_id in self.reported_symptoms:
+            if sym_id in SYMPTOMS_DB:
+                sd = SYMPTOMS_DB[sym_id]
+                for med in sd.get("medicines", [])[:3]:
+                    pg.add_medicine(med["name"], med["dosage"],
+                                    timing="as directed",
+                                    note=f"{med.get('line', '')} - {med.get('source', '')[:40]}")
+                advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
+                for a in advice[:3]:
+                    pg.add_advice(a)
+        tests_map = {
+            "fever": ["CBC", "Malaria/PCR", "Urine R/M"], "headache": ["BP check", "CT/MRI brain"],
+            "chest_pain": ["ECG", "Troponin", "Chest X-ray"], "cough_cold": ["CBC", "Chest X-ray"],
+            "acidity": ["Upper GI endoscopy"], "back_pain": ["X-ray spine", "MRI lumbar"],
+            "skin_rash": ["Skin biopsy", "CBC"], "kidney_stone": ["USG KUB", "Urine R/M"],
+            "high_bp": ["Lipid profile", "ECG", "KFT"], "diabetes": ["FBS/PPBS", "HbA1c"],
+            "diarrhea": ["Stool R/M", "Stool culture"], "depression": ["PHQ-9", "Thyroid profile"],
+            "anxiety": ["GAD-7", "Thyroid profile"], "uti": ["Urine R/M", "Urine Culture"],
+            "joint_pain": ["X-ray joint", "Uric acid", "RA factor"],
+            "eye_infection": ["Eye swab culture"], "ear_infection": ["Ear swab culture"],
+            "constipation": ["No tests usually needed"], "insomnia": ["No specific tests"],
+            "fatigue": ["CBC", "Vitamin B12", "Vitamin D", "Thyroid"],
+            "menstrual_cramps": ["USG pelvis"], "nausea_vomiting": ["CBC", "Stool exam"],
+            "allergy": ["IgE levels", "Allergy panel"],
+        }
+        for sym_id in self.reported_symptoms:
+            for t in tests_map.get(sym_id, [])[:3]:
+                pg.add_investigation(t)
+        if lang == "hi":
+            pg.set_follow_up("1 सप्ताह में दोबारा मिलें। लक्षण बिगड़ें तो तुरंत डॉक्टर से संपर्क करें।")
+        else:
+            pg.set_follow_up("Review in 1 week. Contact doctor immediately if symptoms worsen.")
+        return pg.generate_pdf()
+
     def _build_patient_context(self):
         parts = []
         if self.patient_info.get("name"):

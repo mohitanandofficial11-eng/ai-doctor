@@ -346,7 +346,7 @@ def main():
 
         # Specialist referral and prescription buttons (show after chat)
         if msgs and st.session_state.doctor.reported_symptoms:
-            col_a, col_b = st.columns(2)
+            col_a, col_b, col_c = st.columns(3)
             with col_a:
                 if st.button("👨‍⚕️ Suggest Specialist", use_container_width=True):
                     ref = st.session_state.doctor.get_specialist_referral(st.session_state.lang)
@@ -357,6 +357,10 @@ def main():
                     summary = st.session_state.doctor.generate_consultation_summary(st.session_state.lang)
                     msgs.append({"role": "doctor", "response": summary})
                     st.rerun()
+            with col_c:
+                pdf = st.session_state.doctor.generate_prescription_pdf(st.session_state.lang)
+                if pdf:
+                    st.download_button("📄 Download PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)
 
     with col2:
         lang = st.session_state.lang

@@ -1333,6 +1333,239 @@ SYMPTOMS_DB = {
         },
         "needs_surgery": True
     },
+    "pneumonia": {
+        "en": ["pneumonia", "nmonia", "lung infection", "phephde mein infection", "chest infection", "bacterial pneumonia", "viral pneumonia"],
+        "hi": "निमोनिया / फेफड़ों का संक्रमण",
+        "description": {
+            "en": "Pneumonia is a lung infection causing air sacs to fill with fluid/pus. Can be bacterial, viral, or fungal. Common symptoms: cough with phlegm, fever, chills, difficulty breathing.",
+            "hi": "निमोनिया फेफड़ों का संक्रमण है जिसमें हवा की थैलियों में तरल/मवाद भर जाता है। बैक्टीरियल, वायरल या फंगल हो सकता है। लक्षण: खांसी, बुखार, ठंड, सांस में तकलीफ।"
+        },
+        "possible_causes": {
+            "en": ["Bacterial (Streptococcus pneumoniae most common)", "Viral (COVID-19, influenza, RSV)", "Fungal (rare - in immunocompromised)", "Aspiration (food/liquid entering lungs)", "Smoking / weak immune system", "Hospital-acquired (in ICU patients)"],
+            "hi": ["बैक्टीरियल (स्ट्रेप्टोकोकस निमोनिया सबसे आम)", "वायरल (COVID-19, इन्फ्लुएंजा)", "फंगल (दुर्लभ)", "एस्पिरेशन (खाना फेफड़ों में जाना)", "धूम्रपान / कमजोर प्रतिरक्षा", "अस्पताल में होने वाला"]
+        },
+        "home_remedies": {
+            "en": ["Complete bed rest", "Drink warm fluids (soup, herbal tea) frequently", "Use steam inhalation for congestion", "Sleep with head elevated (2 pillows)", "Practice deep breathing exercises", "Use a humidifier", "Avoid smoke and strong fumes"],
+            "hi": ["पूरा आराम करें", "गर्म तरल पदार्थ (सूप, हर्बल चाय) पिएं", "भाप लें", "सिर ऊंचा करके सोएं (2 तकिए)", "गहरी सांस का व्यायाम करें", "ह्यूमिडिफायर का उपयोग करें", "धुएं और तेज गंध से बचें"]
+        },
+        "medicines": [
+            {"name": "Amoxicillin 500mg", "dosage": "500 mg three times daily for 7-10 days", "type": "tablet", "line": "first", "source": "ATS/IDSA Pneumonia Guidelines; ICMR India"},
+            {"name": "Azithromycin 500mg", "dosage": "500 mg once daily for 3-5 days", "type": "tablet", "line": "first", "source": "ATS/IDSA Guidelines; WHO Essential Medicines"},
+            {"name": "Paracetamol 500mg (for fever/pain)", "dosage": "500-1000 mg every 6 hours as needed", "type": "tablet", "line": "first", "source": "WHO; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Difficulty breathing (shortness of breath at rest)", "Chest pain when breathing or coughing", "High fever >103°F not reducing with medicine", "Confusion or disorientation (especially in elderly)", "Coughing up blood (hemoptysis)", "Bluish lips or fingertips (cyanosis)"],
+            "hi": ["सांस लेने में कठिनाई (आराम में भी)", "सांस या खांसी पर सीने में दर्द", "तेज बुखार >103°F दवा से कम न हो", "भ्रम (विशेषकर बुजुर्गों में)", "खांसी में खून आना", "नीले होंठ या उंगलियां"]
+        },
+        "needs_surgery": False
+    },
+    "chickenpox": {
+        "en": ["chickenpox", "chicken pox", "chhoti mata", "varicella", "viral rash", "blisters", "fever with rash"],
+        "hi": "छोटी माता / चिकनपॉक्स",
+        "description": {
+            "en": "Chickenpox (varicella) is a highly contagious viral infection causing an itchy, blister-like rash all over the body. Common in children but can affect adults. Usually mild but can be serious in immunocompromised.",
+            "hi": "छोटी माता एक अत्यधिक संक्रामक वायरल संक्रमण है जिसमें पूरे शरीर पर खुजली वाले छाले हो जाते हैं। बच्चों में आम है लेकिन वयस्कों को भी हो सकता है।"
+        },
+        "possible_causes": {
+            "en": ["Varicella-zoster virus (VZV) infection", "Airborne transmission (cough/sneeze)", "Direct contact with blister fluid", "No prior infection or vaccination", "Peak season: winter and early spring"],
+            "hi": ["वैरीसेला-ज़ोस्टर वायरस (VZV) संक्रमण", "हवा से फैलना (खांसी/छींक)", "छालों के तरल से सीधा संपर्क", "पहले संक्रमण या टीका न लगा हो", "सर्दी और शुरुआती वसंत में अधिक"]
+        },
+        "home_remedies": {
+            "en": ["Do NOT scratch blisters (can cause scars and infection)", "Apply calamine lotion on rashes for itching", "Oatmeal bath (colloidal oatmeal in warm water) for soothing", "Keep fingernails short (especially children)", "Wear loose, soft cotton clothing", "Rest in cool, comfortable room", "Stay hydrated with fluids", "Use gloves at night to prevent scratching"],
+            "hi": ["छालों को न खुजलाएं (निशान पड़ सकते हैं)", "दानों पर कैलामाइन लोशन लगाएं", "ओटमील के पानी से नहाएं", "नाखून छोटे रखें", "ढीले, मुलायम सूती कपड़े पहनें", "ठंडे कमरे में आराम करें", "पानी पिएं", "रात में दस्ताने पहनें"]
+        },
+        "medicines": [
+            {"name": "Calamine Lotion 15%", "dosage": "Apply to affected area 3-4 times daily for itching", "type": "lotion", "line": "first", "source": "CDC; AAP Guidelines"},
+            {"name": "Paracetamol 500mg (for fever)", "dosage": "500-1000 mg every 6 hours as needed (max 4000 mg/day)", "type": "tablet", "line": "first", "source": "AAP Red Book; WHO"},
+            {"name": "Acyclovir 800mg (antiviral)", "dosage": "800 mg five times daily for 7 days (start within 24-48h of rash)", "type": "tablet", "line": "second", "source": "CDC; WHO Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Rash spreading to eyes", "High fever >102°F lasting >4 days", "Blister gets infected (red, warm, oozing pus)", "Difficulty breathing or severe cough", "Severe headache, stiff neck, confusion", "Vomiting or dehydration"],
+            "hi": ["दाने आंखों में फैल जाएं", "4 दिन से अधिक तेज बुखार", "छाले में संक्रमण (लाल, गर्म, मवाद)", "सांस लेने में कठिनाई", "गंभीर सिरदर्द, गर्दन अकड़न, भ्रम", "उल्टी या निर्जलीकरण"]
+        },
+        "needs_surgery": False
+    },
+    "toothache": {
+        "en": ["toothache", "dant dard", "tooth pain", "dental pain", "daant mein dard", "molar pain", "cavity pain"],
+        "hi": "दांत का दर्द / टूथएक",
+        "description": {
+            "en": "Toothache is pain in or around a tooth. Common causes: tooth decay (cavity), gum disease, abscess, cracked tooth, or impacted wisdom tooth. Can range from mild sensitivity to severe throbbing pain.",
+            "hi": "दांत का दर्द दांत में या उसके आसपास दर्द है। आम कारण: कीड़ा लगना (कैविटी), मसूड़ों की बीमारी, फोड़ा, टूटा दांत, या अक्ल दाढ़।"
+        },
+        "possible_causes": {
+            "en": ["Tooth decay / cavity (deep caries)", "Gum disease (gingivitis, periodontitis)", "Dental abscess (pus infection at root)", "Cracked or fractured tooth", "Impacted wisdom tooth", "Tooth grinding (bruxism)", "Sinus infection (referred pain to upper teeth)"],
+            "hi": ["दांत में कीड़ा / कैविटी", "मसूड़ों की बीमारी (मसूड़े की सूजन)", "दांत का फोड़ा (जड़ में मवाद)", "टूटा या फ्रैक्चर दांत", "अक्ल दाढ़ का दबना", "दांत पीसना (ब्रक्सिज्म)", "साइनस संक्रमण का दर्द दांत में"]
+        },
+        "home_remedies": {
+            "en": ["Salt water rinse (1 tsp salt in warm water) 3-4 times daily", "Cold compress on cheek near painful area", "Clove oil on cotton ball applied to tooth (natural anesthetic)", "Elevate head while sleeping", "Avoid very hot, cold, or sweet foods/drinks", "Do not chew on painful side", "Brush gently around painful area"],
+            "hi": ["नमक के गर्म पानी से कुल्ला करें (दिन में 3-4 बार)", "गाल पर ठंडी पट्टी रखें", "लौंग का तेल रुई पर लगाकर दांत पर रखें", "सिर ऊंचा करके सोएं", "गर्म, ठंडा, मीठा न खाएं", "दर्द वाली तरफ से न चबाएं", "हल्के से ब्रश करें"]
+        },
+        "medicines": [
+            {"name": "Ibuprofen 400mg", "dosage": "400 mg every 6-8 hours with food (best for dental pain)", "type": "tablet", "line": "first", "source": "ADA Guidelines; Cochrane Review"},
+            {"name": "Paracetamol 500mg + Codeine 8mg", "dosage": "1-2 tablets every 6 hours as needed", "type": "tablet", "line": "first", "source": "ADA Guidelines; WHO"},
+            {"name": "Chlorhexidine 0.2% Mouthwash", "dosage": "Rinse 10 ml for 30 seconds twice daily (after brushing)", "type": "mouthwash", "line": "first", "source": "ADA; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Facial swelling (spreading to eye or neck)", "High fever with tooth pain", "Difficulty swallowing or opening mouth", "Pus draining from around tooth", "Severe pain not controlled by OTC medicine", "Bleeding from gums that won't stop"],
+            "hi": ["चेहरे पर सूजन (आंख या गर्दन तक फैलना)", "दांत दर्द के साथ तेज बुखार", "निगलने या मुंह खोलने में कठिनाई", "दांत से मवाद निकलना", "OTC दवा से न ठीक होने वाला दर्द", "मसूड़ों से न रुकने वाला खून"]
+        },
+        "needs_surgery": True
+    },
+    "obesity": {
+        "en": ["obesity", "motapa", "weight gain", "overweight", "fat", "moti", "extra weight", "body fat"],
+        "hi": "मोटापा / अधिक वजन",
+        "description": {
+            "en": "Obesity is a medical condition where excess body fat accumulates to the point of negatively affecting health. BMI ≥30 is obese, BMI 25-29.9 is overweight. Major risk factor for diabetes, heart disease, and joint problems.",
+            "hi": "मोटापा एक चिकित्सा स्थिति है जहां शरीर में अत्यधिक चर्बी जमा हो जाती है। BMI ≥30 मोटापा, BMI 25-29.9 अधिक वजन। मधुमेह, हृदय रोग, जोड़ों के दर्द का बड़ा कारण।"
+        },
+        "possible_causes": {
+            "en": ["Caloric intake > calories burned (main cause)", "Genetics / family history", "Sedentary lifestyle (no exercise, desk job)", "Unhealthy diet (processed food, sugary drinks, large portions)", "Medical conditions (hypothyroidism, PCOS, Cushing's)", "Certain medications (steroids, antidepressants)", "Poor sleep / stress (hormonal changes)", "Emotional eating / binge eating disorder"],
+            "hi": ["कैलोरी intake > खर्च (मुख्य कारण)", "आनुवंशिकता", "गतिहीन जीवनशैली (व्यायाम नहीं)", "अस्वास्थ्यकर आहार (जंक फूड, शर्करा पेय)", "चिकित्सा स्थितियां (थायराइड, PCOS)", "कुछ दवाएं (स्टेरॉयड)", "खराब नींद / तनाव", "भावनात्मक भोजन"]
+        },
+        "home_remedies": {
+            "en": ["Eat a balanced diet: protein (30%), vegetables (40%), whole grains (20%), healthy fats (10%)", "Avoid sugary drinks, fast food, fried items", "Exercise 30-45 minutes daily (brisk walking, cycling, swimming)", "Sleep 7-8 hours daily", "Drink 8-10 glasses of water daily", "Eat slowly and mindfully", "Keep a food diary", "Reduce portion sizes (use smaller plates)"],
+            "hi": ["संतुलित आहार: प्रोटीन (30%), सब्जियां (40%), साबुत अनाज (20%), हेल्दी फैट (10%)", "शर्करा पेय, जंक फूड, तली चीजों से बचें", "रोज 30-45 मिनट व्यायाम करें", "7-8 घंटे सोएं", "8-10 गिलास पानी पिएं", "धीरे-धीरे खाएं", "भोजन डायरी रखें", "थाली का आकार छोटा करें"]
+        },
+        "medicines": [
+            {"name": "Orlistat 120mg", "dosage": "120 mg three times daily with meals containing fat", "type": "capsule", "line": "second", "source": "FDA; AACE/ACE Obesity Guidelines"},
+            {"name": "Metformin 500mg (if pre-diabetic)", "dosage": "500 mg once daily with dinner, increase gradually", "type": "tablet", "line": "second", "source": "ADA; AACE Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["BMI >40 (severe/morbid obesity)", "Unexplained rapid weight gain (possible medical cause)", "Severe sleep apnea (gasping during sleep, daytime drowsiness)", "Obesity with chest pain or shortness of breath", "Joint pain preventing daily activities"],
+            "hi": ["BMI >40 (गंभीर मोटापा)", "अचानक तेजी से वजन बढ़ना", "गंभीर स्लीप एपनिया (नींद में सांस रुकना)", "मोटापा के साथ सीने में दर्द", "जोड़ों में दर्द रोजमर्रा के काम में बाधा"]
+        },
+        "needs_surgery": False
+    },
+    "hair_loss": {
+        "en": ["hair loss", "hair fall", "baal jharna", "baldness", "alopecia", "thinning hair", "ganja pan", "baal girna"],
+        "hi": "बाल झड़ना / हेयरफॉल",
+        "description": {
+            "en": "Hair loss (alopecia) can affect the scalp or entire body. Common types: male/female pattern baldness (androgenetic), telogen effluvium (stress-related), alopecia areata (patchy), and traction alopecia (tight hairstyles).",
+            "hi": "बाल झड़ना (एलोपेसिया) सिर या पूरे शरीर को प्रभावित कर सकता है। आम प्रकार: पुरुष/महिला पैटर्न गंजापन, तनाव से, पैची (अलोपेसिया एरीटा), टाइट हेयरस्टाइल से।"
+        },
+        "possible_causes": {
+            "en": ["Genetics (most common - male/female pattern baldness)", "Stress (telogen effluvium - temporary)", "Hormonal changes (pregnancy, menopause, thyroid)", "Nutritional deficiencies (iron, vitamin D, B12, zinc, protein)", "Certain medications (chemotherapy, antidepressants, BP meds)", "Scalp infections (fungal)", "Tight hairstyles (traction alopecia)", "Autoimmune (alopecia areata)", "Age (natural thinning)"],
+            "hi": ["आनुवंशिकता (सबसे आम)", "तनाव (अस्थायी)", "हार्मोनल बदलाव (गर्भावस्था, मेनोपॉज, थायराइड)", "पोषण की कमी (आयरन, विटामिन D, B12, जिंक)", "दवाएं (कीमोथेरेपी, एंटीडिप्रेसेंट)", "सिर में फंगल संक्रमण", "टाइट हेयरस्टाइल", "ऑटोइम्यून (अलोपेसिया एरीटा)", "उम्र बढ़ना"]
+        },
+        "home_remedies": {
+            "en": ["Eat protein-rich diet (eggs, fish, lentils, dairy, nuts)", "Take iron-rich foods (spinach, beetroot, jaggery)", "Apply coconut oil with few drops of rosemary oil to scalp 2x/week", "Aloe vera gel on scalp 30 min before wash", "Avoid hot water on hair (use lukewarm)", "Don't brush wet hair aggressively", "Avoid tight hairstyles (ponytails, braids)", "Reduce stress with meditation", "Get 7-8 hours of sleep"],
+            "hi": ["प्रोटीन युक्त भोजन (अंडे, मछली, दाल, दूध, नट्स)", "आयरन वाली चीजें (पालक, चुकंदर, गुड़)", "नारियल तेल में रोज़मेरी तेल डालकर सिर में लगाएं", "एलोवेरा जेल लगाएं", "गर्म पानी से बाल न धोएं", "गीले बालों में जोर से कंघी न करें", "टाइट हेयरस्टाइल से बचें", "ध्यान करें", "7-8 घंटे सोएं"]
+        },
+        "medicines": [
+            {"name": "Minoxidil 5% Topical Solution", "dosage": "Apply 1 ml to scalp twice daily (for men and women)", "type": "liquid", "line": "first", "source": "FDA; JAAD Guidelines"},
+            {"name": "Finasteride 1mg Tablet (men only)", "dosage": "1 mg once daily (takes 3-6 months to see results)", "type": "tablet", "line": "first", "source": "FDA; JAAD Guidelines"},
+            {"name": "Biotin 5000mcg (supplement)", "dosage": "5000 mcg once daily", "type": "tablet", "line": "first", "source": "NIH ODS; Dermatology Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Sudden patchy hair loss (possible alopecia areata)", "Hair loss with itching, scaling, or redness (possible fungal)", "Rapid hair loss after starting new medication", "Hair loss with fatigue, weight gain, cold intolerance (thyroid)", "Bald spots in beard or eyebrows too", "Hair loss with rash on face or body"],
+            "hi": ["अचानक पैची बाल झड़ना (अलोपेसिया एरीटा)", "खुजली के साथ बाल झड़ना (फंगल)", "नई दवा शुरू करने के बाद तेजी से झड़ना", "थकान, वजन बढ़ने के साथ बाल झड़ना (थायराइड)", "दाढ़ी या भौंहों में भी गंजे धब्बे", "चेहरे पर दाने के साथ बाल झड़ना"]
+        },
+        "needs_surgery": False
+    },
+    "fungal_infection": {
+        "en": ["fungal infection", "daad", "khujli", "ringworm", "jock itch", "athlete foot", "candidiasis", "yeast infection", "skin fungus", "white patches"],
+        "hi": "फंगल संक्रमण / दाद",
+        "description": {
+            "en": "Fungal skin infections are common, caused by dermatophytes or yeast. Types: ringworm (tinea), jock itch (tinea cruris), athlete's foot (tinea pedis), yeast infection (candidiasis). Contagious through skin contact or contaminated surfaces.",
+            "hi": "फंगल त्वचा संक्रमण आम हैं, डर्माटोफाइट्स या यीस्ट के कारण। प्रकार: दाद (टिनिया), जॉक इच, एथलीट फुट, यीस्ट संक्रमण। संक्रामक - त्वचा संपर्क या दूषित सतह से फैलता है।"
+        },
+        "possible_causes": {
+            "en": ["Dermatophyte fungi (Trichophyton, Microsporum)", "Yeast (Candida - especially in warm, moist areas)", "Poor hygiene / not drying skin properly", "Excessive sweating", "Tight or synthetic clothing", "Walking barefoot in public places (gym, pool)", "Weakened immune system (diabetes, HIV)", "Prolonged antibiotic use (kills good bacteria)"],
+            "hi": ["डर्माटोफाइट फंगस", "यीस्ट (कैंडिडा - गर्म, नम जगहों में)", "खराब स्वच्छता / त्वचा को न सुखाना", "अत्यधिक पसीना", "टाइट या सिंथेटिक कपड़े", "नंगे पैर सार्वजनिक स्थानों पर चलना", "कमजोर प्रतिरक्षा (मधुमेह, HIV)", "लंबे समय तक एंटीबायोटिक का उपयोग"]
+        },
+        "home_remedies": {
+            "en": ["Keep affected area clean and DRY (fungus loves moisture)", "Change socks and underwear daily", "Wear loose, cotton clothing", "Apply coconut oil or tea tree oil (antifungal properties)", "Use separate towel for affected area", "Wash towels and bedsheets in hot water", "Avoid sharing towels, clothes, shoes", "Do not scratch (spreads infection)"],
+            "hi": ["प्रभावित क्षेत्र को साफ और सूखा रखें (फंगस को नमी पसंद है)", "रोज मोजे और अंडरगारमेंट बदलें", "ढीले, सूती कपड़े पहनें", "नारियल तेल या टी ट्री ऑयल लगाएं", "अलग तौलिया रखें", "गर्म पानी में तौलिए धोएं", "तौलिया, कपड़े, जूते शेयर न करें", "खुजलाएं नहीं (संक्रमण फैलता है)"]
+        },
+        "medicines": [
+            {"name": "Clotrimazole 1% Cream", "dosage": "Apply thin layer to affected area twice daily for 2-4 weeks", "type": "cream", "line": "first", "source": "CDC; WHO Essential Medicines"},
+            {"name": "Terbinafine 1% Cream", "dosage": "Apply once daily for 1-2 weeks", "type": "cream", "line": "first", "source": "FDA; JAAD Guidelines"},
+            {"name": "Fluconazole 150mg (oral - for severe/candidiasis)", "dosage": "150 mg single dose (repeat after 1 week if needed)", "type": "tablet", "line": "second", "source": "CDC; IDSA Guidelines"},
+            {"name": "Ketoconazole 2% Shampoo (for scalp fungus)", "dosage": "Use 2-3 times per week, leave on 5 min before rinsing", "type": "shampoo", "line": "first", "source": "JAAD Guidelines; FDA"},
+        ],
+        "red_flags": {
+            "en": ["Infection spreading rapidly despite treatment", "Pain, swelling, warmth, pus (possible secondary bacterial infection)", "Fever with skin infection", "Diabetes patient with recurrent fungal infections", "Infection on face or near eyes", "Non-healing for >4 weeks with treatment"],
+            "hi": ["इलाज के बावजूद तेजी से फैलना", "दर्द, सूजन, गर्मी, मवाद (बैक्टीरियल संक्रमण)", "त्वचा संक्रमण के साथ बुखार", "मधुमेह रोगी में बार-बार फंगल", "चेहरे या आंखों के पास संक्रमण", "4 सप्ताह के इलाज में भी ठीक न हो"]
+        },
+        "needs_surgery": False
+    },
+    "gout": {
+        "en": ["gout", "uric acid", "high uric acid", "gathiya", "foot pain uric acid", "big toe pain", "joint inflammation"],
+        "hi": "गाउट / यूरिक एसिड",
+        "description": {
+            "en": "Gout is a form of arthritis caused by uric acid crystal buildup in joints. Characterized by sudden, severe attacks of pain, redness, and tenderness (often in big toe). Flares last 3-10 days.",
+            "hi": "गाउट गठिया का एक रूप है जो जोड़ों में यूरिक एसिड क्रिस्टल जमा होने से होता है। अचानक तेज दर्द, लालिमा, सूजन (अक्सर अंगूठे में)। 3-10 दिन तक रहता है।"
+        },
+        "possible_causes": {
+            "en": ["High uric acid levels (hyperuricemia)", "Diet rich in purines (red meat, organ meat, seafood, beer)", "Genetics / family history", "Obesity", "Kidney disease (poor uric acid clearance)", "Certain medications (diuretics, aspirin)", "Dehydration", "Alcohol consumption (especially beer)", "Crash diets or fasting"],
+            "hi": ["यूरिक एसिड का बढ़ना", "प्यूरीन युक्त आहार (लाल मांस, अंग मांस, समुद्री भोजन, बीयर)", "आनुवंशिकता", "मोटापा", "गुर्दा रोग", "कुछ दवाएं (डाइयूरेटिक्स, एस्पिरिन)", "निर्जलीकरण", "शराब (विशेषकर बीयर)", "अचानक कम खाना / उपवास"]
+        },
+        "home_remedies": {
+            "en": ["Rest the affected joint - do not walk or put pressure", "Apply ice pack for 15-20 min several times daily", "Elevate the foot/joint above heart level", "Drink 10-12 glasses of water daily (flushes uric acid)", "Avoid alcohol and sugary drinks completely during flare", "Limit red meat, organ meats, and seafood", "Cherries or cherry juice may help reduce uric acid"],
+            "hi": ["प्रभावित जोड़ को आराम दें", "15-20 मिनट के लिए आइस पैक लगाएं", "पैर/जोड़ को दिल के स्तर से ऊपर रखें", "10-12 गिलास पानी रोज पिएं", "फ्लेयर के दौरान शराब और शर्करा पेय न पिएं", "लाल मांस, अंग मांस, समुद्री भोजन कम करें", "चेरी या चेरी का जूस फायदेमंद"]
+        },
+        "medicines": [
+            {"name": "Naproxen Sodium 550mg", "dosage": "550 mg twice daily with food during flare (3-5 days)", "type": "tablet", "line": "first", "source": "ACR Gout Guidelines; FDA"},
+            {"name": "Colchicine 0.5mg", "dosage": "1.2 mg (2 tablets) at first sign of flare, then 0.6 mg after 1 hour", "type": "tablet", "line": "first", "source": "ACR/EULAR Gout Guidelines; FDA"},
+            {"name": "Allopurinol 100mg (for prevention)", "dosage": "100-300 mg once daily (start AFTER flare resolves)", "type": "tablet", "line": "second", "source": "ACR Guidelines; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Fever with joint pain and redness (possible septic arthritis)", "Multiple joints affected at the same time", "No improvement after 3 days of treatment", "Severe pain preventing any movement", "Tophi (uric acid lumps under skin) forming", "Kidney pain or blood in urine (kidney stones)"],
+            "hi": ["बुखार के साथ जोड़ों का दर्द और लालिमा", "एक ही समय में कई जोड़ प्रभावित", "3 दिन इलाज में कोई सुधार नहीं", "गंभीर दर्द से हिलना भी मुश्किल", "त्वचा के नीचे यूरिक एसिड गांठें", "गुर्दे में दर्द या पेशाब में खून"]
+        },
+        "needs_surgery": False
+    },
+    "hypothyroidism": {
+        "en": ["thyroid", "hypothyroidism", "low thyroid", "thyroid deficiency", "thairayd", "underactive thyroid", "weight gain thyroid", "fatigue thyroid"],
+        "hi": "थायराइड / हाइपोथायरायडिज्म",
+        "description": {
+            "en": "Hypothyroidism is a condition where the thyroid gland doesn't produce enough thyroid hormone. Common symptoms: fatigue, weight gain, cold intolerance, dry skin, hair loss, constipation, slow heart rate.",
+            "hi": "हाइपोथायरायडिज्म वह स्थिति है जहां थायराइड ग्रंथि पर्याप्त थायराइड हार्मोन नहीं बनाती। लक्षण: थकान, वजन बढ़ना, ठंड सहन न होना, सूखी त्वचा, बाल झड़ना, कब्ज।"
+        },
+        "possible_causes": {
+            "en": ["Autoimmune (Hashimoto's thyroiditis - most common)", "Iodine deficiency (rare in developed countries)", "Post-thyroidectomy (surgical removal)", "Radiation therapy to neck", "Certain medications (lithium, amiodarone)", "Pituitary gland disorder (secondary)", "Congenital (present at birth)"],
+            "hi": ["ऑटोइम्यून (हाशिमोटो थायरॉयडिटिस - सबसे आम)", "आयोडीन की कमी", "थायराइड सर्जरी के बाद", "गर्दन पर विकिरण चिकित्सा", "कुछ दवाएं (लिथियम, एमियोडेरोन)", "पिट्यूटरी ग्रंथि विकार", "जन्मजात"]
+        },
+        "home_remedies": {
+            "en": ["Take thyroid medication at same time daily (empty stomach, 30-60 min before breakfast)", "Avoid taking with calcium/iron supplements or high-fiber foods (within 4 hours)", "Eat foods rich in selenium (brazil nuts, tuna, eggs)", "Include zinc-rich foods (pumpkin seeds, chickpeas)", "Reduce soy intake (can interfere with thyroid function)", "Exercise 30 min daily (helps metabolism)", "Manage stress (can worsen thyroid conditions)"],
+            "hi": ["थायराइड दवा रोज एक ही समय पर लें (खाली पेट, नाश्ते से 30-60 मिनट पहले)", "कैल्शियम/आयरन सप्लीमेंट या फाइबर युक्त भोजन के साथ 4 घंटे के भीतर न लें", "सेलेनियम युक्त भोजन (ब्राजील नट्स, टूना, अंडे)", "जिंक युक्त भोजन (कद्दू के बीज, चना)", "सोया कम करें", "रोज 30 मिनट व्यायाम", "तनाव प्रबंधन"]
+        },
+        "medicines": [
+            {"name": "Levothyroxine Sodium 25mcg", "dosage": "25-50 mcg once daily on empty stomach (dose adjusted per TSH levels)", "type": "tablet", "line": "first", "source": "ATA Hypothyroidism Guidelines; ICMR India"},
+            {"name": "Levothyroxine Sodium 100mcg", "dosage": "50-200 mcg once daily (as prescribed based on TSH)", "type": "tablet", "line": "first", "source": "ATA Guidelines; FDA"},
+        ],
+        "red_flags": {
+            "en": ["Myxedema coma: extreme fatigue, cold intolerance, unconsciousness (rare emergency)", "Swelling in neck (goiter) causing difficulty swallowing/breathing", "Heart palpitations or chest pain (especially starting medication)", "Severe depression or mental fog", "Pregnancy with hypothyroidism (needs immediate dose adjustment)"],
+            "hi": ["मायक्सेडीमा कोमा: अत्यधिक थकान, ठंड, बेहोशी (दुर्लभ आपातकाल)", "गर्दन में सूजन (गॉयटर) निगलने/सांस में कठिनाई", "नई दवा शुरू करने पर दिल की धड़कन या सीने में दर्द", "गंभीर अवसाद या मानसिक धुंध", "गर्भावस्था में थायराइड (तुरंत डोज एडजस्टमेंट चाहिए)"]
+        },
+        "needs_surgery": False
+    },
+    "motion_sickness": {
+        "en": ["motion sickness", "travel sickness", "car sickness", "bus sickness", "safar mein ulti", "gadi mein ulti", "sea sickness", "vomiting in travel"],
+        "hi": "यात्रा में मतली / मोशन सिकनेस",
+        "description": {
+            "en": "Motion sickness is a common condition caused by conflicting signals between the eyes and inner ear (balance system). Symptoms: nausea, dizziness, vomiting, cold sweat, fatigue during travel.",
+            "hi": "मोशन सिकनेस आंखों और आंतरिक कान (संतुलन प्रणाली) के बीच विरोधाभासी संकेतों के कारण होती है। लक्षण: मतली, चक्कर, उल्टी, ठंडा पसीना, थकान।"
+        },
+        "possible_causes": {
+            "en": ["Conflicting sensory signals (eyes see movement but inner ear senses different motion)", "Reading while in moving vehicle", "Sitting in back seat or facing backwards", "Strong smells (fuel, food)", "Anxiety about travel", "Hot, stuffy environment", "Winding roads / rough seas / turbulence"],
+            "hi": ["संवेदी संकेतों का विरोधाभास", "चलती गाड़ी में पढ़ना", "पीछे की सीट या विपरीत दिशा में बैठना", "तेज गंध (ईंधन, भोजन)", "यात्रा की चिंता", "गर्म, भरी हवा", "घुमावदार सड़कें / समुद्री लहरें / अशांति"]
+        },
+        "home_remedies": {
+            "en": ["Sit in front passenger seat", "Focus on horizon or a distant fixed point", "Avoid reading or using phone while traveling", "Open window for fresh air", "Ginger candy or ginger tea (natural anti-nausea)", "Suck on lemon or mint candy", "Take small sips of cold water", "Avoid heavy meals before travel", "Take breaks during long journeys"],
+            "hi": ["आगे की सीट पर बैठें", "दूर क्षितिज पर ध्यान केंद्रित करें", "यात्रा में न पढ़ें न फोन चलाएं", "खिड़की खोलें", "अदरक की कैंडी या अदरक की चाय", "नींबू या पुदीने की कैंडी चूसें", "ठंडा पानी घूंट-घूंट पिएं", "यात्रा से पहले भारी भोजन न करें", "लंबी यात्रा में ब्रेक लें"]
+        },
+        "medicines": [
+            {"name": "Dimenhydrinate 50mg (Dramamine)", "dosage": "50 mg 30-60 min before travel, repeat every 6 hours as needed", "type": "tablet", "line": "first", "source": "FDA; WHO Essential Medicines"},
+            {"name": "Meclizine 25mg (Bonine)", "dosage": "25 mg 1 hour before travel, effective for 24 hours", "type": "tablet", "line": "first", "source": "FDA; UpToDate"},
+            {"name": "Ondansetron 4mg (if severe vomiting)", "dosage": "4 mg sublingual tablet at onset of nausea (dissolves under tongue)", "type": "tablet", "line": "second", "source": "FDA; ICMR India"},
+        ],
+        "red_flags": {
+            "en": ["Severe vomiting causing dehydration (no urine for 8h)", "Vertigo lasting hours after travel stops", "Headache with vomiting and vision changes", "Unequal pupil size or facial drooping with dizziness", "Vomiting with blood or bile (green/yellow)"],
+            "hi": ["गंभीर उल्टी से निर्जलीकरण (8 घंटे पेशाब नहीं)", "यात्रा रुकने के बाद भी घंटों चक्कर", "सिरदर्द और दृष्टि बदलाव के साथ उल्टी", "चक्कर के साथ चेहरा झुकना", "उल्टी में खून या पित्त (हरा/पीला)"]
+        },
+        "needs_surgery": False
+    },
 }
 
 SURGERY_INFO = {

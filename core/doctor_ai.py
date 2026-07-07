@@ -103,6 +103,7 @@ class MedicalDoctorAI:
         self.follow_up_count = 0
         self.greeted = False
         self.use_ai = AI_AVAILABLE
+        self.last_ai_advice = ""  # Stores the last AI advice text for PDF use
 
     def detect_danger(self, text):
         text_lower = text.lower()
@@ -321,6 +322,8 @@ class MedicalDoctorAI:
                 result = self._give_advice(self.reported_symptoms, lang)
             else:
                 result = self._ai_respond(user_message, lang)
+                if isinstance(result, dict):
+                    self.last_ai_advice = result.get("response", "")
         elif self.use_ai:
             result = self._ai_respond(user_message, lang)
             # Back-fill symptoms from AI response + user conversation
@@ -445,9 +448,16 @@ class MedicalDoctorAI:
                     for a in advice[:3]:
                         pg.add_advice(a)
         else:
-            pg.add_advice("Consult a qualified doctor for proper diagnosis and treatment.")
-            pg.add_advice("Do not self-medicate without professional advice.")
-            pg.add_advice("Maintain a healthy lifestyle: balanced diet, exercise, adequate sleep.")
+            # Use AI's advice if available (for conditions not in DB)
+            if self.last_ai_advice:
+                # Extract key points from AI advice (first 3 sentences)
+                sentences = [s.strip() for s in self.last_ai_advice.replace("•", ".").replace("\n", ".").split(".") if s.strip()]
+                for s in sentences[:4]:
+                    pg.add_advice(s)
+            else:
+                pg.add_advice("Consult a qualified doctor for proper diagnosis and treatment.")
+                pg.add_advice("Do not self-medicate without professional advice.")
+                pg.add_advice("Maintain a healthy lifestyle: balanced diet, exercise, adequate sleep.")
         tests_map = {
             "fever": ["CBC", "Malaria/PCR", "Urine R/M"], "headache": ["BP check", "CT/MRI brain"],
             "chest_pain": ["ECG", "Troponin", "Chest X-ray"], "cough_cold": ["CBC", "Chest X-ray"],
@@ -659,13 +669,6 @@ class MedicalDoctorAI:
                     lines.append(f"• {t}")
 
         response = "\n".join(lines)
-
-        # Append formatted prescription summary
-        try:
-            rx_summary = self.generate_consultation_summary(lang)
-            response += "\n\n---\n" + rx_summary
-        except Exception:
-            pass
 
         return {"response": response, "lang": lang, "symptoms": symptoms}
 

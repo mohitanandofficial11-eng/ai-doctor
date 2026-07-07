@@ -140,13 +140,17 @@ class MedicalDoctorAI:
                 r"age\s*(is|:)?\s*(\d+)",
                 r"(\d+)\s*(saal|sal|years|year)",
                 r"(meri|mera|my)\s*(age|umar|umr)\s*(\d+)",
+                r"(\d+)\s*(year|saal|sal)\s*(old|ka|ki)",
+                r"(\d+)\s*(?:yo|yr)",
             ],
             "name": [
-                r"(my name is|i'm|i am|mera naam)\s*(\w+\s*\w*)",
+                r"(my name is|i'm|i am|mera naam|mera nam)\s*(\w+\s*\w*)",
                 r"name\s*(is|:)?\s*(\w+\s*\w*)",
+                r"call me\s*(\w+)",
+                r"i am\s*(\w+)",
             ],
             "gender": [
-                r"(male|female|man|woman|mard|aurat|ladka|ladki)",
+                r"\b(male|female|man|woman|mard|aurat|ladka|ladki|boy|girl)\b",
             ]
         }
         for key, pats in patterns.items():
@@ -214,10 +218,25 @@ class MedicalDoctorAI:
         self.extract_patient_info(user_message)
         detected_symptoms = self.extract_symptoms(user_message)
 
+        # Check for medicine/surgery info requests
+        lower = user_message.lower().strip()
+        med_triggers = ["info about", "tell me about", "what is", "medicine for",
+                        "dawai", "medicine", "drug"]
+        is_med_query = any(t in lower for t in [" info about ", " tell me about ",
+                          " what is ", " medicine for ", " dawai "])
+        is_surg_query = any(t in lower for t in [" surgery ", " operation ", " surgeri "])
+
         self.conversation_history.append({"role": "user", "message": user_message, "lang": lang})
 
         if self.detect_danger(user_message):
             result = self._emergency_response(lang)
+        elif is_surg_query and any(s in lower for s in SURGERY_INFO):
+            surg_name = next(s for s in SURGERY_INFO if s in lower)
+            info = self.get_surgery_info(surg_name, lang)
+            if info:
+                result = {"response": info, "lang": lang}
+            else:
+                result = self._ai_respond(user_message, lang)
         elif self.use_ai:
             result = self._ai_respond(user_message, lang)
         elif not detected_symptoms and self.stage == "new" and not self.greeted:
@@ -238,15 +257,100 @@ class MedicalDoctorAI:
             result["role"] = "doctor"
         return result
 
+    def generate_consultation_summary(self, lang="en"):
+        """Generate a summary of the consultation for prescription."""
+        from .prescription_gen import PrescriptionGenerator
+        rx = PrescriptionGenerator(
+            patient_name=self.patient_info.get("name", "Patient"),
+            lang=lang
+        )
+        for sym_id in self.reported_symptoms:
+            if sym_id in SYMPTOMS_DB:
+                meds = SYMPTOMS_DB[sym_id].get("medicines", [])
+                for med in meds[:2]:
+                    rx.add_medicine(
+                        med["name"],
+                        med["dosage"],
+                        timing="as needed" if "emergency" in med.get("line", "") else "as directed",
+                        note=f"Line: {med.get('line', 'N/A')}"
+                    )
+                if lang == "hi":
+                    rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["hi"][:2]))
+                else:
+                    rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["en"][:2]))
+        tests = {
+            "fever": ["CBC", "Malaria/PCR", "Widal"],
+            "headache": ["BP check", "CT/MRI brain (if severe)"],
+            "chest_pain": ["ECG", "Troponin", "Chest X-ray"],
+            "cough_cold": ["CBC", "Chest X-ray"],
+            "acidity": ["Upper GI endoscopy"],
+            "back_pain": ["X-ray spine", "MRI lumbar"],
+            "skin_rash": ["Skin biopsy", "CBC"],
+            "kidney_stone": ["USG KUB", "Urine R/M"],
+            "high_bp": ["Lipid profile", "ECG", "KFT"],
+            "diabetes": ["FBS/PPBS", "HbA1c"],
+            "diarrhea": ["Stool R/M", "Stool culture"],
+            "depression": ["PHQ-9", "Thyroid profile"],
+            "anxiety": ["GAD-7", "Thyroid profile"],
+        }
+        for sym_id in self.reported_symptoms:
+            for t in tests.get(sym_id, [])[:2]:
+                rx.add_investigation(t)
+        if lang == "hi":
+            rx.set_follow_up("1 सप्ताह में दोबारा मिलें या लक्षण बिगड़ने पर तुरंत")
+        else:
+            rx.set_follow_up("Review in 1 week or sooner if symptoms worsen")
+        return rx.generate_markdown()
+
+    def get_specialist_referral(self, lang="en"):
+        """Suggest the right specialist based on symptoms."""
+        if not self.reported_symptoms:
+            return None
+        specialty_id = self.identify_specialty(self.reported_symptoms)
+        spec = SPECIALTIES.get(specialty_id, SPECIALTIES["general"])
+        name_en = spec["name_en"]
+        name_hi = spec["name_hi"]
+        if lang == "hi":
+            return f"👉 **सुझाव:** कृपया **{name_hi}** विशेषज्ञ से सलाह लें।"
+        return f"👉 **Recommendation:** Please consult a **{name_en}** specialist."
+
+    def _build_patient_context(self):
+        parts = []
+        if self.patient_info.get("name"):
+            parts.append(f"Patient name: {self.patient_info['name']}")
+        if self.patient_info.get("age"):
+            parts.append(f"Age: {self.patient_info['age']}")
+        if self.patient_info.get("gender"):
+            parts.append(f"Gender: {self.patient_info['gender']}")
+        if self.reported_symptoms:
+            sym_names = []
+            for s in self.reported_symptoms:
+                sd = SYMPTOMS_DB.get(s, {})
+                sym_names.append(sd.get("en", [s])[0] if sd else s)
+            parts.append(f"Reported symptoms: {', '.join(sym_names)}")
+        if self.stage == "advised":
+            parts.append("Stage: Already given initial advice")
+        elif self.stage == "symptom_reported":
+            parts.append(f"Stage: Gathering follow-up info (question {self.follow_up_count + 1})")
+        return "\n".join(parts) if parts else "New patient, no info yet."
+
     def _ai_respond(self, user_message, lang):
         try:
+            context = self._build_patient_context()
             sys_prompt = (
-                "You are Dr. Aarogya, an AI medical assistant. Talk like a real doctor - "
-                "friendly, empathetic, and professional. Ask follow-up questions naturally. "
-                "Give concise advice, home remedies, and suggest relevant tests. "
-                "Keep responses medium-length — 3-5 sentences max. No long paragraphs. "
-                "Use natural conversational language, not robotic. "
-                f"Respond in {'Hinglish' if lang == 'hi' else 'English'} naturally. "
+                "You are Dr. Aarogya, an AI medical assistant. Talk like a real experienced doctor - "
+                "warm, empathetic, and professional. Use natural conversation, not robotic.\n\n"
+                f"Patient Context:\n{context}\n\n"
+                "Guidelines:\n"
+                "- Ask 1-2 relevant follow-up questions if needed (duration, severity, associated symptoms)\n"
+                "- Give concise advice (4-6 sentences max)\n"
+                "- Include home remedies when safe\n"
+                "- Suggest when to see a specialist (e.g., 'You should consult a cardiologist if...')\n"
+                "- Recommend relevant tests\n"
+                "- NEVER prescribe specific prescription drugs - say 'consult a doctor for prescription medicine'\n"
+                "- For emergencies, say 'This needs immediate medical attention'\n"
+                "- If you don't know, say 'I'm not sure, please consult a doctor'\n"
+                f"Respond in {'Hinglish (Hindi-English mix)' if lang == 'hi' else 'English'} naturally.\n"
                 "Never use 'abe', 'yaar', 'bhai', 'arre'."
             )
             messages = [{"role": "system", "content": sys_prompt}]
@@ -257,11 +361,13 @@ class MedicalDoctorAI:
             response = AI_CLIENT.chat.completions.create(
                 model=AI_MODEL,
                 messages=messages,
-                max_tokens=800
+                max_tokens=800,
+                temperature=0.7
             )
             text = response.choices[0].message.content.strip()
+            self.conversation_history.append({"role": "assistant", "message": text, "lang": lang})
             return {"response": text, "lang": lang}
-        except Exception:
+        except Exception as e:
             return self._fallback_response(lang)
 
     def _handle_symptoms(self, symptoms, lang):

@@ -634,6 +634,420 @@ SYMPTOMS_DB = {
     }
 }
 
+    "uti": {
+        "en": ["uti", "urine infection", "burning urine", "peshab mein jalan", "urinary infection",
+               "frequent urine", "peshab mein dard", "uti infection"],
+        "hi": "मूत्र मार्ग संक्रमण (UTI)",
+        "description": {
+            "en": "Urinary Tract Infection is an infection in any part of the urinary system - kidneys, ureters, bladder, urethra.",
+            "hi": "मूत्र मार्ग संक्रमण मूत्र प्रणाली के किसी भी भाग में संक्रमण है।"
+        },
+        "possible_causes": {
+            "en": ["Bacterial infection (E. coli most common)", "Poor hygiene", "Dehydration",
+                   "Sexual activity", "Diabetes", "Pregnancy", "Enlarged prostate (men)"],
+            "hi": ["जीवाणु संक्रमण (E. coli सबसे आम)", "खराब स्वच्छता", "कम पानी पीना",
+                   "यौन गतिविधि", "मधुमेह", "गर्भावस्था", "बढ़ा हुआ प्रोस्टेट (पुरुष)"]
+        },
+        "home_remedies": {
+            "en": ["Drink plenty of water (8-10 glasses daily)", "Cranberry juice (may help prevent UTI)",
+                   "Urinate frequently - don't hold", "Wipe front to back after toilet",
+                   "Avoid perfumed soaps in intimate area", "Warm compress on lower abdomen",
+                   "Vitamin C supplements may help"],
+            "hi": ["खूब पानी पिएं (दिन में 8-10 गिलास)", "क्रैनबेरी जूस (UTI रोकथाम में मददगार)",
+                   "बार-बार पेशाब करें - रोकें नहीं", "शौच के बाद आगे से पीछे की ओर साफ करें",
+                   "अंतरंग क्षेत्र में सुगंधित साबुन से बचें", "निचले पेट पर गर्म सिकाई",
+                   "विटामिन C फायदेमंद हो सकता है"]
+        },
+        "medicines": [
+            {"name": "Nitrofurantoin", "dosage": "100 mg twice daily for 5 days", "type": "capsule", "line": "first", "source": "IDSA Guidelines; WHO"},
+            {"name": "Trimethoprim-Sulfamethoxazole", "dosage": "1 DS tablet twice daily for 3 days", "type": "tablet", "line": "first", "source": "IDSA; ICMR India STW"},
+            {"name": "Norfloxacin", "dosage": "400 mg twice daily for 3-5 days", "type": "tablet", "line": "first", "source": "ICMR India STW"},
+        ],
+        "red_flags": {
+            "en": ["Fever >101°F with chills (kidney infection)", "Blood in urine", "Nausea/vomiting",
+                   "Back pain on one side (flank pain)", "Can't urinate"],
+            "hi": ["बुखार >101°F के साथ ठंड लगना (गुर्दे में संक्रमण)", "पेशाब में खून", "मतली/उल्टी",
+                   "एक तरफ पीठ दर्द (कमर के पास)", "पेशाब नहीं कर पाना"]
+        },
+        "needs_surgery": False
+    },
+    "joint_pain": {
+        "en": ["joint pain", "joints", "arthritis", "gathiya", "knee pain", "shoulder pain",
+               "jod dard", "jodon mein dard", "sujaan"],
+        "hi": "जोड़ों का दर्द / गठिया",
+        "description": {
+            "en": "Joint pain can be due to arthritis, injury, or other conditions affecting the joints.",
+            "hi": "जोड़ों का दर्द गठिया, चोट या अन्य स्थितियों के कारण हो सकता है।"
+        },
+        "possible_causes": {
+            "en": ["Osteoarthritis (age-related wear and tear)", "Rheumatoid arthritis (autoimmune)",
+                   "Gout (uric acid crystals)", "Injury or overuse", "Infection (septic arthritis - emergency)",
+                   "Bursitis / Tendonitis", "Lupus or other autoimmune disorders"],
+            "hi": ["ऑस्टियोआर्थराइटिस (उम्र के कारण)", "रूमेटॉइड आर्थराइटिस (ऑटोइम्यून)",
+                   "गाउट (यूरिक एसिड क्रिस्टल)", "चोट या अधिक उपयोग", "संक्रमण (सेप्टिक आर्थराइटिस - आपातकाल)",
+                   "बर्साइटिस / टेंडोनाइटिस", "ल्यूपस या अन्य ऑटोइम्यून विकार"]
+        },
+        "home_remedies": {
+            "en": ["Rest the affected joint", "Apply ice packs for 15-20 min (for acute injury/inflammation)",
+                   "Warm compress for chronic pain/stiffness", "Gentle stretching and range of motion exercises",
+                   "Maintain healthy weight", "Eat anti-inflammatory foods (turmeric, ginger, fish oil)",
+                   "Use supportive braces if needed", "Low-impact exercise (swimming, walking)"],
+            "hi": ["प्रभावित जोड़ को आराम दें", "तीव्र चोट/सूजन पर 15-20 मिनट बर्फ लगाएं",
+                   "पुराने दर्द/अकड़न पर गर्म सेक", "हल्का स्ट्रेचिंग और व्यायाम",
+                   "स्वस्थ वजन रखें", "सूजनरोधी खाद्य पदार्थ लें (हल्दी, अदरक, मछली का तेल)",
+                   "ज़रूरत पर सपोर्टिव ब्रेस का उपयोग करें", "कम प्रभाव वाला व्यायाम (तैराकी, चलना)"]
+        },
+        "medicines": [
+            {"name": "Paracetamol", "dosage": "500-650 mg every 6 hours", "type": "tablet", "line": "first", "source": "WHO; EULAR Guidelines"},
+            {"name": "Ibuprofen", "dosage": "400 mg every 8 hours with food", "type": "tablet", "line": "first", "source": "EULAR; WHO"},
+            {"name": "Diclofenac Gel (Topical)", "dosage": "apply thin layer 3-4 times daily", "type": "gel", "line": "first", "source": "EULAR; NICE"},
+            {"name": "Glucosamine + Chondroitin (supplement)", "dosage": "as directed on pack", "type": "tablet", "line": "supplement", "source": "OARSI Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Joint hot, red, and swollen with fever (septic arthritis)", "Joint deformity",
+                   "Severe pain after injury", "Unable to move the joint", "Rash with joint pain"],
+            "hi": ["बुखार के साथ लाल, गर्म, सूजा जोड़ (सेप्टिक आर्थराइटिस)", "जोड़ में विकृति",
+                   "चोट के बाद तेज दर्द", "जोड़ को हिलाने में असमर्थ", "दाने के साथ जोड़ों का दर्द"]
+        },
+        "needs_surgery": True,
+        "surgery_detail": {
+            "en": "Joint replacement (hip/knee), Arthroscopy, Synovectomy. Usually after failed conservative treatment. Source: AAOS/EULAR Guidelines",
+            "hi": "जोड़ बदलना (कूल्हा/घुटना), आर्थ्रोस्कोपी, सिनोवेक्टॉमी। आमतौर पर असफल रूढ़िवादी उपचार के बाद।"
+        }
+    },
+    "eye_infection": {
+        "en": ["eye infection", "red eye", "conjunctivitis", "aankh mein dard", "pink eye",
+               "aankh ka lal hona", "eye discharge", "sticky eye", "janaband"],
+        "hi": "आंख का संक्रमण / कंजक्टिवाइटिस",
+        "description": {
+            "en": "Conjunctivitis (pink eye) is inflammation of the thin clear tissue over the white part of the eye.",
+            "hi": "कंजक्टिवाइटिस आंख के सफेद भाग पर पतले ऊतक की सूजन है।"
+        },
+        "possible_causes": {
+            "en": ["Viral infection (most common - watery discharge)", "Bacterial infection (pus-like discharge)",
+                   "Allergy (itching, watering)", "Foreign body in eye", "Contact lens irritation",
+                   "Chemical exposure"],
+            "hi": ["वायरल संक्रमण (सबसे आम - पानी जैसा स्राव)", "जीवाणु संक्रमण (मवाद जैसा स्राव)",
+                   "एलर्जी (खुजली, पानी आना)", "आंख में बाहरी कण", "कॉन्टैक्ट लेंस से जलन",
+                   "रासायनिक जोखिम"]
+        },
+        "home_remedies": {
+            "en": ["Don't rub eyes - wash hands frequently", "Clean discharge with warm water and clean cloth",
+                   "Cold compress for allergic conjunctivitis", "Remove contact lenses immediately",
+                   "Don't share towels/pillows", "Throw away old eye makeup",
+                   "Use artificial tears (lubricating eye drops)"],
+            "hi": ["आंखों को न रगड़ें - बार-बार हाथ धोएं", "गर्म पानी और साफ कपड़े से स्राव साफ करें",
+                   "एलर्जिक कंजक्टिवाइटिस में ठंडी सिकाई", "तुरंत कॉन्टैक्ट लेंस हटाएं",
+                   "तौलिया/तकिया साझा न करें", "पुराने आई मेकअप को फेंक दें",
+                   "कृत्रिम आंसू (लुब्रिकेटिंग आई ड्रॉप्स) का उपयोग करें"]
+        },
+        "medicines": [
+            {"name": "Chloramphenicol Eye Drops (for bacterial)", "dosage": "1-2 drops every 2-4 hours", "type": "eye drops", "line": "first", "source": "WHO; NICE Guidelines"},
+            {"name": "Gentamicin Eye Drops", "dosage": "1-2 drops every 4-6 hours", "type": "eye drops", "line": "first", "source": "ICMR India STW"},
+            {"name": "Olopatadine Eye Drops (for allergic)", "dosage": "1 drop twice daily", "type": "eye drops", "line": "first", "source": "AAO Guidelines"},
+            {"name": "Lubricating Eye Drops (Artificial Tears)", "dosage": "as needed", "type": "eye drops", "line": "supportive", "source": "OTC Standard"},
+        ],
+        "red_flags": {
+            "en": ["Severe eye pain", "Vision changes or blurring", "Light sensitivity (photophobia)",
+                   "Eye injury or chemical exposure", "Swelling around eye with fever"],
+            "hi": ["आंख में तेज दर्द", "दृष्टि में बदलाव या धुंधलापन", "रोशनी से तकलीफ (फोटोफोबिया)",
+                   "आंख में चोट या रासायनिक संपर्क", "बुखार के साथ आंख के आसपास सूजन"]
+        },
+        "needs_surgery": False
+    },
+    "ear_infection": {
+        "en": ["ear infection", "ear pain", "kaan mein dard", "ear discharge", "otitis",
+               "ear ache", "swimmer ear", "kana"],
+        "hi": "कान का संक्रमण",
+        "description": {
+            "en": "Ear infections can affect the outer ear (otitis externa) or middle ear (otitis media).",
+            "hi": "कान के संक्रमण बाहरी कान (ओटाइटिस एक्सटर्ना) या मध्य कान (ओटाइटिस मीडिया) को प्रभावित कर सकते हैं।"
+        },
+        "possible_causes": {
+            "en": ["Bacterial or viral infection", "Water trapped in ear (swimmer's ear)",
+                   "Eustachian tube blockage (from cold/allergies)", "Earwax buildup",
+                   "Foreign object in ear", "Fungal infection"],
+            "hi": ["जीवाणु या वायरल संक्रमण", "कान में पानी फंसना (स्विमर का कान)",
+                   "यूस्टेशियन ट्यूब ब्लॉकेज (सर्दी/एलर्जी से)", "कान का मैल जमा होना",
+                   "कान में बाहरी वस्तु", "फंगल संक्रमण"]
+        },
+        "home_remedies": {
+            "en": ["Warm compress on affected ear", "Keep ear dry (use cotton ball while bathing)",
+                   "Sleep with affected ear elevated", "Chew gum (helps open Eustachian tube)",
+                   "Avoid inserting anything in ear", "For swimmer's ear: dilute vinegar + alcohol drops (equal parts)"],
+            "hi": ["प्रभावित कान पर गर्म सिकाई", "कान सूखा रखें (नहाते समय रुई का गोला)",
+                   "प्रभावित कान ऊपर करके सोएं", "गम चबाएं (यूस्टेशियन ट्यूब खोलने में मदद)",
+                   "कान में कुछ न डालें", "स्विमर कान में: सिरका + अल्कोहल बूंदें (बराबर मात्रा)"]
+        },
+        "medicines": [
+            {"name": "Paracetamol (for pain/fever)", "dosage": "500-650 mg every 6 hours", "type": "tablet", "line": "first", "source": "WHO"},
+            {"name": "Amoxicillin (for bacterial otitis media)", "dosage": "500 mg three times daily - 5-7 days", "type": "capsule", "line": "first", "source": "AAO-HNS Guidelines; WHO"},
+            {"name": "Ciprofloxacin Ear Drops (for otitis externa)", "dosage": "3-4 drops twice daily - 7 days", "type": "ear drops", "line": "first", "source": "AAO-HNS Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Severe pain with fever >102°F", "Pus or blood from ear", "Hearing loss",
+                   "Swelling behind ear", "Dizziness/vertigo"],
+            "hi": ["तेज दर्द के साथ 102°F से अधिक बुखार", "कान से मवाद या खून", "सुनने में कमी",
+                   "कान के पीछे सूजन", "चक्कर आना"]
+        },
+        "needs_surgery": True,
+        "surgery_detail": {
+            "en": "Myringotomy (tube insertion) for recurrent otitis media. Mastoidectomy for severe infections. Source: AAO-HNS Guidelines",
+            "hi": "बार-बार ओटाइटिस मीडिया के लिए मायरिंगोटॉमी (ट्यूब डालना)। गंभीर संक्रमण के लिए मास्टॉयडेक्टॉमी।"
+        }
+    },
+    "constipation": {
+        "en": ["constipation", "kabj", "kabaj", "hard stool", "difficulty passing stool",
+               "irregular bowel", "potty problem"],
+        "hi": "कब्ज",
+        "description": {
+            "en": "Constipation is infrequent bowel movements (less than 3 per week) or difficulty passing stool.",
+            "hi": "कब्ज में मल त्याग कम होता है (सप्ताह में 3 से कम) या मल निकालने में कठिनाई होती है।"
+        },
+        "possible_causes": {
+            "en": ["Low fiber diet", "Not drinking enough water", "Lack of exercise",
+                   "Stress", "Ignoring urge to go", "Certain medications", "IBS",
+                   "Thyroid disorders", "Pregnancy"],
+            "hi": ["कम फाइबर वाला आहार", "पर्याप्त पानी न पीना", "व्यायाम की कमी",
+                   "तनाव", "शौच की इच्छा को नज़रअंदाज करना", "कुछ दवाएं", "IBS",
+                   "थायराइड विकार", "गर्भावस्था"]
+        },
+        "home_remedies": {
+            "en": ["Eat high-fiber foods (fruits, vegetables, whole grains, legumes)",
+                   "Drink 8-10 glasses of water daily", "Start your day with warm water + lemon",
+                   "Include prunes/figs in diet", "Exercise 30 min daily (walking, yoga)",
+                   "Don't ignore the urge to go", "Probiotics (yogurt, buttermilk) help",
+                   "Try Triphala (Ayurvedic) at bedtime"],
+            "hi": ["उच्च फाइबर वाले खाद्य पदार्थ खाएं (फल, सब्जियां, साबुत अनाज, दालें)",
+                   "दिन में 8-10 गिलास पानी पिएं", "दिन की शुरुआत गर्म पानी + नींबू से करें",
+                   "आहार में आलूबुखारा/अंजीर शामिल करें", "रोज 30 मिनट व्यायाम करें (चलना, योग)",
+                   "शौच की इच्छा को अनदेखा न करें", "प्रोबायोटिक्स (दही, छाछ) मददगार",
+                   "रात को सोते समय त्रिफला लें (आयुर्वेदिक)"]
+        },
+        "medicines": [
+            {"name": "Psyllium Husk (Isabgol) - fiber supplement", "dosage": "1-2 tsp with water after meals", "type": "powder", "line": "first", "source": "ACG Guidelines; WHO"},
+            {"name": "Lactulose Syrup", "dosage": "15-30 ml once daily", "type": "syrup", "line": "first", "source": "ACG; ICMR India STW"},
+            {"name": "Bisacodyl Tablets (stimulant laxative)", "dosage": "5-10 mg at bedtime", "type": "tablet", "line": "second", "source": "ACG Guidelines"},
+        ],
+        "red_flags": {
+            "en": ["Blood in stool", "Severe abdominal pain", "Unexplained weight loss",
+                   "Constipation lasting >3 weeks", "Family history of colon cancer"],
+            "hi": ["मल में खून", "तीव्र पेट दर्द", "बिना कारण वजन कम होना",
+                   "3 सप्ताह से अधिक कब्ज", "कोलन कैंसर का पारिवारिक इतिहास"]
+        },
+        "needs_surgery": False
+    },
+    "insomnia": {
+        "en": ["insomnia", "sleepless", "can't sleep", "nendh nahi aati", "neend nahi aati",
+               "sleep problem", "night waking", "difficulty sleeping"],
+        "hi": "अनिद्रा / नींद न आना",
+        "description": {
+            "en": "Insomnia is difficulty falling asleep, staying asleep, or waking up too early.",
+            "hi": "अनिद्रा में नींद नहीं आती, नींद टूट जाती है, या बहुत जल्दी नींद खुल जाती है।"
+        },
+        "possible_causes": {
+            "en": ["Stress and anxiety", "Poor sleep habits (screen time before bed)",
+                   "Depression", "Caffeine/alcohol", "Medical conditions (pain, thyroid, sleep apnea)",
+                   "Shift work", "Medications", "Environmental factors (noise, light, temperature)"],
+            "hi": ["तनाव और चिंता", "खराब नींद की आदतें (सोने से पहले स्क्रीन)",
+                   "अवसाद", "कैफीन/शराब", "चिकित्सा स्थितियां (दर्द, थायराइड, स्लीप एपनिया)",
+                   "शिफ्ट का काम", "दवाएं", "पर्यावरणीय कारक (शोर, रोशनी, तापमान)"]
+        },
+        "home_remedies": {
+            "en": ["Sleep and wake at same time daily", "Avoid screens 1 hour before bed",
+                   "Create cool, dark, quiet bedroom", "No caffeine after 2 PM",
+                   "Warm milk with honey before bed", "Deep breathing / meditation before sleep",
+                   "Limit daytime naps to 20-30 min", "Exercise earlier in the day"],
+            "hi": ["रोज एक ही समय पर सोएं और जागें", "सोने से 1 घंटे पहले स्क्रीन बंद करें",
+                   "कमरा ठंडा, अंधेरा और शांत रखें", "दोपहर 2 बजे के बाद कैफीन न लें",
+                   "सोने से पहले शहद वाला गर्म दूध", "गहरी सांस / ध्यान करें",
+                   "दिन में झपकी 20-30 मिनट तक सीमित रखें", "दिन में जल्दी व्यायाम करें"]
+        },
+        "medicines": [
+            {"name": "Melatonin Supplement", "dosage": "3-5 mg at bedtime (short-term)", "type": "tablet", "line": "first", "source": "AASM Guidelines; NICE"},
+            {"name": "Diphenhydramine (antihistamine)", "dosage": "25-50 mg at bedtime (short-term)", "type": "tablet", "line": "first", "source": "OTC Standard"},
+        ],
+        "red_flags": {
+            "en": ["Insomnia lasting >1 month (chronic)", "Depression or suicidal thoughts",
+                   "Loud snoring / gasping at night (sleep apnea)", "Leg jerking at night (restless legs)"],
+            "hi": ["1 महीने से अधिक अनिद्रा (पुरानी)", "अवसाद या आत्महत्या के विचार",
+                   "तेज खर्राटे / रात में हांफना (स्लीप एपनिया)", "रात में पैर फड़कना (रेस्टलेस लेग्स)"]
+        },
+        "needs_surgery": False
+    },
+    "fatigue": {
+        "en": ["fatigue", "weakness", "thakaan", "kamzori", "tired all the time",
+               "low energy", "exhaustion", "body weak", "energy low"],
+        "hi": "थकान / कमजोरी",
+        "description": {
+            "en": "Fatigue is a constant feeling of tiredness, weakness, or lack of energy.",
+            "hi": "थकान लगातार थकावट, कमजोरी या ऊर्जा की कमी की भावना है।"
+        },
+        "possible_causes": {
+            "en": ["Anemia (low iron / hemoglobin)", "Vitamin D or B12 deficiency",
+                   "Poor diet / not eating enough", "Dehydration", "Sleep disorders",
+                   "Stress / anxiety / depression", "Thyroid disorders (hypothyroidism)",
+                   "Diabetes", "Chronic fatigue syndrome", "Medication side effects"],
+            "hi": ["एनीमिया (कम आयरन / हीमोग्लोबिन)", "विटामिन D या B12 की कमी",
+                   "खराब आहार / कम खाना", "निर्जलीकरण", "नींद विकार",
+                   "तनाव / चिंता / अवसाद", "थायराइड विकार (हाइपोथायरायडिज्म)",
+                   "मधुमेह", "क्रोनिक थकान सिंड्रोम", "दवा के दुष्प्रभाव"]
+        },
+        "home_remedies": {
+            "en": ["Eat a balanced diet (protein, iron, vegetables)", "Drink 8 glasses of water daily",
+                   "Get 7-8 hours of sleep", "Exercise 30 min daily (start with walking)",
+                   "Reduce stress (meditation, deep breathing)", "Limit caffeine and sugar",
+                   "Check vitamin levels (get blood tests done)"],
+            "hi": ["संतुलित आहार खाएं (प्रोटीन, आयरन, सब्जियां)", "रोज 8 गिलास पानी पिएं",
+                   "7-8 घंटे की नींद लें", "रोज 30 मिनट व्यायाम करें (चलने से शुरू करें)",
+                   "तनाव कम करें (ध्यान, गहरी सांस)", "कैफीन और चीनी सीमित करें",
+                   "विटामिन जांच कराएं (ब्लड टेस्ट करवाएं)"]
+        },
+        "medicines": [
+            {"name": "Iron Supplements (if anemic)", "dosage": "100-200 mg elemental iron daily", "type": "tablet", "line": "first", "source": "WHO; ICMR India STW"},
+            {"name": "Vitamin B12 Supplement", "dosage": "500-1000 mcg daily or weekly injection", "type": "tablet/injection", "line": "first", "source": "WHO; ICMR India STW"},
+            {"name": "Vitamin D3 Supplement", "dosage": "1000-2000 IU daily (adjust based on levels)", "type": "tablet", "line": "first", "source": "ICMR India STW"},
+        ],
+        "red_flags": {
+            "en": ["Unexplained weight loss", "Fever without infection", "Fatigue with shortness of breath",
+                   "Severe paleness", "Fatigue with blood in stool"],
+            "hi": ["बिना कारण वजन कम होना", "संक्रमण के बिना बुखार", "सांस फूलने के साथ थकान",
+                   "गंभीर पीलापन", "मल में खून के साथ थकान"]
+        },
+        "needs_surgery": False
+    },
+    "menstrual_cramps": {
+        "en": ["period pain", "menstrual cramps", "period cramps", "dysmenorrhea",
+               "masik dharm dard", "period mein dard", "pms pain", "mahawari dard"],
+        "hi": "मासिक धर्म दर्द / पीरियड दर्द",
+        "description": {
+            "en": "Menstrual cramps (dysmenorrhea) are throbbing or cramping pains in the lower abdomen before/during menstruation.",
+            "hi": "मासिक धर्म दर्द (डिसमेनोरिया) मासिक धर्म से पहले/दौरान निचले पेट में तेज दर्द है।"
+        },
+        "possible_causes": {
+            "en": ["Prostaglandins (chemicals causing uterine contractions)", "Endometriosis",
+                   "Uterine fibroids", "PCOS", "Pelvic Inflammatory Disease", "Cervical stenosis",
+                   "Stress and anxiety"],
+            "hi": ["प्रोस्टाग्लैंडिन्स (गर्भाशय संकुचन का कारण)", "एंडोमेट्रियोसिस",
+                   "गर्भाशय फाइब्रॉएड", "PCOS", "पेल्विक इंफ्लामेटरी डिजीज", "सर्वाइकल स्टेनोसिस",
+                   "तनाव और चिंता"]
+        },
+        "home_remedies": {
+            "en": ["Apply hot water bottle or heating pad on lower abdomen", "Gentle exercise (walking, yoga)",
+                   "Warm bath for muscle relaxation", "Avoid caffeine and salty foods",
+                   "Stay hydrated with warm water", "Massage lower abdomen gently",
+                   "Rest and sleep well", "Ginger or chamomile tea"],
+            "hi": ["निचले पेट पर गर्म पानी की बोतल या हीटिंग पैड रखें", "हल्का व्यायाम (चलना, योग)",
+                   "गर्म पानी से स्नान करें", "कैफीन और नमकीन चीजों से बचें",
+                   "गर्म पानी पिएं", "निचले पेट की हल्की मालिश करें",
+                   "आराम करें और अच्छी नींद लें", "अदरक या कैमोमाइल चाय"]
+        },
+        "medicines": [
+            {"name": "Ibuprofen", "dosage": "400 mg every 8 hours with food (start 1 day before period)", "type": "tablet", "line": "first", "source": "ACOG Guidelines; WHO"},
+            {"name": "Naproxen Sodium", "dosage": "550 mg initially, then 275 mg every 6-8 hours", "type": "tablet", "line": "first", "source": "ACOG Guidelines"},
+            {"name": "Mefenamic Acid", "dosage": "500 mg initially, then 250 mg three times daily", "type": "tablet", "line": "first", "source": "ICMR India STW"},
+            {"name": "Drotaverine + Mefenamic Acid (combination)", "dosage": "1 tablet as needed (max 3/day)", "type": "tablet", "line": "first", "source": "ICMR India STW"},
+        ],
+        "red_flags": {
+            "en": ["Severe pain not relieved by medicine", "Heavy bleeding (changing pad hourly)", "Fever with cramps",
+                   "Pain lasting beyond 3 days", "Fainting or severe dizziness"],
+            "hi": ["दवा से भी कम न होने वाला गंभीर दर्द", "अत्यधिक रक्तस्राव (हर घंटे पैड बदलना)", "दर्द के साथ बुखार",
+                   "3 दिन से अधिक दर्द", "बेहोशी या गंभीर चक्कर"]
+        },
+        "needs_surgery": True,
+        "surgery_detail": {
+            "en": "For severe endometriosis/fibroids: Laparoscopy, Hysterectomy. Only after failed medical management. Source: ACOG Guidelines",
+            "hi": "गंभीर एंडोमेट्रियोसिस/फाइब्रॉएड के लिए: लेप्रोस्कोपी, हिस्टेरेक्टॉमी। केवल चिकित्सा उपचार के बाद।"
+        }
+    },
+    "nausea_vomiting": {
+        "en": ["nausea", "vomiting", "ulti", "feel like throwing up", "queasy",
+               "matli", "jii michlana", "ugli", "sickness"],
+        "hi": "मतली / उल्टी",
+        "description": {
+            "en": "Nausea is an uncomfortable feeling in the stomach with an urge to vomit. Vomiting is the forceful expulsion of stomach contents.",
+            "hi": "मतली पेट में एक असुविधाजनक भावना है जिसमें उल्टी करने की इच्छा होती है।"
+        },
+        "possible_causes": {
+            "en": ["Stomach infection (gastroenteritis)", "Food poisoning", "Motion sickness",
+                   "Pregnancy (morning sickness)", "Migraine", "Medication side effects",
+                   "Acidity / GERD", "Stress and anxiety", "Kidney stones (severe pain causes vomiting)",
+                   "Vestibular disorders (inner ear)"],
+            "hi": ["पेट का संक्रमण (गैस्ट्रोएंटेराइटिस)", "फूड पॉइजनिंग", "यात्रा के दौरान मिचली",
+                   "गर्भावस्था (सुबह की मतली)", "माइग्रेन", "दवा के दुष्प्रभाव",
+                   "एसिडिटी / GERD", "तनाव और चिंता", "गुर्दे की पथरी (तेज दर्द से उल्टी)",
+                   "वेस्टिबुलर विकार (भीतरी कान)"]
+        },
+        "home_remedies": {
+            "en": ["Sip clear fluids (ORS, coconut water, ginger tea)", "Eat small, bland meals (crackers, toast, rice)",
+                   "Ginger (ginger tea, ginger candy) - very effective", "Peppermint tea or peppermint oil",
+                   "Avoid strong smells (perfume, cooking, smoke)", "Rest sitting up (don't lie flat)",
+                   "Acupressure wristbands (for motion sickness)", "Lemon water slowly throughout day"],
+            "hi": ["धीरे-धीरे साफ तरल पिएं (ORS, नारियल पानी, अदरक की चाय)", "छोटा, हल्का भोजन खाएं (पटाखे, टोस्ट, चावल)",
+                   "अदरक (अदरक की चाय, अदरक कैंडी) - बहुत प्रभावी", "पेपरमिंट चाय या पेपरमिंट तेल",
+                   "तेज गंध से बचें (परफ्यूम, खाना पकाना, धुआं)", "बैठकर आराम करें (सीधे न लेटें)",
+                   "एक्यूप्रेशर बैंड (यात्रा मिचली के लिए)", "पूरे दिन धीरे-धीरे नींबू पानी"]
+        },
+        "medicines": [
+            {"name": "Ondansetron", "dosage": "4-8 mg as needed (dissolving tablet)", "type": "tablet", "line": "first", "source": "WHO; ACG Guidelines"},
+            {"name": "Domperidone", "dosage": "10 mg before meals", "type": "tablet", "line": "first", "source": "ICMR India STW"},
+            {"name": "Dimenhydrinate (for motion sickness)", "dosage": "50-100 mg every 4-6 hours", "type": "tablet", "line": "first", "source": "WHO"},
+        ],
+        "red_flags": {
+            "en": ["Cannot keep any liquids down for 24h (can't drink)", "Blood in vomit (red or coffee-ground)",
+                   "Severe headache with vomiting", "Vomiting after head injury",
+                   "Dehydration signs (dry mouth, no urine for 8h, dizziness)",
+                   "Vomiting with stiff neck and fever (possible meningitis)"],
+            "hi": ["24 घंटे तक कुछ भी न पी पाना", "उल्टी में खून (लाल या कॉफी जैसा)",
+                   "उल्टी के साथ तेज सिरदर्द", "सिर में चोट के बाद उल्टी",
+                   "निर्जलीकरण के लक्षण (सूखा मुंह, 8 घंटे पेशाब नहीं, चक्कर)",
+                   "गर्दन में अकड़न और बुखार के साथ उल्टी (संभावित मेनिन्जाइटिस)"]
+        },
+        "needs_surgery": False
+    },
+    "allergy": {
+        "en": ["allergy", "allergic", "allergic reaction", "hives", "pitti",
+               "allergy attack", "food allergy", "skin allergy", "seasonal allergy"],
+        "hi": "एलर्जी",
+        "description": {
+            "en": "Allergies occur when the immune system reacts to a foreign substance like pollen, food, or medication.",
+            "hi": "एलर्जी तब होती है जब प्रतिरक्षा प्रणाली किसी बाहरी पदार्थ जैसे पराग, भोजन या दवा पर प्रतिक्रिया करती है।"
+        },
+        "possible_causes": {
+            "en": ["Pollen (seasonal allergies)", "Dust mites", "Pet dander", "Certain foods (peanuts, milk, eggs, shellfish)",
+                   "Insect stings", "Medication allergies (penicillin, etc.)", "Latex", "Mold spores"],
+            "hi": ["पराग (मौसमी एलर्जी)", "धूल के कण", "पालतू जानवरों के बाल", "कुछ खाद्य पदार्थ (मूंगफली, दूध, अंडे, शंख)",
+                   "कीड़े के डंक", "दवा एलर्जी (पेनिसिलिन, आदि)", "लेटेक्स", "फफूंद बीजाणु"]
+        },
+        "home_remedies": {
+            "en": ["Avoid known triggers", "Use cold compress on hives/swelling", "Shower after coming from outside",
+                   "Keep windows closed during high pollen season", "Use air purifier at home",
+                   "Wash bedding weekly in hot water", "Wear a mask when outdoors in pollen season",
+                   "Saline nasal rinse for nasal allergies"],
+            "hi": ["ज्ञात ट्रिगर से बचें", "पित्ती/सूजन पर ठंडी सिकाई करें", "बाहर से आने पर स्नान करें",
+                   "अधिक पराग के मौसम में खिड़कियां बंद रखें", "घर में एयर प्यूरीफायर का उपयोग करें",
+                   "बिस्तर साप्ताहिक गर्म पानी में धोएं", "पराग के मौसम में बाहर मास्क पहनें",
+                   "नाक की एलर्जी के लिए सेलाइन नेज़ल रिंस"]
+        },
+        "medicines": [
+            {"name": "Cetirizine", "dosage": "10 mg once daily (at night)", "type": "tablet", "line": "first", "source": "WHO; AAAAI Guidelines"},
+            {"name": "Levocetirizine", "dosage": "5 mg once daily (less sedating)", "type": "tablet", "line": "first", "source": "AAAAI Guidelines"},
+            {"name": "Loratadine", "dosage": "10 mg once daily (non-sedating)", "type": "tablet", "line": "first", "source": "WHO; AAAAI"},
+            {"name": "Fexofenadine", "dosage": "120-180 mg once daily (non-sedating)", "type": "tablet", "line": "first", "source": "AAAAI Guidelines"},
+            {"name": "Hydrocortisone Cream 1% (for skin allergies)", "dosage": "apply thin layer 2-3 times daily", "type": "cream", "line": "first", "source": "OTC Standard"},
+        ],
+        "red_flags": {
+            "en": ["Anaphylaxis symptoms: difficulty breathing, throat swelling, rapid weak pulse",
+                   "Swelling of face, lips, tongue", "Severe hives all over body",
+                   "Dizziness or fainting after exposure", "Known severe allergy with exposure - use EpiPen and call 911"],
+            "hi": ["एनाफिलेक्सिस के लक्षण: सांस लेने में कठिनाई, गले में सूजन, तेज कमजोर नाड़ी",
+                   "चेहरे, होंठ, जीभ में सूजन", "पूरे शरीर पर गंभीर पित्ती",
+                   "जोखिम के बाद चक्कर या बेहोशी", "ज्ञात गंभीर एलर्जी - EpiPen का उपयोग करें और 911 पर कॉल करें"]
+        },
+        "needs_surgery": False
+    },
+}
+
 SURGERY_INFO = {
     "appendectomy": {
         "en": "Appendectomy - Removal of appendix",

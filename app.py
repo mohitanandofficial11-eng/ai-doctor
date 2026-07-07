@@ -222,7 +222,11 @@ def sidebar_content():
              ["", "🤒 Fever / Bukhar", "🤧 Cough & Cold", "💆 Headache",
               "🫃 Stomach Pain / Pet Dard", "🦴 Back Pain", "💓 Chest Pain",
               "🩸 Skin Rash", "🪨 Kidney Stone", "🫀 High BP", "🍬 Diabetes",
-              "🫁 Acidity / Gas", "😔 Depression", "🧠 Anxiety / Tension"],
+              "🫁 Acidity / Gas", "😔 Depression", "🧠 Anxiety / Tension",
+              "🫄 UTI / Urine Infection", "🦵 Joint Pain / Jod Dard",
+              "👁️ Eye Infection", "👂 Ear Infection", "💩 Constipation / Kabj",
+              "😴 Insomnia / Neend", "⚡ Fatigue / Thakaan", "🩸 Period Pain",
+              "🤢 Nausea / Vomiting", "🤧 Allergies"],
             key="quick_select"
         )
         if quick and st.button("Consult Now →", use_container_width=True):
@@ -235,9 +239,16 @@ def sidebar_content():
                 "High BP": "high_bp", "Diabetes": "diabetes",
                 "Acidity": "acidity", "Gas": "acidity",
                 "Depression": "depression",
-                "Anxiety": "anxiety", "Tension": "anxiety"
+                "Anxiety": "anxiety", "Tension": "anxiety",
+                "UTI": "uti", "Urine": "uti", "Joint": "joint_pain",
+                "Jod": "joint_pain", "Eye": "eye_infection",
+                "Ear": "ear_infection", "Constipation": "constipation",
+                "Kabj": "constipation", "Insomnia": "insomnia",
+                "Fatigue": "fatigue", "Thakaan": "fatigue",
+                "Period": "menstrual_cramps", "Pain": "menstrual_cramps",
+                "Nausea": "nausea_vomiting", "Vomiting": "nausea_vomiting",
+                "Allerg": "allergy",
             }
-            selected = quick.split(" ")[-1]
             for k, v in symptom_map.items():
                 if k.lower() in quick.lower():
                     sym_id = v
@@ -322,6 +333,19 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
+        # Suggestion chips
+        suggestions = ["🤒 Fever", "💆 Headache", "🤧 Cough & Cold", "🫃 Stomach Pain", "🦴 Back Pain", "😔 Feeling sad"]
+        sugg_cols = st.columns(len(suggestions))
+        for i, sugg in enumerate(suggestions):
+            if sugg_cols[i].button(sugg, key=f"sug_{i}", use_container_width=True):
+                result = st.session_state.doctor.process_message(sugg.split(" ")[1] if " " in sugg else sugg)
+                msgs.append({"role": "user", "message": sugg})
+                if isinstance(result, dict):
+                    msgs.append(result)
+                else:
+                    msgs.append({"role": "doctor", "response": result})
+                st.rerun()
+
         user_input = st.chat_input("Type your message here...", key="chat_input")
         if user_input:
             result = st.session_state.doctor.process_message(user_input.strip())
@@ -332,6 +356,20 @@ def main():
             else:
                 msgs.append({"role": "doctor", "response": result})
             st.rerun()
+
+        # Specialist referral and prescription buttons (show after chat)
+        if msgs and st.session_state.doctor.reported_symptoms:
+            col_a, col_b = st.columns(2)
+            with col_a:
+                if st.button("👨‍⚕️ Suggest Specialist", use_container_width=True):
+                    ref = st.session_state.doctor.get_specialist_referral(st.session_state.lang)
+                    msgs.append({"role": "doctor", "response": ref})
+                    st.rerun()
+            with col_b:
+                if st.button("📋 Get Prescription Summary", use_container_width=True):
+                    summary = st.session_state.doctor.generate_consultation_summary(st.session_state.lang)
+                    msgs.append({"role": "doctor", "response": summary})
+                    st.rerun()
 
     with col2:
         lang = st.session_state.lang

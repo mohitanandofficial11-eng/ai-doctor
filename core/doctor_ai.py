@@ -256,16 +256,16 @@ class MedicalDoctorAI:
                 self.stage = "ask_age"
                 if self.patient_info.get("age"):
                     self.stage = "consult"
-                    return {"response": self._ask_concern(lang), "lang": lang}
-                return {"response": self._ask_age(lang), "lang": lang}
-            return {"response": self._ask_name(lang), "lang": lang}
+                    return {"role": "doctor", "response": self._ask_concern(lang), "lang": lang}
+                return {"role": "doctor", "response": self._ask_age(lang), "lang": lang}
+            return {"role": "doctor", "response": self._ask_name(lang), "lang": lang}
 
         # Stage 2: Ask for age
         if self.stage == "ask_age":
             if self.patient_info.get("age"):
                 self.stage = "consult"
-                return {"response": self._ask_concern(lang), "lang": lang}
-            return {"response": self._ask_age(lang), "lang": lang}
+                return {"role": "doctor", "response": self._ask_concern(lang), "lang": lang}
+            return {"role": "doctor", "response": self._ask_age(lang), "lang": lang}
 
         # Stage 3: Normal consultation
         detected_symptoms = self.extract_symptoms(user_message)

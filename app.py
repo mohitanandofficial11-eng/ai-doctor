@@ -272,12 +272,12 @@ def sidebar_content():
                 st.info("Medicine not found in database")
 
         st.markdown("---")
-        st.markdown("#### 🔪 Surgery Info")
+        st.markdown("#### 🏥 Surgery Info")
         surg_name = st.text_input("Search surgery:", placeholder="e.g. Appendectomy")
         if surg_name:
             info = st.session_state.doctor.get_surgery_info(surg_name, st.session_state.lang)
             if info:
-                with st.expander(f"🔪 {surg_name.title()}", expanded=True):
+                with st.expander(f"🏥 {surg_name.title()}", expanded=True):
                     st.markdown(info)
             else:
                 st.info("Surgery info not found in database")
@@ -296,7 +296,7 @@ def main():
     st.markdown("""
     <div class="main-header">
         <h1>🏥 Dr. Aarogya — AI Medical Doctor</h1>
-        <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish & English | 🔪 Surgery Knowledge</p>
+        <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish & English | 🏥 Surgery Knowledge</p>
     </div>
     """, unsafe_allow_html=True)
 

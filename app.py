@@ -333,19 +333,6 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
-        # Suggestion chips
-        suggestions = ["🤒 Fever", "💆 Headache", "🤧 Cough & Cold", "🫃 Stomach Pain", "🦴 Back Pain", "😔 Feeling sad"]
-        sugg_cols = st.columns(len(suggestions))
-        for i, sugg in enumerate(suggestions):
-            if sugg_cols[i].button(sugg, key=f"sug_{i}", use_container_width=True):
-                result = st.session_state.doctor.process_message(sugg.split(" ")[1] if " " in sugg else sugg)
-                msgs.append({"role": "user", "message": sugg})
-                if isinstance(result, dict):
-                    msgs.append(result)
-                else:
-                    msgs.append({"role": "doctor", "response": result})
-                st.rerun()
-
         user_input = st.chat_input("Type your message here...", key="chat_input")
         if user_input:
             result = st.session_state.doctor.process_message(user_input.strip())

@@ -362,26 +362,24 @@ def main():
                 msgs.append({"role": "doctor", "response": result})
             st.rerun()
 
-        # Specialist referral and prescription buttons
-        show_buttons = (
-            msgs and (
-                st.session_state.doctor.reported_symptoms
-                or st.session_state.doctor.stage == "advised"
-            )
-        )
-        if show_buttons:
-            col_a, col_b, col_c = st.columns(3)
+        # Specialist referral button (shows when symptoms are known)
+        if msgs and st.session_state.doctor.reported_symptoms:
+            col_a, col_b = st.columns([1, 3])
             with col_a:
                 if st.button("👨‍⚕️ Suggest Specialist", use_container_width=True):
                     ref = st.session_state.doctor.get_specialist_referral(st.session_state.lang)
                     msgs.append({"role": "doctor", "response": ref})
                     st.rerun()
-            with col_b:
+
+        # Prescription buttons (only after doctor has advised/given prescription)
+        if msgs and st.session_state.doctor.stage == "advised":
+            col_a, col_b = st.columns(2)
+            with col_a:
                 if st.button("📋 Get Prescription Summary", use_container_width=True):
                     summary = st.session_state.doctor.generate_consultation_summary(st.session_state.lang)
                     msgs.append({"role": "doctor", "response": summary})
                     st.rerun()
-            with col_c:
+            with col_b:
                 pdf = st.session_state.doctor.generate_prescription_pdf(st.session_state.lang)
                 if pdf:
                     st.download_button("📄 Download PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)

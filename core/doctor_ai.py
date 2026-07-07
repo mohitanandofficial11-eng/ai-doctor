@@ -212,18 +212,27 @@ class MedicalDoctorAI:
             return "general"
         return max(specialty_scores, key=specialty_scores.get)
 
+    def _is_prescription_request(self, text):
+        lower = text.lower().strip()
+        keywords = [
+            "prescription", "prescription do", "prescription de", "prescription dijiye",
+            "parcha", "parcha do", "parcha likh", "parcha de", "parcha dijiye",
+            "give me prescription", "prescription den", "prescription dedo",
+            "rx", "nuskha", "nuskha likh", "nuskha do",
+            "medicine likh", "dawai likh", "dawai do", "medicine do",
+            "come to the point", "point pe aao", "sahi se batao",
+            "shortcut", "short me batao"
+        ]
+        return any(kw in lower for kw in keywords)
+
     def process_message(self, user_message):
         lang = self.hinglish.detect_language(user_message)
 
         self.extract_patient_info(user_message)
         detected_symptoms = self.extract_symptoms(user_message)
 
-        # Check for medicine/surgery info requests
         lower = user_message.lower().strip()
-        med_triggers = ["info about", "tell me about", "what is", "medicine for",
-                        "dawai", "medicine", "drug"]
-        is_med_query = any(t in lower for t in [" info about ", " tell me about ",
-                          " what is ", " medicine for ", " dawai "])
+        is_prescription_req = self._is_prescription_request(user_message)
         is_surg_query = any(t in lower for t in [" surgery ", " operation ", " surgeri "])
 
         self.conversation_history.append({"role": "user", "message": user_message, "lang": lang})
@@ -237,6 +246,12 @@ class MedicalDoctorAI:
                 result = {"response": info, "lang": lang}
             else:
                 result = self._ai_respond(user_message, lang)
+        elif is_prescription_req and self.reported_symptoms:
+            self.stage = "advised"
+            result = self._give_advice(self.reported_symptoms, lang)
+        elif is_prescription_req and self.current_symptoms:
+            self.stage = "advised"
+            result = self._give_advice(self.current_symptoms, lang)
         elif self.use_ai:
             result = self._ai_respond(user_message, lang)
         elif not detected_symptoms and self.stage == "new" and not self.greeted:
@@ -337,19 +352,22 @@ class MedicalDoctorAI:
     def _ai_respond(self, user_message, lang):
         try:
             context = self._build_patient_context()
+            is_req = self._is_prescription_request(user_message)
+            if is_req and self.reported_symptoms:
+                context += "\n\n**IMPORTANT: Patient is asking for prescription. STOP asking questions. Give prescription now.**"
             sys_prompt = (
                 "You are Dr. Aarogya, an AI medical assistant. Talk like a real experienced doctor - "
                 "warm, empathetic, and professional. Use natural conversation, not robotic.\n\n"
                 f"Patient Context:\n{context}\n\n"
                 "Guidelines:\n"
-                "- Ask 1-2 relevant follow-up questions if needed (duration, severity, associated symptoms)\n"
-                "- Give concise advice (4-6 sentences max)\n"
-                "- Include home remedies when safe\n"
-                "- Suggest when to see a specialist (e.g., 'You should consult a cardiologist if...')\n"
-                "- Recommend relevant tests\n"
-                "- NEVER prescribe specific prescription drugs - say 'consult a doctor for prescription medicine'\n"
+                "- If patient asks for prescription (prescription do / parcha do / give me medicine), "
+                "STOP asking questions and give the prescription immediately\n"
+                "- Ask only 1 follow-up question maximum, then give advice\n"
+                "- Give concise advice (4-6 sentences max). Include home remedies when safe\n"
+                "- Suggest relevant tests (CT scan, MRI, blood tests, etc.)\n"
+                "- Recommend OTC medicines like Paracetamol, Ibuprofen, Cetirizine when safe\n"
+                "- For prescription drugs, say 'consult a doctor for this medicine'\n"
                 "- For emergencies, say 'This needs immediate medical attention'\n"
-                "- If you don't know, say 'I'm not sure, please consult a doctor'\n"
                 f"Respond in {'Hinglish (Hindi-English mix)' if lang == 'hi' else 'English'} naturally.\n"
                 "Never use 'abe', 'yaar', 'bhai', 'arre'."
             )
@@ -381,7 +399,7 @@ class MedicalDoctorAI:
             self.follow_up_count = 0
             return self._ask_follow_up(syms, lang)
 
-        if self.stage == "symptom_reported" and self.follow_up_count < 2:
+        if self.stage == "symptom_reported" and self.follow_up_count < 1:
             self.follow_up_count += 1
             return self._ask_follow_up(syms, lang)
 
@@ -391,7 +409,7 @@ class MedicalDoctorAI:
     def _handle_follow_up_answer(self, lang):
         self.follow_up_count += 1
         syms = self.reported_symptoms if self.reported_symptoms else self.current_symptoms
-        if self.follow_up_count >= 2:
+        if self.follow_up_count >= 1:
             self.stage = "advised"
             return self._give_advice(syms, lang)
         return self._ask_follow_up(syms, lang)
@@ -497,6 +515,14 @@ class MedicalDoctorAI:
                     lines.append(f"• {t}")
 
         response = "\n".join(lines)
+
+        # Append formatted prescription summary
+        try:
+            rx_summary = self.generate_consultation_summary(lang)
+            response += "\n\n---\n" + rx_summary
+        except Exception:
+            pass
+
         return {"response": response, "lang": lang, "symptoms": symptoms}
 
     def _greeting_response(self, lang):

@@ -322,17 +322,27 @@ class MedicalDoctorAI:
             else:
                 result = self._ai_respond(user_message, lang)
         elif self.use_ai:
-            # After AI response, try to back-fill symptoms from the full conversation
             result = self._ai_respond(user_message, lang)
+            # Back-fill symptoms from AI response + user conversation
             if not self.reported_symptoms:
-                # Re-check symptoms from all user messages so far
-                for m in self.conversation_history:
-                    if m["role"] == "user":
-                        self.extract_symptoms(m["message"])
-                        if self.current_symptoms:
-                            self.reported_symptoms = list(set(self.reported_symptoms + self.current_symptoms))
+                # Check AI's own response for symptom keywords
+                if isinstance(result, dict):
+                    ai_text = result.get("response", "")
+                    self.extract_symptoms(ai_text)
+                    if self.current_symptoms:
+                        self.reported_symptoms = list(set(self.reported_symptoms + self.current_symptoms))
+                # Also re-check all user messages
+                if not self.reported_symptoms:
+                    for m in self.conversation_history:
+                        if m["role"] == "user":
+                            self.extract_symptoms(m["message"])
+                            if self.current_symptoms:
+                                self.reported_symptoms = list(set(self.reported_symptoms + self.current_symptoms))
                 if self.reported_symptoms:
                     self.stage = "symptom_reported"
+            # Even if no DB match, mark as advised so PDF button shows
+            if not self.reported_symptoms and self.stage != "advised":
+                self.stage = "symptom_reported"
         elif not detected_symptoms and self.stage == "consult" and not self.greeted:
             self.greeted = True
             result = self._greeting_response(lang)
@@ -358,21 +368,24 @@ class MedicalDoctorAI:
             patient_name=self.patient_info.get("name", "Patient"),
             lang=lang
         )
-        for sym_id in self.reported_symptoms:
-            if sym_id in SYMPTOMS_DB:
-                meds = SYMPTOMS_DB[sym_id].get("medicines", [])
-                if meds:
-                    primary = meds[0]
-                    rx.add_medicine(
-                        primary["name"],
-                        primary["dosage"],
-                        timing="as needed" if "emergency" in primary.get("line", "") else "as directed",
-                        note=f"First-line option"
-                    )
-                if lang == "hi":
-                    rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["hi"][:2]))
-                else:
-                    rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["en"][:2]))
+        if self.reported_symptoms:
+            for sym_id in self.reported_symptoms:
+                if sym_id in SYMPTOMS_DB:
+                    meds = SYMPTOMS_DB[sym_id].get("medicines", [])
+                    if meds:
+                        primary = meds[0]
+                        rx.add_medicine(
+                            primary["name"],
+                            primary["dosage"],
+                            timing="as needed" if "emergency" in primary.get("line", "") else "as directed",
+                            note=f"First-line option"
+                        )
+                    if lang == "hi":
+                        rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["hi"][:2]))
+                    else:
+                        rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["en"][:2]))
+        else:
+            rx.add_advice("Consult a qualified doctor.")
         tests = {
             "fever": ["CBC", "Malaria/PCR", "Widal"],
             "headache": ["BP check", "CT/MRI brain (if severe)"],
@@ -418,19 +431,23 @@ class MedicalDoctorAI:
             patient_weight=self.patient_info.get("weight", ""),
             lang=lang
         )
-        for sym_id in self.reported_symptoms:
-            if sym_id in SYMPTOMS_DB:
-                sd = SYMPTOMS_DB[sym_id]
-                meds = sd.get("medicines", [])
-                if meds:
-                    # Only include 1 primary medicine + mention others as alternatives
-                    primary = meds[0]
-                    pg.add_medicine(primary["name"], primary["dosage"],
-                                    timing="as directed",
-                                    note=f"First-line option. Alternatives: {', '.join(m['name'] for m in meds[1:3])}")
-                advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
-                for a in advice[:3]:
-                    pg.add_advice(a)
+        if self.reported_symptoms:
+            for sym_id in self.reported_symptoms:
+                if sym_id in SYMPTOMS_DB:
+                    sd = SYMPTOMS_DB[sym_id]
+                    meds = sd.get("medicines", [])
+                    if meds:
+                        primary = meds[0]
+                        pg.add_medicine(primary["name"], primary["dosage"],
+                                        timing="as directed",
+                                        note=f"First-line option. Alternatives: {', '.join(m['name'] for m in meds[1:3])}")
+                    advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
+                    for a in advice[:3]:
+                        pg.add_advice(a)
+        else:
+            pg.add_advice("Consult a qualified doctor for proper diagnosis and treatment.")
+            pg.add_advice("Do not self-medicate without professional advice.")
+            pg.add_advice("Maintain a healthy lifestyle: balanced diet, exercise, adequate sleep.")
         tests_map = {
             "fever": ["CBC", "Malaria/PCR", "Urine R/M"], "headache": ["BP check", "CT/MRI brain"],
             "chest_pain": ["ECG", "Troponin", "Chest X-ray"], "cough_cold": ["CBC", "Chest X-ray"],

@@ -190,6 +190,7 @@ class PrescriptionGenerator:
 
     def generate_pdf(self):
         try:
+            import io
             from fpdf import FPDF
         except ImportError:
             return None
@@ -274,4 +275,7 @@ class PrescriptionGenerator:
         footer = "AI-generated prescription for informational purposes. Consult a qualified doctor." if idx == 0 else "जानकारी के लिए AI-जनित पर्चा। कृपया योग्य डॉक्टर से सलाह लें।"
         pdf.cell(0, 7, footer, align="C", new_x="LMARGIN", new_y="NEXT")
 
-        return pdf.output()
+        buf = io.BytesIO()
+        pdf.output(buf)
+        buf.seek(0)
+        return buf.getvalue()

@@ -373,16 +373,9 @@ def main():
 
         # Prescription buttons (only after doctor has advised/given prescription)
         if msgs and st.session_state.doctor.stage == "advised":
-            col_a, col_b = st.columns(2)
-            with col_a:
-                if st.button("📋 Get Prescription Summary", use_container_width=True):
-                    summary = st.session_state.doctor.generate_consultation_summary(st.session_state.lang)
-                    msgs.append({"role": "doctor", "response": summary})
-                    st.rerun()
-            with col_b:
-                pdf = st.session_state.doctor.generate_prescription_pdf(st.session_state.lang)
-                if pdf:
-                    st.download_button("📄 Download PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)
+            pdf = st.session_state.doctor.generate_prescription_pdf(st.session_state.lang)
+            if pdf:
+                st.download_button("📄 Download Prescription PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)
 
     with col2:
         lang = st.session_state.lang

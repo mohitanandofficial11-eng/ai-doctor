@@ -1385,8 +1385,8 @@ DOCTOR_PROFILE = {
         "hi": "AI और मोहित आनंद द्वारा निर्मित"
     },
     "hospital": {
-        "en": "Aarogya Multispecialty Hospital",
-        "hi": "आरोग्य मल्टीस्पेशलिटी हॉस्पिटल"
+        "en": "Internet Hospital",
+        "hi": "इंटरनेट हॉस्पिटल"
     }
 }
 

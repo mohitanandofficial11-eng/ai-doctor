@@ -36,7 +36,7 @@ class PrescriptionGenerator:
         labels = {
             "header": ("Dr. Aarogya", "डॉ. आरोग्य"),
             "qualifications": ("MBBS, MD (Internal Medicine), FICS (Surgery)", "एमबीबीएस, एमडी (आंतरिक चिकित्सा), एफआईसीएस (सर्जरी)"),
-            "hospital": ("Aarogya Multispecialty Hospital", "आरोग्य मल्टीस्पेशलिटी हॉस्पिटल"),
+            "hospital": ("Internet Hospital", "इंटरनेट हॉस्पिटल"),
             "reg_no": ("Reg. No: DEL-MC-2010-04256", "पंजीकरण संख्या: DEL-MC-2010-04256"),
             "prescription_title": ("PRESCRIPTION", "पर्चा"),
             "patient": ("Patient:", "मरीज:"),
@@ -116,7 +116,7 @@ class PrescriptionGenerator:
         labels = {
             "name": ("Dr. Aarogya", "डॉ. आरोग्य"),
             "qual": ("MBBS, MD, FICS (Surgery)", "एमबीबीएस, एमडी, एफआईसीएस (सर्जरी)"),
-            "hosp": ("Aarogya Multispecialty Hospital", "आरोग्य मल्टीस्पेशलिटी हॉस्पिटल"),
+            "hosp": ("Internet Hospital", "इंटरनेट हॉस्पिटल"),
             "reg": ("Reg: DEL-MC-2010-04256", "पंजी: DEL-MC-2010-04256"),
             "rx_title": ("📋 PRESCRIPTION", "📋 पर्चा"),
             "patient": ("🧑‍⚕️ Patient:", "🧑‍⚕️ मरीज:"),

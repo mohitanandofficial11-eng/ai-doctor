@@ -361,12 +361,13 @@ class MedicalDoctorAI:
         for sym_id in self.reported_symptoms:
             if sym_id in SYMPTOMS_DB:
                 meds = SYMPTOMS_DB[sym_id].get("medicines", [])
-                for med in meds[:2]:
+                if meds:
+                    primary = meds[0]
                     rx.add_medicine(
-                        med["name"],
-                        med["dosage"],
-                        timing="as needed" if "emergency" in med.get("line", "") else "as directed",
-                        note=f"Line: {med.get('line', 'N/A')}"
+                        primary["name"],
+                        primary["dosage"],
+                        timing="as needed" if "emergency" in primary.get("line", "") else "as directed",
+                        note=f"First-line option"
                     )
                 if lang == "hi":
                     rx.add_advice(" - ".join(SYMPTOMS_DB[sym_id]["home_remedies"]["hi"][:2]))
@@ -420,10 +421,13 @@ class MedicalDoctorAI:
         for sym_id in self.reported_symptoms:
             if sym_id in SYMPTOMS_DB:
                 sd = SYMPTOMS_DB[sym_id]
-                for med in sd.get("medicines", [])[:3]:
-                    pg.add_medicine(med["name"], med["dosage"],
+                meds = sd.get("medicines", [])
+                if meds:
+                    # Only include 1 primary medicine + mention others as alternatives
+                    primary = meds[0]
+                    pg.add_medicine(primary["name"], primary["dosage"],
                                     timing="as directed",
-                                    note=f"{med.get('line', '')} - {med.get('source', '')[:40]}")
+                                    note=f"First-line option. Alternatives: {', '.join(m['name'] for m in meds[1:3])}")
                 advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
                 for a in advice[:3]:
                     pg.add_advice(a)

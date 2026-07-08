@@ -1,6 +1,7 @@
 import re
 import random
 import os
+import base64
 from .knowledge_base import (SYMPTOMS_DB, SPECIALTIES, SURGERY_INFO,
                               MEDICINES_DB, DOCTOR_PROFILE, GREETINGS,
                               EMERGENCY_KEYWORDS)
@@ -11,6 +12,7 @@ from .prescription_gen import PrescriptionGenerator
 AI_AVAILABLE = False
 AI_CLIENT = None
 AI_MODEL = "llama-3.3-70b-versatile"
+AI_VISION_MODEL = "llama-3.2-11b-vision-preview"
 try:
     from groq import Groq
     api_key = os.environ.get("GROQ_API_KEY", "")
@@ -262,6 +264,81 @@ class MedicalDoctorAI:
         if lang == "hi":
             return f"{prefix}Dhanyavaad! Ab mujhe batao ki aapko kya problem hai? Kya takleef hai?"
         return f"{prefix}Thank you! Now tell me, what health concern are you facing?"
+
+    def process_message_with_attachment(self, text_message, files):
+        """Process message with attached files (images, PDFs)."""
+        lang = self.hinglish.detect_language(text_message) if text_message else "en"
+        self.extract_patient_info(text_message)
+
+        text_context = ""
+        vision_images = []
+
+        for f in files:
+            ftype = f["type"]; fbytes = f["bytes"]; fname = f["name"]
+            if ftype and ftype.startswith("image"):
+                b64 = base64.b64encode(fbytes).decode("utf-8")
+                mime = ftype if ftype else "image/jpeg"
+                vision_images.append({"mime": mime, "b64": b64, "name": fname})
+            elif ftype == "application/pdf":
+                try:
+                    import fitz
+                    doc = fitz.open(stream=fbytes, filetype="pdf")
+                    pdf_text = "".join(page.get_text() for page in doc)
+                    doc.close()
+                    if pdf_text.strip():
+                        text_context += f"\n--- {fname} ---\n{pdf_text.strip()[:3000]}\n"
+                except:
+                    text_context += f"\n--- {fname} ---\n[Could not extract text]\n"
+            elif ftype and ftype.startswith("video"):
+                text_context += f"\n--- {fname} ---\n[Video file: {fname}]\n"
+
+        full_msg = text_message if text_message else "Please analyze this file"
+        if text_context:
+            full_msg += "\n\nAttached file content:\n" + text_context
+        if vision_images:
+            full_msg += f"\n\n[{len(vision_images)} image(s) attached]"
+
+        self.conversation_history.append({
+            "role": "user", "message": full_msg, "lang": lang,
+            "files": [f["name"] for f in files]
+        })
+        return self._ai_respond_with_files(full_msg, lang, vision_images)
+
+    def _ai_respond_with_files(self, user_message, lang, vision_images=None):
+        try:
+            context = self._build_patient_context()
+            sys_prompt = (
+                "You are Dr. Aarogya, an AI medical assistant. Talk like a real experienced doctor - "
+                "warm, empathetic, and professional.\n\n"
+                f"Patient Context:\n{context}\n\n"
+                "Guidelines:\n- Analyze any attached files (medical reports, images, etc.)\n"
+                "- If analyzing an image (X-ray, MRI, ultrasound, wound photo), describe what you see\n"
+                "- For lab reports/PDFs, interpret the values and flag abnormalities\n"
+                "- Give concise, helpful medical insights\n"
+                "- Always include disclaimer: 'This is AI analysis - consult a doctor'\n"
+                f"Respond in {'Hinglish' if lang == 'hi' else 'English'} naturally."
+            )
+            if vision_images:
+                content = [{"type": "text", "text": user_message}]
+                for img in vision_images:
+                    content.append({"type": "image_url", "image_url": {"url": f"data:{img['mime']};base64,{img['b64']}"}})
+                messages = [{"role": "system", "content": sys_prompt}, {"role": "user", "content": content}]
+                response = AI_CLIENT.chat.completions.create(
+                    model=AI_VISION_MODEL, messages=messages, max_tokens=1000, temperature=0.7
+                )
+            else:
+                messages = [{"role": "system", "content": sys_prompt}]
+                for m in self.conversation_history[-10:]:
+                    messages.append({"role": "user" if m["role"] == "user" else "assistant", "content": m["message"]})
+                messages.append({"role": "user", "content": user_message})
+                response = AI_CLIENT.chat.completions.create(
+                    model=AI_MODEL, messages=messages, max_tokens=800, temperature=0.7
+                )
+            text = response.choices[0].message.content.strip()
+            self.conversation_history.append({"role": "assistant", "message": text, "lang": lang})
+            return {"response": text, "lang": lang, "role": "doctor"}
+        except Exception as e:
+            return self._fallback_response(lang)
 
     def process_message(self, user_message):
         lang = self.hinglish.detect_language(user_message)

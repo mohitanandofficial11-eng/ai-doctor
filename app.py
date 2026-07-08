@@ -358,7 +358,11 @@ def main():
             for chat in msgs:
                 if isinstance(chat, dict):
                     if chat["role"] == "user":
-                        st.markdown(f'<div class="chat-message user-message"><b>🧑 You:</b><br>{chat["message"]}</div>',
+                        msg_html = chat["message"]
+                        if "files" in chat and chat["files"]:
+                            ficons = " ".join(f'<span class="attach-chip">📎 {f}</span>' for f in chat["files"])
+                            msg_html = f'{msg_html}<br><div style="margin-top:4px">{ficons}</div>'
+                        st.markdown(f'<div class="chat-message user-message"><b>🧑 You:</b><br>{msg_html}</div>',
                                     unsafe_allow_html=True)
                     else:
                         content = chat.get("response", "")
@@ -404,11 +408,16 @@ def main():
 
         if user_input:
             msg = user_input.strip()
-            if st.session_state.attachments:
-                fnames = ", ".join(f.name for f in st.session_state.attachments)
-                msg += f"\n\n[📎 Attached: {fnames}]"
-            result = st.session_state.doctor.process_message(msg)
-            user_chat = {"role": "user", "message": msg}
+            files = st.session_state.get("attachments", [])
+            if files:
+                file_data = []
+                for f in files:
+                    f.seek(0); fbytes = f.read()
+                    file_data.append({"name": f.name, "type": f.type, "bytes": fbytes})
+                result = st.session_state.doctor.process_message_with_attachment(msg, file_data)
+            else:
+                result = st.session_state.doctor.process_message(msg)
+            user_chat = {"role": "user", "message": msg, "files": [f.name for f in files] if files else []}
             msgs.append(user_chat)
             if isinstance(result, dict):
                 msgs.append(result)

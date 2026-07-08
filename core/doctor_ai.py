@@ -322,7 +322,7 @@ class MedicalDoctorAI:
                 "- If analyzing an image (X-ray, MRI, ultrasound, wound photo), describe what you see\n"
                 "- For lab reports/PDFs, interpret the values and flag abnormalities\n"
                 "- Give concise, helpful medical insights\n"
-                "- CRITICAL: Never change the medicine/prescription you previously gave. Always be consistent.\n"
+                "- Try to stay consistent with your previous advice.\n"
                 "- Always include disclaimer: 'This is AI analysis - consult a doctor'\n"
                 f"Respond in {'Hinglish' if lang == 'hi' else 'English'} naturally."
             )
@@ -615,7 +615,7 @@ class MedicalDoctorAI:
                 "warm, empathetic, and professional. Use natural conversation, not robotic.\n\n"
                 f"Patient Context:\n{context}\n\n"
                 "Guidelines:\n"
-                "- CRITICAL: NEVER change the medicine/prescription you previously gave. Always be consistent.\n"
+                "- Try to stay consistent with your previous advice if the patient asks again.\n"
                 "- If patient asks for prescription (prescription do / parcha do / give me medicine), "
                 "STOP asking questions and give the prescription immediately\n"
                 "- Ask only 1 follow-up question maximum, then give advice\n"

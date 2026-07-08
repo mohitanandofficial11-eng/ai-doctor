@@ -399,10 +399,12 @@ class MedicalDoctorAI:
                 result = self._give_advice(self.reported_symptoms, lang)
             else:
                 result = self._ai_respond(user_message, lang)
-                if isinstance(result, dict):
-                    self.last_ai_advice = result.get("response", "")
+            if isinstance(result, dict):
+                self.last_ai_advice = result.get("response", "")
         elif self.use_ai:
             result = self._ai_respond(user_message, lang)
+            if isinstance(result, dict):
+                self.last_ai_advice = result.get("response", "")
             # Back-fill symptoms from AI response + user conversation
             if not self.reported_symptoms:
                 # Check AI's own response for symptom keywords
@@ -512,58 +514,11 @@ class MedicalDoctorAI:
             lang=lang
         )
 
-        # AI mode: generate prescription from Groq
+        # AI mode: use last AI chat response as prescription content
         ai_generated = False
-        if self.use_ai and AI_AVAILABLE:
-            try:
-                context = self._build_patient_context()
-                prompt = (
-                    f"Generate a prescription for this patient:\n{context}\n\n"
-                    "Return in this format:\n"
-                    "MEDICINES:\n- Medicine name | dosage | timing | note\n\n"
-                    "ADVICE:\n- point 1\n- point 2\n\n"
-                    "INVESTIGATIONS:\n- test 1\n- test 2\n\n"
-                    "FOLLOW_UP:\n- follow-up instruction\n"
-                    f"Respond in {'Hinglish' if lang == 'hi' else 'English'}."
-                )
-                resp = AI_CLIENT.chat.completions.create(
-                    model=AI_MODEL, messages=[
-                        {"role": "system", "content": "You are Dr. Aarogya. Generate a structured prescription."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    max_tokens=1000, temperature=0.7
-                )
-                ai_text = resp.choices[0].message.content.strip()
-                # Parse sections
-                section = "advice"
-                for line in ai_text.split("\n"):
-                    line = line.strip()
-                    ul = line.upper()
-                    if ul.startswith("MEDICINE") or ul.startswith("MEDS"):
-                        section = "medicines"
-                    elif ul.startswith("ADVICE") or ul.startswith("HOME") or ul.startswith("REMED"):
-                        section = "advice"
-                    elif ul.startswith("INVESTIGATION") or ul.startswith("TEST"):
-                        section = "investigations"
-                    elif ul.startswith("FOLLOW") or ul.startswith("FOLLOW_UP"):
-                        section = "followup"
-                    elif line.startswith("-") or line.startswith("*"):
-                        text = line.lstrip("-* ").strip()
-                        if text:
-                            if section == "medicines" and "|" in text:
-                                parts = [p.strip() for p in text.split("|")]
-                                pg.add_medicine(parts[0], parts[1] if len(parts) > 1 else "",
-                                                timing=parts[2] if len(parts) > 2 else "",
-                                                note=parts[3] if len(parts) > 3 else "")
-                            elif section == "advice":
-                                pg.add_advice(text)
-                            elif section == "investigations":
-                                pg.add_investigation(text)
-                            elif section == "followup":
-                                pg.set_follow_up(text)
-                ai_generated = True
-            except:
-                pass
+        if self.use_ai and AI_AVAILABLE and self.last_ai_advice:
+            pg.add_advice(self.last_ai_advice)
+            ai_generated = True
 
         if not ai_generated:
             # KB-based fallback

@@ -40,7 +40,6 @@ class PrescriptionGenerator:
         labels = {
             "header": ("Dr. Aarogya", "डॉ. आरोग्य"),
             "qualifications": ("MBBS, MD (Internal Medicine), FICS (Surgery)", "एमबीबीएस, एमडी (आंतरिक चिकित्सा), एफआईसीएस (सर्जरी)"),
-            "hospital": ("Internet Hospital", "इंटरनेट हॉस्पिटल"),
             "reg_no": ("Reg. No: DEL-MC-2010-04256", "पंजीकरण संख्या: DEL-MC-2010-04256"),
             "prescription_title": ("PRESCRIPTION", "पर्चा"),
             "patient": ("Patient:", "मरीज:"),
@@ -70,7 +69,6 @@ class PrescriptionGenerator:
         lines.append("=" * 60)
         lines.append(f"{labels['header'][idx]:^60}")
         lines.append(f"{labels['qualifications'][idx]:^60}")
-        lines.append(f"{labels['hospital'][idx]:^60}")
         lines.append(f"{labels['reg_no'][idx]:^60}")
         lines.append("=" * 60)
         lines.append(f"{labels['prescription_title'][idx]:^60}")
@@ -124,7 +122,6 @@ class PrescriptionGenerator:
         labels = {
             "name": ("Dr. Aarogya", "डॉ. आरोग्य"),
             "qual": ("MBBS, MD, FICS (Surgery)", "एमबीबीएस, एमडी, एफआईसीएस (सर्जरी)"),
-            "hosp": ("Internet Hospital", "इंटरनेट हॉस्पिटल"),
             "reg": ("Reg: DEL-MC-2010-04256", "पंजी: DEL-MC-2010-04256"),
             "rx_title": ("📋 PRESCRIPTION", "📋 पर्चा"),
             "patient": ("🧑‍⚕️ Patient:", "🧑‍⚕️ मरीज:"),
@@ -204,8 +201,6 @@ class PrescriptionGenerator:
         pdf.set_font("Helvetica", "I", 10)
         qual = "MBBS, MD (Internal Medicine), FICS (Surgery)" if idx == 0 else "एमबीबीएस, एमडी (आंतरिक चिकित्सा), एफआईसीएस (सर्जरी)"
         pdf.cell(0, 6, qual, align="C", new_x="LMARGIN", new_y="NEXT")
-        hosp = "Internet Hospital" if idx == 0 else "इंटरनेट हॉस्पिटल"
-        pdf.cell(0, 6, hosp, align="C", new_x="LMARGIN", new_y="NEXT")
         reg = "Reg: DEL-MC-2010-04256" if idx == 0 else "पंजी: DEL-MC-2010-04256"
         pdf.cell(0, 6, reg, align="C", new_x="LMARGIN", new_y="NEXT")
 

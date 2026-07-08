@@ -1906,10 +1906,7 @@ DOCTOR_PROFILE = {
         "en": "AI and Made by Mohit Anand",
         "hi": "AI और मोहित आनंद द्वारा निर्मित"
     },
-    "hospital": {
-        "en": "Internet Hospital",
-        "hi": "इंटरनेट हॉस्पिटल"
-    }
+
 }
 
 GREETINGS = {

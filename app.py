@@ -142,6 +142,15 @@ st.markdown("""
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
     .stChatInputContainer { border-radius: 25px !important; }
+    .attach-chip {
+        display: inline-flex; align-items: center; gap: 4px;
+        background: #e8f0fe; border-radius: 12px; padding: 3px 12px;
+        font-size: 0.8rem; color: #1e3a5f; margin: 2px;
+    }
+    .attach-chip .remove {
+        cursor: pointer; opacity: 0.6; margin-left: 4px;
+    }
+    .attach-chip .remove:hover { opacity: 1; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -161,6 +170,10 @@ def init_session():
         st.session_state.lang = "en"
     if "patient_registered" not in st.session_state:
         st.session_state.patient_registered = False
+    if "show_upload" not in st.session_state:
+        st.session_state.show_upload = False
+    if "attachments" not in st.session_state:
+        st.session_state.attachments = []
 
 
 def new_chat():
@@ -351,15 +364,48 @@ def main():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
+        # Attach button + file uploader
+        if st.button("➕ Attach", key="attach_btn", help="Attach files (images, PDFs, videos)", use_container_width=True):
+            st.session_state.show_upload = not st.session_state.get("show_upload", False)
+            st.rerun()
+
+        if st.session_state.get("show_upload", False):
+            uploaded = st.file_uploader(
+                "Attach files",
+                type=["png", "jpg", "jpeg", "gif", "bmp", "svg", "pdf", "mp4", "avi", "mov", "mkv", "webm"],
+                accept_multiple_files=True,
+                key="file_upload",
+                label_visibility="visible"
+            )
+            if uploaded:
+                st.session_state.attachments = list(uploaded)
+                st.session_state.show_upload = False
+                st.rerun()
+
+        # Show attached files as chips
+        if st.session_state.attachments:
+            chips = '<div style="display:flex; gap:6px; flex-wrap:wrap; padding:4px 0;">'
+            for f in st.session_state.attachments:
+                icon = "🖼️" if f.type and f.type.startswith("image") else "📄" if f.type == "application/pdf" else "🎬"
+                chips += f'<span class="attach-chip">{icon} {f.name}</span>'
+            chips += "</div>"
+            st.markdown(chips, unsafe_allow_html=True)
+
         user_input = st.chat_input("Type your message here...", key="chat_input")
+
         if user_input:
-            result = st.session_state.doctor.process_message(user_input.strip())
-            user_chat = {"role": "user", "message": user_input.strip()}
+            msg = user_input.strip()
+            if st.session_state.attachments:
+                fnames = ", ".join(f.name for f in st.session_state.attachments)
+                msg += f"\n\n[📎 Attached: {fnames}]"
+            result = st.session_state.doctor.process_message(msg)
+            user_chat = {"role": "user", "message": msg}
             msgs.append(user_chat)
             if isinstance(result, dict):
                 msgs.append(result)
             else:
                 msgs.append({"role": "doctor", "response": result})
+            st.session_state.attachments = []
             st.rerun()
 
         # Specialist referral button (shows when symptoms are known)
@@ -378,20 +424,6 @@ def main():
                 st.download_button("📄 Download Prescription PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)
 
     with col2:
-        lang = st.session_state.lang
-        prof = DOCTOR_PROFILE
-        st.markdown(f"""
-        <div class="doctor-profile-widget" style="padding:0.8rem;">
-            <h4 style="font-size:1rem; margin-bottom:6px;">👨‍⚕️ {prof['name']}</h4>
-            <p style="font-size:0.8rem; margin:2px 0; line-height:1.4;">
-            🎓 {prof['qualifications'][lang]}<br>
-            💼 {prof['experience'][lang]}<br>
-            🏥 {prof['hospital'][lang]} | 📋 Reg: AI DR BY MA 01<br>
-            🌐 {"English, Hindi, Hinglish" if lang == 'en' else 'अंग्रेजी, हिंदी, हिंग्लिश'}
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
         st.markdown("#### 🎯 Specialties")
         tags_html = '<div style="line-height:1.8; font-size:0.8rem;">'
         items = [("🫀","Cardiology"),("🫁","Pulmonology"),("🧠","Neurology"),("🦴","Orthopedics"),("🩺","General"),("👁️","Eye"),("👂","ENT"),("🩸","Skin"),("🧬","Surgery")]

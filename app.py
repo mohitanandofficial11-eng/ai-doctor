@@ -253,6 +253,19 @@ def sidebar_content():
         st.session_state.lang = "hi" if "हिंदी" in lang else "en"
 
         st.markdown("---")
+        st.markdown("#### 🤖 Answer Mode")
+        ai_avail = st.session_state.doctor.use_ai
+        mode = st.radio(
+            "Select mode",
+            options=["🤖 Groq AI (LLM)", "📚 Knowledge Base"],
+            index=0 if ai_avail else 1,
+            key="mode_selector",
+            label_visibility="collapsed"
+        )
+        new_mode = "ai" if "Groq" in mode else "kb"
+        st.session_state.doctor.use_ai = (new_mode == "ai")
+
+        st.markdown("---")
         st.markdown("#### 🏥 Quick Consult")
         quick = st.selectbox(
             "Select a symptom",

@@ -142,12 +142,7 @@ st.markdown("""
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
     .stChatInputContainer { border-radius: 25px !important; }
-    /* hide file uploader but keep it functional */
-    div[data-testid="stFileUploader"] {
-        position: absolute !important; left: -9999px !important; top: -9999px !important;
-        opacity: 0 !important; height: 1px !important; width: 1px !important;
-        overflow: hidden !important;
-    }
+    .plus-btn-container { display: flex; align-items: center; justify-content: center; height: 100%; }
     .attach-chip {
         display: inline-flex; align-items: center; gap: 4px;
         background: #e8f0fe; border-radius: 12px; padding: 3px 12px;
@@ -176,6 +171,8 @@ def init_session():
         st.session_state.lang = "en"
     if "patient_registered" not in st.session_state:
         st.session_state.patient_registered = False
+    if "show_attach" not in st.session_state:
+        st.session_state.show_attach = False
     if "attachments" not in st.session_state:
         st.session_state.attachments = []
 
@@ -368,58 +365,6 @@ def main():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # Hidden file uploader (triggered by + button)
-        uploaded = st.file_uploader(
-            "Attach files",
-            type=["png", "jpg", "jpeg", "gif", "bmp", "svg", "pdf", "mp4", "avi", "mov", "mkv", "webm"],
-            accept_multiple_files=True,
-            key="file_upload",
-            label_visibility="collapsed"
-        )
-        if uploaded:
-            st.session_state.attachments = list(uploaded)
-
-        # JS: inject + button inside typing bar (left side)
-        st.markdown("""
-        <style>
-        #attach-plus-btn {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: #1e3a5f; color: white; border: none;
-            font-size: 18px; font-weight: bold; cursor: pointer;
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 0; line-height: 1; flex-shrink: 0; margin-left: 8px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-            transition: background 0.2s;
-        }
-        #attach-plus-btn:hover { background: #2d6a9f; }
-        #attach-plus-btn:active { transform: scale(0.95); }
-        </style>
-        <script>
-        (function() {
-            function injectPlus() {
-                var input = document.querySelector('[data-testid="stChatInput"]');
-                if (!input) { setTimeout(injectPlus, 200); return; }
-                if (document.getElementById('attach-plus-btn')) return;
-                var parent = input.parentElement;
-                parent.style.display = 'flex';
-                parent.style.alignItems = 'center';
-                parent.style.gap = '0';
-                parent.style.paddingLeft = '0';
-                var btn = document.createElement('button');
-                btn.id = 'attach-plus-btn';
-                btn.type = 'button';
-                btn.innerHTML = '+';
-                btn.onclick = function() {
-                    var fu = document.querySelector('input[type="file"]');
-                    if (fu) fu.click();
-                };
-                parent.insertBefore(btn, input);
-            }
-            injectPlus();
-        })();
-        </script>
-        """, unsafe_allow_html=True)
-
         # Show attached files as chips
         if st.session_state.attachments:
             chips = '<div style="display:flex; gap:6px; flex-wrap:wrap; padding:4px 0;">'
@@ -428,6 +373,26 @@ def main():
                 chips += f'<span class="attach-chip">{icon} {f.name}</span>'
             chips += "</div>"
             st.markdown(chips, unsafe_allow_html=True)
+
+        # Attach button (opens file uploader)
+        ab1, ab2, ab3 = st.columns([1, 3, 1])
+        with ab2:
+            if st.button("➕ Attach files", key="plus_btn", use_container_width=True):
+                st.session_state.show_attach = not st.session_state.get("show_attach", False)
+                st.rerun()
+
+        if st.session_state.get("show_attach", False):
+            uploaded = st.file_uploader(
+                "Attach",
+                type=["png", "jpg", "jpeg", "gif", "bmp", "svg", "pdf", "mp4", "avi", "mov", "mkv", "webm"],
+                accept_multiple_files=True,
+                key="file_upload",
+                label_visibility="collapsed"
+            )
+            if uploaded:
+                st.session_state.attachments = list(uploaded)
+                st.session_state.show_attach = False
+                st.rerun()
 
         user_input = st.chat_input("Type your message here...", key="chat_input")
 

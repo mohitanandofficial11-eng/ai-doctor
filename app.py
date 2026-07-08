@@ -142,7 +142,13 @@ st.markdown("""
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
     .stChatInputContainer { border-radius: 25px !important; }
-    .plus-btn-container { display: flex; align-items: center; justify-content: center; height: 100%; }
+    #plus-btn-wrap button {
+        min-width: 30px !important; width: 30px !important; height: 30px !important;
+        padding: 0 !important; font-size: 16px !important; border-radius: 50% !important;
+        background: #1e3a5f !important; color: white !important; border: none !important;
+        line-height: 1 !important; display: flex !important; align-items: center !important;
+        justify-content: center !important; margin-bottom: 2px !important;
+    }
     .attach-chip {
         display: inline-flex; align-items: center; gap: 4px;
         background: #e8f0fe; border-radius: 12px; padding: 3px 12px;
@@ -374,12 +380,12 @@ def main():
             chips += "</div>"
             st.markdown(chips, unsafe_allow_html=True)
 
-        # Attach button (opens file uploader)
-        ab1, ab2, ab3 = st.columns([1, 3, 1])
-        with ab2:
-            if st.button("➕ Attach files", key="plus_btn", use_container_width=True):
-                st.session_state.show_attach = not st.session_state.get("show_attach", False)
-                st.rerun()
+        # Small + button left side
+        st.markdown('<div id="plus-btn-wrap">', unsafe_allow_html=True)
+        if st.button("➕", key="plus_btn", help="Attach files"):
+            st.session_state.show_attach = not st.session_state.get("show_attach", False)
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
         if st.session_state.get("show_attach", False):
             uploaded = st.file_uploader(

@@ -336,7 +336,7 @@ def main():
 
     sidebar_content()
 
-    col1, col2 = st.columns([3, 1])
+    col1 = st.container()
 
     with col1:
         st.markdown("""<span class="happy-header">💬 Chat with Dr. Aarogya</span>""", unsafe_allow_html=True)
@@ -460,15 +460,6 @@ def main():
             pdf = st.session_state.doctor.generate_prescription_pdf(st.session_state.lang)
             if pdf:
                 st.download_button("📄 Download Prescription PDF", data=pdf, file_name="prescription.pdf", mime="application/pdf", use_container_width=True)
-
-    with col2:
-        st.markdown("#### 🎯 Specialties")
-        tags_html = '<div style="line-height:1.8; font-size:0.8rem;">'
-        items = [("🫀","Cardiology"),("🫁","Pulmonology"),("🧠","Neurology"),("🦴","Orthopedics"),("🩺","General"),("👁️","Eye"),("👂","ENT"),("🩸","Skin"),("🧬","Surgery")]
-        for emoji, name in items:
-            tags_html += f'<span class="tag" style="padding:2px 8px; font-size:0.75rem;">{emoji} {name}</span> '
-        tags_html += '</div>'
-        st.markdown(tags_html, unsafe_allow_html=True)
 
 
 

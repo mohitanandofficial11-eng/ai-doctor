@@ -58,96 +58,56 @@ st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     * { font-family: 'Inter', sans-serif; }
-    .stApp { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+    .stApp { background: #ffffff; }
     .main-header {
-        background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
-        color: white; padding: 1.5rem; border-radius: 15px;
-        text-align: center; margin-bottom: 1.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        padding: 0.6rem 1rem; text-align: center; margin-bottom: 0.5rem;
+        border-bottom: 1px solid #e5e5e5;
     }
-    .main-header h1 { margin: 0; font-weight: 700; font-size: 2.2rem; letter-spacing: 0.5px; }
-    .main-header p { margin: 5px 0 0; opacity: 0.9; font-size: 1rem; }
+    .main-header h1 { margin: 0; font-weight: 600; font-size: 1.3rem; color: #1e3a5f; }
+    .main-header p { display: none; }
     .chat-message {
-        padding: 1rem 1.2rem; border-radius: 15px; margin-bottom: 0.8rem;
-        max-width: 85%; line-height: 1.6; font-size: 0.95rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        padding: 0.8rem 1rem; margin-bottom: 0.5rem;
+        max-width: 90%; line-height: 1.6; font-size: 0.95rem;
     }
     .user-message {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white; margin-left: auto; border-bottom-right-radius: 5px;
+        background: #f0f0f0; color: #1a1a1a; margin-left: auto;
+        border-radius: 16px 16px 4px 16px;
     }
     .doctor-message {
-        background: white; color: #1a1a2e; margin-right: auto;
-        border-bottom-left-radius: 5px; border-left: 4px solid #2d6a9f;
+        color: #1a1a1a; margin-right: auto;
+        border-radius: 16px 16px 16px 4px;
     }
     .doctor-message strong { color: #1e3a5f; }
     .emergency-banner {
-        background: linear-gradient(135deg, #ff4757 0%, #c0392b 100%);
-        color: white; padding: 1rem; border-radius: 10px;
-        text-align: center; font-weight: 600; font-size: 1.1rem;
-        animation: pulse 1.5s infinite; margin: 0.5rem 0;
+        background: #fee; color: #c00; padding: 0.8rem; border-radius: 10px;
+        text-align: center; font-weight: 600; font-size: 1rem; margin: 0.5rem 0;
+        border: 1px solid #fcc;
     }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.01); } 100% { transform: scale(1); } }
-    .sidebar-widget {
-        background: white; border-radius: 12px; padding: 1rem;
-        margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .sidebar-widget h4 { color: #1e3a5f; margin-top: 0; }
     .stTextInput>div>div>input {
-        border-radius: 25px !important; border: 2px solid #e0e0e0 !important;
-        padding: 12px 20px !important; font-size: 1rem !important;
+        border-radius: 25px !important; border: 1px solid #ddd !important;
+        padding: 10px 16px !important; font-size: 0.95rem !important;
     }
     .stTextInput>div>div>input:focus {
-        border-color: #2d6a9f !important; box-shadow: 0 0 0 3px rgba(45,106,159,0.2) !important;
+        border-color: #1e3a5f !important; box-shadow: none !important;
     }
-    div[data-testid="stHorizontalBlock"] { gap: 1rem; }
+    div[data-testid="stHorizontalBlock"] { gap: 0.5rem; }
     .stButton>button {
-        border-radius: 25px; background: linear-gradient(135deg, #1e3a5f, #2d6a9f);
-        color: white; font-weight: 500; border: none; padding: 8px 25px;
-    }
-    .tag {
-        display: inline-block; background: #e8f0fe; color: #1e3a5f;
-        padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; margin: 2px;
-    }
-    .doctor-profile-widget {
-        background: linear-gradient(135deg, #1e3a5f 0%, #2d6a9f 100%);
-        color: white; border-radius: 15px; padding: 1.2rem;
-        margin-bottom: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-    .doctor-profile-widget h4 {
-        color: white; margin-top: 0; font-size: 1.2rem;
-        border-bottom: 2px solid rgba(255,255,255,0.3);
-        padding-bottom: 8px;
-    }
-    .doctor-profile-widget p { margin: 0.5rem 0; line-height: 1.7; }
-    .doctor-profile-widget b { color: #ffd700; }
-    .happy-header {
-        color: #2d7d46; font-size: 1.3rem; font-weight: 700;
-        padding: 5px 0; display: inline-block; margin-bottom: 0.3rem;
+        border-radius: 8px; background: #1e3a5f; color: white;
+        font-weight: 500; border: none; padding: 6px 16px; font-size: 0.85rem;
     }
     .disclaimer-footer {
-        background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px;
-        padding: 0.8rem; text-align: center; font-size: 0.85rem; color: #856404;
-        margin-top: 1.5rem;
+        display: none;
     }
-    /* Mobile fixes */
-    @media (max-width: 768px) {
-        .chat-message { max-width: 95%; padding: 0.7rem 0.9rem; font-size: 0.9rem; }
-        .main-header { padding: 0.8rem; margin-bottom: 0.8rem; }
-        .main-header h1 { font-size: 1.2rem; }
-        .main-header p { font-size: 0.8rem; }
-        .happy-header { font-size: 1rem; margin-bottom: 0 !important; }
-        .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.3rem !important; }
-    }
-    section[data-testid="stSidebar"] { min-width: 260px !important; }
-    .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
-    .stChatInputContainer { border-radius: 25px !important; }
+    section[data-testid="stSidebar"] { min-width: 240px !important; }
+    .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.3rem !important; background: white !important; border-top: 1px solid #eee !important; }
+    .stChatInputContainer { border-radius: 20px !important; border: 1px solid #ddd !important; }
     #plus-btn-wrap button {
-        min-width: 30px !important; width: 30px !important; height: 30px !important;
-        padding: 0 !important; font-size: 16px !important; border-radius: 50% !important;
+        min-width: 28px !important; width: 28px !important; height: 28px !important;
+        padding: 0 !important; font-size: 14px !important; border-radius: 50% !important;
         background: #1e3a5f !important; color: white !important; border: none !important;
         line-height: 1 !important; display: flex !important; align-items: center !important;
         justify-content: center !important; margin-bottom: 2px !important;
+        box-shadow: none !important;
     }
     .attach-chip {
         display: inline-flex; align-items: center; gap: 4px;
@@ -332,8 +292,7 @@ def main():
 
     st.markdown("""
     <div class="main-header">
-        <h1>🏥 Dr. Aarogya — AI Medical Doctor</h1>
-        <p>💬 Your 24/7 AI Health Assistant | 🇮🇳 Hinglish & English | 🏥 Surgery Knowledge</p>
+        <h1>🏥 Dr. Aarogya</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -342,8 +301,6 @@ def main():
     col1 = st.container()
 
     with col1:
-        st.markdown("""<span class="happy-header">💬 Chat with Dr. Aarogya</span>""", unsafe_allow_html=True)
-
         msgs = st.session_state.chats[st.session_state.current_chat_id]["messages"]
 
         # First visit: doctor asks for name automatically

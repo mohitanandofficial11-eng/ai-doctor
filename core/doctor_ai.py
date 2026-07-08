@@ -511,52 +511,106 @@ class MedicalDoctorAI:
             patient_weight=self.patient_info.get("weight", ""),
             lang=lang
         )
-        if self.reported_symptoms:
-            for sym_id in self.reported_symptoms:
-                if sym_id in SYMPTOMS_DB:
-                    sd = SYMPTOMS_DB[sym_id]
-                    meds = sd.get("medicines", [])
-                    if meds:
-                        primary = meds[0]
-                        pg.add_medicine(primary["name"], primary["dosage"],
-                                        timing="as directed",
-                                        note=f"First-line option. Alternatives: {', '.join(m['name'] for m in meds[1:3])}")
-                    advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
-                    for a in advice[:3]:
-                        pg.add_advice(a)
-        else:
-            # Use AI's advice if available (for conditions not in DB)
-            if self.last_ai_advice:
-                # Extract key points from AI advice (first 3 sentences)
-                sentences = [s.strip() for s in self.last_ai_advice.replace("•", ".").replace("\n", ".").split(".") if s.strip()]
-                for s in sentences[:4]:
-                    pg.add_advice(s)
+
+        # AI mode: generate prescription from Groq
+        ai_generated = False
+        if self.use_ai and AI_AVAILABLE:
+            try:
+                context = self._build_patient_context()
+                prompt = (
+                    f"Generate a prescription for this patient:\n{context}\n\n"
+                    "Return in this format:\n"
+                    "MEDICINES:\n- Medicine name | dosage | timing | note\n\n"
+                    "ADVICE:\n- point 1\n- point 2\n\n"
+                    "INVESTIGATIONS:\n- test 1\n- test 2\n\n"
+                    "FOLLOW_UP:\n- follow-up instruction\n"
+                    f"Respond in {'Hinglish' if lang == 'hi' else 'English'}."
+                )
+                resp = AI_CLIENT.chat.completions.create(
+                    model=AI_MODEL, messages=[
+                        {"role": "system", "content": "You are Dr. Aarogya. Generate a structured prescription."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=1000, temperature=0.7
+                )
+                ai_text = resp.choices[0].message.content.strip()
+                # Parse sections
+                section = "advice"
+                for line in ai_text.split("\n"):
+                    line = line.strip()
+                    ul = line.upper()
+                    if ul.startswith("MEDICINE") or ul.startswith("MEDS"):
+                        section = "medicines"
+                    elif ul.startswith("ADVICE") or ul.startswith("HOME") or ul.startswith("REMED"):
+                        section = "advice"
+                    elif ul.startswith("INVESTIGATION") or ul.startswith("TEST"):
+                        section = "investigations"
+                    elif ul.startswith("FOLLOW") or ul.startswith("FOLLOW_UP"):
+                        section = "followup"
+                    elif line.startswith("-") or line.startswith("*"):
+                        text = line.lstrip("-* ").strip()
+                        if text:
+                            if section == "medicines" and "|" in text:
+                                parts = [p.strip() for p in text.split("|")]
+                                pg.add_medicine(parts[0], parts[1] if len(parts) > 1 else "",
+                                                timing=parts[2] if len(parts) > 2 else "",
+                                                note=parts[3] if len(parts) > 3 else "")
+                            elif section == "advice":
+                                pg.add_advice(text)
+                            elif section == "investigations":
+                                pg.add_investigation(text)
+                            elif section == "followup":
+                                pg.set_follow_up(text)
+                ai_generated = True
+            except:
+                pass
+
+        if not ai_generated:
+            # KB-based fallback
+            if self.reported_symptoms:
+                for sym_id in self.reported_symptoms:
+                    if sym_id in SYMPTOMS_DB:
+                        sd = SYMPTOMS_DB[sym_id]
+                        meds = sd.get("medicines", [])
+                        if meds:
+                            primary = meds[0]
+                            pg.add_medicine(primary["name"], primary["dosage"],
+                                            timing="as directed",
+                                            note=f"First-line option. Alternatives: {', '.join(m['name'] for m in meds[1:3])}")
+                        advice = sd.get("home_remedies", {}).get("en" if lang == "en" else "hi", [])
+                        for a in advice[:3]:
+                            pg.add_advice(a)
             else:
-                pg.add_advice("Consult a qualified doctor for proper diagnosis and treatment.")
-                pg.add_advice("Do not self-medicate without professional advice.")
-                pg.add_advice("Maintain a healthy lifestyle: balanced diet, exercise, adequate sleep.")
-        tests_map = {
-            "fever": ["CBC", "Malaria/PCR", "Urine R/M"], "headache": ["BP check", "CT/MRI brain"],
-            "chest_pain": ["ECG", "Troponin", "Chest X-ray"], "cough_cold": ["CBC", "Chest X-ray"],
-            "acidity": ["Upper GI endoscopy"], "back_pain": ["X-ray spine", "MRI lumbar"],
-            "skin_rash": ["Skin biopsy", "CBC"], "kidney_stone": ["USG KUB", "Urine R/M"],
-            "high_bp": ["Lipid profile", "ECG", "KFT"], "diabetes": ["FBS/PPBS", "HbA1c"],
-            "diarrhea": ["Stool R/M", "Stool culture"], "depression": ["PHQ-9", "Thyroid profile"],
-            "anxiety": ["GAD-7", "Thyroid profile"], "uti": ["Urine R/M", "Urine Culture"],
-            "joint_pain": ["X-ray joint", "Uric acid", "RA factor"],
-            "eye_infection": ["Eye swab culture"], "ear_infection": ["Ear swab culture"],
-            "constipation": ["No tests usually needed"], "insomnia": ["No specific tests"],
-            "fatigue": ["CBC", "Vitamin B12", "Vitamin D", "Thyroid"],
-            "menstrual_cramps": ["USG pelvis"], "nausea_vomiting": ["CBC", "Stool exam"],
-            "allergy": ["IgE levels", "Allergy panel"],
-        }
-        for sym_id in self.reported_symptoms:
-            for t in tests_map.get(sym_id, [])[:3]:
-                pg.add_investigation(t)
-        if lang == "hi":
-            pg.set_follow_up("1 सप्ताह में दोबारा मिलें। लक्षण बिगड़ें तो तुरंत डॉक्टर से संपर्क करें।")
-        else:
-            pg.set_follow_up("Review in 1 week. Contact doctor immediately if symptoms worsen.")
+                if self.last_ai_advice:
+                    sentences = [s.strip() for s in self.last_ai_advice.replace("•", ".").replace("\n", ".").split(".") if s.strip()]
+                    for s in sentences[:4]:
+                        pg.add_advice(s)
+                else:
+                    pg.add_advice("Consult a qualified doctor for proper diagnosis and treatment.")
+                    pg.add_advice("Do not self-medicate without professional advice.")
+                    pg.add_advice("Maintain a healthy lifestyle: balanced diet, exercise, adequate sleep.")
+            tests_map = {
+                "fever": ["CBC", "Malaria/PCR", "Urine R/M"], "headache": ["BP check", "CT/MRI brain"],
+                "chest_pain": ["ECG", "Troponin", "Chest X-ray"], "cough_cold": ["CBC", "Chest X-ray"],
+                "acidity": ["Upper GI endoscopy"], "back_pain": ["X-ray spine", "MRI lumbar"],
+                "skin_rash": ["Skin biopsy", "CBC"], "kidney_stone": ["USG KUB", "Urine R/M"],
+                "high_bp": ["Lipid profile", "ECG", "KFT"], "diabetes": ["FBS/PPBS", "HbA1c"],
+                "diarrhea": ["Stool R/M", "Stool culture"], "depression": ["PHQ-9", "Thyroid profile"],
+                "anxiety": ["GAD-7", "Thyroid profile"], "uti": ["Urine R/M", "Urine Culture"],
+                "joint_pain": ["X-ray joint", "Uric acid", "RA factor"],
+                "eye_infection": ["Eye swab culture"], "ear_infection": ["Ear swab culture"],
+                "constipation": ["No tests usually needed"], "insomnia": ["No specific tests"],
+                "fatigue": ["CBC", "Vitamin B12", "Vitamin D", "Thyroid"],
+                "menstrual_cramps": ["USG pelvis"], "nausea_vomiting": ["CBC", "Stool exam"],
+                "allergy": ["IgE levels", "Allergy panel"],
+            }
+            for sym_id in self.reported_symptoms:
+                for t in tests_map.get(sym_id, [])[:3]:
+                    pg.add_investigation(t)
+            if lang == "hi":
+                pg.set_follow_up("1 सप्ताह में दोबारा मिलें। लक्षण बिगड़ें तो तुरंत डॉक्टर से संपर्क करें।")
+            else:
+                pg.set_follow_up("Review in 1 week. Contact doctor immediately if symptoms worsen.")
         return pg.generate_pdf()
 
     def _build_patient_context(self):

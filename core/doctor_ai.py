@@ -237,12 +237,17 @@ class MedicalDoctorAI:
         lower = text.lower().strip()
         keywords = [
             "prescription", "prescription do", "prescription de", "prescription dijiye",
+            "prescribe", "prescribe do", "prescribe de", "prescribe dijiye",
             "parcha", "parcha do", "parcha likh", "parcha de", "parcha dijiye",
-            "give me prescription", "prescription den", "prescription dedo",
+            "give me prescription", "give me prescribe",
+            "prescription den", "prescription dedo",
             "rx", "nuskha", "nuskha likh", "nuskha do",
             "medicine likh", "dawai likh", "dawai do", "medicine do",
             "come to the point", "point pe aao", "sahi se batao",
-            "shortcut", "short me batao"
+            "shortcut", "short me batao",
+            "prescription pdf", "pdf prescription", "pdf do", "pdf de",
+            "download prescription", "prescription download",
+            "priscription", "priscription do",
         ]
         return any(kw in lower for kw in keywords)
 
@@ -407,6 +412,8 @@ class MedicalDoctorAI:
             result = self._ai_respond(user_message, lang)
             if isinstance(result, dict):
                 self.last_ai_advice = result.get("response", "")
+                if self.last_ai_advice and self.stage != "advised":
+                    self.stage = "advised"
             # Back-fill symptoms from AI response + user conversation
             if not self.reported_symptoms:
                 # Check AI's own response for symptom keywords
@@ -443,6 +450,8 @@ class MedicalDoctorAI:
 
         if isinstance(result, dict):
             result["role"] = "doctor"
+            if not self.last_ai_advice and result.get("response"):
+                self.last_ai_advice = result["response"]
         return result
 
     def generate_consultation_summary(self, lang="en"):

@@ -312,6 +312,8 @@ class MedicalDoctorAI:
     def _ai_respond_with_files(self, user_message, lang, vision_images=None):
         try:
             context = self._build_patient_context()
+            if self.last_ai_advice:
+                context += f"\n**Your previous advice to this patient was:** {self.last_ai_advice[:500]}\n**IMPORTANT:** Be consistent with your previous advice. Never change the medicine/dosage you previously prescribed."
             sys_prompt = (
                 "You are Dr. Aarogya, an AI medical assistant. Talk like a real experienced doctor - "
                 "warm, empathetic, and professional.\n\n"
@@ -320,6 +322,7 @@ class MedicalDoctorAI:
                 "- If analyzing an image (X-ray, MRI, ultrasound, wound photo), describe what you see\n"
                 "- For lab reports/PDFs, interpret the values and flag abnormalities\n"
                 "- Give concise, helpful medical insights\n"
+                "- CRITICAL: Never change the medicine/prescription you previously gave. Always be consistent.\n"
                 "- Always include disclaimer: 'This is AI analysis - consult a doctor'\n"
                 f"Respond in {'Hinglish' if lang == 'hi' else 'English'} naturally."
             )
@@ -329,7 +332,7 @@ class MedicalDoctorAI:
                     content.append({"type": "image_url", "image_url": {"url": f"data:{img['mime']};base64,{img['b64']}"}})
                 messages = [{"role": "system", "content": sys_prompt}, {"role": "user", "content": content}]
                 response = AI_CLIENT.chat.completions.create(
-                    model=AI_VISION_MODEL, messages=messages, max_tokens=1000, temperature=0.7
+                    model=AI_VISION_MODEL, messages=messages, max_tokens=1000, temperature=0.3
                 )
             else:
                 messages = [{"role": "system", "content": sys_prompt}]
@@ -337,7 +340,7 @@ class MedicalDoctorAI:
                     messages.append({"role": "user" if m["role"] == "user" else "assistant", "content": m["message"]})
                 messages.append({"role": "user", "content": user_message})
                 response = AI_CLIENT.chat.completions.create(
-                    model=AI_MODEL, messages=messages, max_tokens=800, temperature=0.7
+                    model=AI_MODEL, messages=messages, max_tokens=800, temperature=0.3
                 )
             text = response.choices[0].message.content.strip()
             self.conversation_history.append({"role": "assistant", "message": text, "lang": lang})
@@ -602,6 +605,8 @@ class MedicalDoctorAI:
     def _ai_respond(self, user_message, lang):
         try:
             context = self._build_patient_context()
+            if self.last_ai_advice:
+                context += f"\n**Your previous advice to this patient was:** {self.last_ai_advice[:500]}\n**IMPORTANT:** Be consistent with your previous advice. If patient already received a prescription, do NOT change the medicine/dosage."
             is_req = self._is_prescription_request(user_message)
             if is_req and self.reported_symptoms:
                 context += "\n\n**IMPORTANT: Patient is asking for prescription. STOP asking questions. Give prescription now.**"
@@ -610,6 +615,7 @@ class MedicalDoctorAI:
                 "warm, empathetic, and professional. Use natural conversation, not robotic.\n\n"
                 f"Patient Context:\n{context}\n\n"
                 "Guidelines:\n"
+                "- CRITICAL: NEVER change the medicine/prescription you previously gave. Always be consistent.\n"
                 "- If patient asks for prescription (prescription do / parcha do / give me medicine), "
                 "STOP asking questions and give the prescription immediately\n"
                 "- Ask only 1 follow-up question maximum, then give advice\n"
@@ -631,7 +637,7 @@ class MedicalDoctorAI:
                 model=AI_MODEL,
                 messages=messages,
                 max_tokens=800,
-                temperature=0.7
+                temperature=0.3
             )
             text = response.choices[0].message.content.strip()
             self.conversation_history.append({"role": "assistant", "message": text, "lang": lang})

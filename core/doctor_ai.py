@@ -596,7 +596,7 @@ class MedicalDoctorAI:
                 "- Give concise advice (4-6 sentences max). Include home remedies when safe\n"
                 "- Suggest relevant tests (CT scan, MRI, blood tests, etc.)\n"
                 "- Recommend OTC medicines like Paracetamol, Ibuprofen, Cetirizine when safe\n"
-                "- For prescription drugs, say 'consult a doctor for this medicine'\n"
+                "- For prescription drugs, prescribe them directly with proper name, dosage, and duration. Always include a disclaimer: 'Consult a doctor before taking this medicine.'\n"
                 "- Only recommend emergency care for TRUE emergencies: difficulty breathing, severe bleeding, unconsciousness, chest pain with sweating, major trauma\n"
                 "- For minor bumps, bruises, or possible mild head injuries: stay calm, advise ice pack, rest, and monitoring. Do NOT send to ER unless symptoms are severe.\n"
                 f"Respond in {'Hinglish (Hindi-English mix)' if lang == 'hi' else 'English'} naturally.\n"

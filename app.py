@@ -142,6 +142,12 @@ st.markdown("""
     section[data-testid="stSidebar"] { min-width: 260px !important; }
     .stChatFloatingInputContainer { bottom: 0 !important; padding: 0.5rem !important; }
     .stChatInputContainer { border-radius: 25px !important; }
+    /* hide file uploader but keep it functional */
+    div[data-testid="stFileUploader"] {
+        position: absolute !important; left: -9999px !important; top: -9999px !important;
+        opacity: 0 !important; height: 1px !important; width: 1px !important;
+        overflow: hidden !important;
+    }
     .attach-chip {
         display: inline-flex; align-items: center; gap: 4px;
         background: #e8f0fe; border-radius: 12px; padding: 3px 12px;
@@ -170,8 +176,6 @@ def init_session():
         st.session_state.lang = "en"
     if "patient_registered" not in st.session_state:
         st.session_state.patient_registered = False
-    if "show_upload" not in st.session_state:
-        st.session_state.show_upload = False
     if "attachments" not in st.session_state:
         st.session_state.attachments = []
 
@@ -364,23 +368,57 @@ def main():
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # Attach button + file uploader
-        if st.button("➕ Attach", key="attach_btn", help="Attach files (images, PDFs, videos)", use_container_width=True):
-            st.session_state.show_upload = not st.session_state.get("show_upload", False)
-            st.rerun()
+        # Hidden file uploader (triggered by + button)
+        uploaded = st.file_uploader(
+            "Attach files",
+            type=["png", "jpg", "jpeg", "gif", "bmp", "svg", "pdf", "mp4", "avi", "mov", "mkv", "webm"],
+            accept_multiple_files=True,
+            key="file_upload",
+            label_visibility="collapsed"
+        )
+        if uploaded:
+            st.session_state.attachments = list(uploaded)
 
-        if st.session_state.get("show_upload", False):
-            uploaded = st.file_uploader(
-                "Attach files",
-                type=["png", "jpg", "jpeg", "gif", "bmp", "svg", "pdf", "mp4", "avi", "mov", "mkv", "webm"],
-                accept_multiple_files=True,
-                key="file_upload",
-                label_visibility="visible"
-            )
-            if uploaded:
-                st.session_state.attachments = list(uploaded)
-                st.session_state.show_upload = False
-                st.rerun()
+        # JS: inject + button inside typing bar (left side)
+        st.markdown("""
+        <style>
+        #attach-plus-btn {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: #1e3a5f; color: white; border: none;
+            font-size: 18px; font-weight: bold; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0; line-height: 1; flex-shrink: 0; margin-left: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+        #attach-plus-btn:hover { background: #2d6a9f; }
+        #attach-plus-btn:active { transform: scale(0.95); }
+        </style>
+        <script>
+        (function() {
+            function injectPlus() {
+                var input = document.querySelector('[data-testid="stChatInput"]');
+                if (!input) { setTimeout(injectPlus, 200); return; }
+                if (document.getElementById('attach-plus-btn')) return;
+                var parent = input.parentElement;
+                parent.style.display = 'flex';
+                parent.style.alignItems = 'center';
+                parent.style.gap = '0';
+                parent.style.paddingLeft = '0';
+                var btn = document.createElement('button');
+                btn.id = 'attach-plus-btn';
+                btn.type = 'button';
+                btn.innerHTML = '+';
+                btn.onclick = function() {
+                    var fu = document.querySelector('input[type="file"]');
+                    if (fu) fu.click();
+                };
+                parent.insertBefore(btn, input);
+            }
+            injectPlus();
+        })();
+        </script>
+        """, unsafe_allow_html=True)
 
         # Show attached files as chips
         if st.session_state.attachments:

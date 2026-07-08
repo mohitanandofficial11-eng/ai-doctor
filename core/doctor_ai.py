@@ -395,7 +395,9 @@ class MedicalDoctorAI:
                 result = self._ai_respond(user_message, lang)
         elif is_prescription_req:
             self.stage = "advised"
-            if self.reported_symptoms:
+            if self.last_ai_advice:
+                result = {"response": self.last_ai_advice, "lang": lang}
+            elif self.reported_symptoms:
                 result = self._give_advice(self.reported_symptoms, lang)
             else:
                 result = self._ai_respond(user_message, lang)

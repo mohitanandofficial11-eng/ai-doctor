@@ -1,6 +1,31 @@
 from datetime import datetime, timedelta
 import os
+import re
 import tempfile
+
+
+def _strip_emojis(text):
+    """Remove emoji characters that FPDF Helvetica can't render."""
+    emoji_pattern = re.compile(
+        "[\U0001F300-\U0001F9FF"  # Misc Symbols, Pictographs, Emoticons, Transport
+        "\U0001FA00-\U0001FA6F"  # Chess Symbols
+        "\U0001FA70-\U0001FAFF"  # Symbols Pictographs Extended-A
+        "\U0001F1E0-\U0001F1FF"  # Regional Indicator Symbols (flags)
+        "\U00002600-\U000027BF"  # Misc Symbols + Dingbats
+        "\U00002300-\U000023FF"  # Misc Technical (keyboard, etc.)
+        "\U000024C2-\U000024C5"  # Enclosed M, O, P, S
+        "\U000025AA-\U000025AB"  # Squares
+        "\U000025B6\U000025C0"   # Play/pause
+        "\U000025FB-\U000025FE"  # Medium squares
+        "\U00002B05-\U00002B07"  # Arrows
+        "\U00002B1B-\U00002B1C"  # Large squares
+        "\U00002B50\U00002B55"   # Star, circle
+        "\U00003030\U0000303D"   # CJK symbols
+        "\U00003297\U00003299"   # CJK enclosed
+        "\U0000FE00-\U0000FE0F"  # Variation Selectors
+        "\U0000200D"             # Zero Width Joiner
+        "]+", flags=re.UNICODE)
+    return emoji_pattern.sub("", text).strip()
 
 
 class PrescriptionGenerator:
@@ -196,20 +221,23 @@ class PrescriptionGenerator:
         pdf = FPDF()
         pdf.add_page()
 
+        def _safe(text):
+            return _strip_emojis(text) if isinstance(text, str) else text
+
         pdf.set_font("Helvetica", "B", 20)
-        pdf.cell(0, 12, "Dr. Aarogya" if idx == 0 else "डॉ. आरोग्य", align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 12, _safe("Dr. Aarogya" if idx == 0 else "डॉ. आरोग्य"), align="C", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "I", 10)
         qual = "MBBS, MD (Internal Medicine), FICS (Surgery)" if idx == 0 else "एमबीबीएस, एमडी (आंतरिक चिकित्सा), एफआईसीएस (सर्जरी)"
-        pdf.cell(0, 6, qual, align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 6, _safe(qual), align="C", new_x="LMARGIN", new_y="NEXT")
         reg = "Reg: DEL-MC-2010-04256" if idx == 0 else "पंजी: DEL-MC-2010-04256"
-        pdf.cell(0, 6, reg, align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 6, _safe(reg), align="C", new_x="LMARGIN", new_y="NEXT")
 
         pdf.line(10, pdf.get_y(), 200, pdf.get_y())
         pdf.ln(4)
 
         rx_title = "PRESCRIPTION" if idx == 0 else "पर्चा"
         pdf.set_font("Helvetica", "B", 14)
-        pdf.cell(0, 10, rx_title, align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 10, _safe(rx_title), align="C", new_x="LMARGIN", new_y="NEXT")
 
         pdf.line(10, pdf.get_y(), 200, pdf.get_y())
         pdf.ln(4)
@@ -217,58 +245,58 @@ class PrescriptionGenerator:
         pdf.set_font("Helvetica", "", 11)
         pat_label = "Patient:" if idx == 0 else "मरीज:"
         date_label = "Date:" if idx == 0 else "तारीख:"
-        pdf.cell(0, 7, f"{pat_label} {self.patient_name}", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, _safe(f"{pat_label} {self.patient_name}"), new_x="LMARGIN", new_y="NEXT")
         if self.patient_age:
-            pdf.cell(0, 7, f"Age/Umar: {self.patient_age}", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 7, _safe(f"Age/Umar: {self.patient_age}"), new_x="LMARGIN", new_y="NEXT")
         if self.patient_weight:
-            pdf.cell(0, 7, f"Weight/Vajan: {self.patient_weight}", new_x="LMARGIN", new_y="NEXT")
-        pdf.cell(0, 7, f"{date_label} {self.date.strftime('%d-%b-%Y %H:%M')}", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 7, _safe(f"Weight/Vajan: {self.patient_weight}"), new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, _safe(f"{date_label} {self.date.strftime('%d-%b-%Y %H:%M')}"), new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln(4)
 
         if self.medicines:
             meds_header = "Prescribed Medicines:" if idx == 0 else "निर्धारित दवाएं:"
             pdf.set_font("Helvetica", "B", 12)
-            pdf.cell(0, 8, meds_header, new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 8, _safe(meds_header), new_x="LMARGIN", new_y="NEXT")
             pdf.set_font("Helvetica", "", 10)
             for med in self.medicines:
                 name = med.get("name", "")
                 dosage = med.get("dosage", "")
                 note = med.get("note", "")
-                pdf.cell(0, 6, f"  - {name} | {dosage} | {note}", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 6, _safe(f"  - {name} | {dosage} | {note}"), new_x="LMARGIN", new_y="NEXT")
 
         if self.advice:
             adv_header = "Advice:" if idx == 0 else "सलाह:"
             pdf.set_font("Helvetica", "B", 12)
-            pdf.cell(0, 8, adv_header, new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 8, _safe(adv_header), new_x="LMARGIN", new_y="NEXT")
             pdf.set_font("Helvetica", "", 10)
             for adv in self.advice:
-                pdf.cell(0, 6, f"  - {adv}", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 6, _safe(f"  - {adv}"), new_x="LMARGIN", new_y="NEXT")
 
         if self.investigations:
             inv_header = "Investigations:" if idx == 0 else "जांचें:"
             pdf.set_font("Helvetica", "B", 12)
-            pdf.cell(0, 8, inv_header, new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 8, _safe(inv_header), new_x="LMARGIN", new_y="NEXT")
             pdf.set_font("Helvetica", "", 10)
             for inv in self.investigations:
-                pdf.cell(0, 6, f"  - {inv}", new_x="LMARGIN", new_y="NEXT")
+                pdf.cell(0, 6, _safe(f"  - {inv}"), new_x="LMARGIN", new_y="NEXT")
 
         if self.follow_up:
             fup_label = "Follow Up:" if idx == 0 else "दोबारा मिलें:"
             pdf.set_font("Helvetica", "B", 12)
-            pdf.cell(0, 8, fup_label, new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 8, _safe(fup_label), new_x="LMARGIN", new_y="NEXT")
             pdf.set_font("Helvetica", "", 10)
-            pdf.cell(0, 6, f"  {self.follow_up}", new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 6, _safe(f"  {self.follow_up}"), new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln(8)
         pdf.line(10, pdf.get_y(), 200, pdf.get_y())
         pdf.ln(4)
         sig_label = "Dr. Aarogya" if idx == 0 else "डॉ. आरोग्य"
         pdf.set_font("Helvetica", "", 11)
-        pdf.cell(0, 7, f"  {sig_label}", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, _safe(f"  {sig_label}"), new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "I", 8)
         footer = "AI-generated prescription for informational purposes. Consult a qualified doctor." if idx == 0 else "जानकारी के लिए AI-जनित पर्चा। कृपया योग्य डॉक्टर से सलाह लें।"
-        pdf.cell(0, 7, footer, align="C", new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 7, _safe(footer), align="C", new_x="LMARGIN", new_y="NEXT")
 
         buf = io.BytesIO()
         pdf.output(buf)

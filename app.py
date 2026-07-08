@@ -381,23 +381,22 @@ def main():
         lang = st.session_state.lang
         prof = DOCTOR_PROFILE
         st.markdown(f"""
-        <div class="doctor-profile-widget">
-            <h4>👨‍⚕️ {prof['name']}</h4>
-            <p><b>🎓 {"Qualification" if lang == 'en' else 'योग्यता'}:</b><br>
-            {prof['qualifications'][lang]}</p>
-            <p><b>💼 {"Experience" if lang == 'en' else 'अनुभव'}:</b><br>
-            {prof['experience'][lang]}</p>
-            <p><b>🏥</b> {prof['hospital'][lang]}<br>
-            <b>📋 Reg:</b> AI DR BY MA 01</p>
-            <p>🌐 <b>{"Languages" if lang == 'en' else 'भाषाएं'}:</b> English, Hindi, Hinglish</p>
+        <div class="doctor-profile-widget" style="padding:0.8rem;">
+            <h4 style="font-size:1rem; margin-bottom:6px;">👨‍⚕️ {prof['name']}</h4>
+            <p style="font-size:0.8rem; margin:2px 0; line-height:1.4;">
+            🎓 {prof['qualifications'][lang]}<br>
+            💼 {prof['experience'][lang]}<br>
+            🏥 {prof['hospital'][lang]} | 📋 Reg: AI DR BY MA 01<br>
+            🌐 {"English, Hindi, Hinglish" if lang == 'en' else 'अंग्रेजी, हिंदी, हिंग्लिश'}
+            </p>
         </div>
         """, unsafe_allow_html=True)
 
         st.markdown("#### 🎯 Specialties")
-        tags_html = '<div style="line-height:2.2;">'
+        tags_html = '<div style="line-height:1.8; font-size:0.8rem;">'
         items = [("🫀","Cardiology"),("🫁","Pulmonology"),("🧠","Neurology"),("🦴","Orthopedics"),("🩺","General"),("👁️","Eye"),("👂","ENT"),("🩸","Skin"),("🧬","Surgery")]
         for emoji, name in items:
-            tags_html += f'<span class="tag">{emoji} {name}</span> '
+            tags_html += f'<span class="tag" style="padding:2px 8px; font-size:0.75rem;">{emoji} {name}</span> '
         tags_html += '</div>'
         st.markdown(tags_html, unsafe_allow_html=True)
 
